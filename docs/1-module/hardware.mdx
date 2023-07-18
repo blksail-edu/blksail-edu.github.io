@@ -3,3 +3,63 @@ sidebar_position: 3
 ---
 
 # Introduction to the Platform
+
+## Setting up the Raspberry Pi to connect to the AUV
+
+1. Run the command
+    
+
+```bash
+sudo apt-get install net-tools
+```
+
+2. Disconnect and reconnect the raspberry pi
+
+
+3. Run
+
+```bash
+ping 192.168.2.1 
+```
+
+4. If a response is received. Your are **Done**. Skip to instruction 12
+
+5. If no response is received, disconnect the raspberry pi and run
+
+```bash
+ip addr show
+```
+
+6. Now connect the raspberry pi and run again
+
+```bash
+ip addr show
+```
+
+7. Check what is the difference between the two outputs. A new connection called **ethX** is going to appear (where X is a number)
+
+8. Run the command
+
+```
+sudo nano /etc/dhcpcd.conf
+```
+
+9. Enter the following lines (Replace X with the number you saw in step 7) at the end of file, save and close. 
+
+```bash
+interface ethX              # Replace the X here from step 7
+static ip_address=192.168.2.1/24
+static routers=192.168.2.1
+```
+
+10. Reboot the pi
+
+11. You should now be able to see the AUV when you ping it at
+
+```bash
+ping 192.168.2.1
+```
+
+12. Run the following command and you should see the the sliders running on a local URL printed.
+
+13. Copy the local URL to your browser to access the user interface of sliders.
