@@ -8,7 +8,7 @@ sidebar_position: 1
 
 <iframe src="https://blksail-edu.github.io/slides/day0" width="100%" height={320} frameborder="0" allowfullscreen></iframe>
 
-Welcome to the Autonomous Underwater Vehicle Challenge (AUVC) 2023!
+Welcome to the Autonomous Underwater Vehicle Challenge (AUVC) 2024!
 This comprehensive and practical course is designed to introduce you to the fascinating world of underwater robotics, equipping you with the skills and knowledge to program and operate off-the-shelf underwater robotic vehicles.
 
 ## Course Overview
