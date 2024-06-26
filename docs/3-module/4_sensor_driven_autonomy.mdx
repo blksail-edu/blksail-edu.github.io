@@ -2,6 +2,188 @@
 sidebar_position: 4
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import Image from "@theme/IdealImage";
+
 # Sensor-Driven Autonomy
 
+[Gazebo](https://gazebosim.org/) is a set of open source tools for simulating robots in an environment.
+It is commonly used in robotics research and education.
+
+We will be using Gazebo to simulate the robot (BlueROV2) in a virtual (pool) environment.
+
+:::note
+
+We will be using Gazebo Garden, the latest version of Gazebo.
+
+:::
+
+## Installation
+
+The documentation for installing Gazebo can be found [here](https://gazebosim.org/docs/garden/install).
+See "**Binary Installation**" for instructions on installing Gazebo on your operating system.
+Below is a summary of the steps.
+
+:::note
+
+Only Ubuntu is fully supported by Gazebo.
+macOS is partially supported.
+In Windows, the simulation will run, but the GUI will not work.
+
+:::
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+First we need to install ruby from Homebrew:
+
+```bash
+brew install ruby
+```
+
+Then we have to add the Homebrew Ruby to our path:
+
+```bash
+echo 'export PATH="$(brew --prefix)/opt/ruby/bin:$PATH"' >> ~/.zshrc
+```
+
+Now, we add the `osrf/simulation` tap:
+
+```bash
+brew tap osrf/simulation
+```
+
+:::tip Apple Silicon-based Macs
+
+For Apple Silicon-based Macs, we need to modify the Formulae before installing Gazebo.
+
+```bash
+cd /opt/homebrew/Library/Taps/osrf/homebrew-simulation/Formula
+sed -i '' 's|cmake_args << "-DCMAKE_INSTALL_RPATH=#{rpath}"|cmake_args << "-DCMAKE_INSTALL_RPATH=#{rpath};/opt/homebrew/lib"|' *.rb
+```
+
+:::
+
+Next we install Gazebo:
+
+```bash
+brew install gz-garden
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+First let's update and install some dependencies:
+
+```bash
+sudo apt-get update
+sudo apt-get install lsb-release wget gnupg
+```
+
+Next we install the Gazebo package repository:
+
+```bash
+sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
+```
+
+Finally, we install Gazebo:
+
+```bash
+sudo apt-get update
+sudo apt-get install gz-garden
+```
+
+</TabItem>
+</Tabs>
+
+### Test the installation
+
+To test your installation, run the following command:
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+In one terminal, run:
+
+```bash
+gz sim -v4 -s shapes.sdf
+```
+
+In another terminal, run:
+
+```bash
+gz sim -v4 -g
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+In one terminal, run:
+
+```bash
+gz sim -v4 shapes.sdf
+```
+
+</TabItem>
+</Tabs>
+
+You should see a window pop up with some 3D objects in it.
+
+## Our custom simulation
+
+We built a custom simulation for the BlueROV2.
+It lives in this repository: [gazebo_bluerov2](https://github.com/blksail-edu/gazebo_bluerov2).
+
+Clone the repository into your workspace:
+
+```bash
+git clone https://github.com/blksail-edu/gazebo_bluerov2
+```
+
+Build the simulation:
+
+```bash
+cd gazebo_bluerov2
+./build.sh
+```
+
+Start the example simulation:
+
+```bash
+./launch.sh
+```
+
+:::warning
+
+Sometimes, the simulation will not quit properly.
+If this happens, you will need to kill the process manually.
+
+```bash
+pkill -9 gz
+```
+
+:::
+
+![Gazebo BlueROV2](gz-sim.png)
+
+## Controlling the robot
+
+Try controlling the depth of robot now with `depth_control.py` you previously wrote.
+
+First, in the `backseat`, start the `SITL`:
+
+```bash
+cd PATH_TO_ARDUSUB
+Tools/autotest/sim_vehicle.py -L RATBeach -v ArduSub -f vectored --model=JSON --out=udp:SIMULATION_COMPUTER_IP:14550 --console
+```
+
+Run your `depth_control.py` script in another terminal:
+
+```bash
+python3 depth_control.py
+```
+
+You should see the robot dive to the desired depth.
 
