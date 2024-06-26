@@ -1,0 +1,492 @@
+---
+sidebar_position: 4
+---
+
+# Python
+
+Python is an easy to learn, powerful programming language.
+It has efficient high-level data structures and a simple but effective approach to object-oriented programming.
+Python’s elegant syntax and dynamic typing, together with its interpreted nature, make it an ideal language for scripting and rapid application development in many areas on most platforms.
+
+Throughout the course, we will use Python to implement the algorithms we learn.
+It is very useful to have a basic understanding of Python before starting the course.
+
+## Virtual Environments
+
+To avoid conflicts between different Python projects, it is a good idea to use
+virtual environments. A virtual environment is a directory tree which contains
+Python executable files and other files which indicate that it is a virtual
+environment.
+
+### Install
+
+Let's install the `virtualenv` package and `virtualenvwrapper` extension for
+Python.
+
+```bash
+pip3 install --user virtualenv virtualenvwrapper
+```
+
+### Augmenting our `.zshrc` with `virtualenvwrapper`
+
+We will be adding some configuration to the `.zshrc` file.
+
+Open the `.zshrc` file with your favorite text editor and add the following
+lines:
+
+```bash
+# Python
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source virtualenvwrapper.sh
+```
+
+## Jupyter
+
+[Jupyter Notebook](https://jupyter.org/) is an open-source web application that
+allows you to create and share documents that contain live code, equations,
+visualizations and narrative text.
+
+We will be using Jupyter Notebook to write some assignments.
+
+### Install
+
+```bash
+pip3 install jupyter
+```
+
+## Let's get started
+
+A starter repository is available at [blksail-edu/python-refresher](https://github.com/blksail-edu/python-refresher).
+
+Let's make a fork and start working on the exercises.
+
+To fork the repository, click on the fork button on the top right corner of the repository page.
+This will create a copy of the repository in your GitHub account.
+
+Once the repository is forked, you can clone it to your local machine.
+Get the URL of the repository from the address bar of your browser and run the following command:
+
+```bash
+git clone <url>
+```
+
+Now you can start working on the exercises.
+
+### The starter repository
+
+The starter repository contains the following files:
+
+```
+├── hello.py          # The main Python file
+├── requirements.txt  # The list of dependencies
+└── test_hello.py     # The test file
+```
+
+The repository also contains some configuration files located in `.vscode`.
+These files are used by Visual Studio Code to configure the development environment.
+
+There are some extensions that are useful for Python development, they are listed in `.vscode/extensions.json`.
+When you open the `Extensions` tab in Visual Studio Code, you will be prompted to install these extensions.
+
+Let's first create a virtual environment for our project.
+We will be using the `virtualenvwrapper` package to manage our virtual environments.
+
+```bash
+mkvirtualenv python-refresher
+```
+
+This will create a virtual environment named `python-refresher` and activate it.
+
+:::tip
+You can deactivate the virtual environment by running the `deactivate` command.
+
+At any time you can activate the virtual environment by running the `workon python-refresher` command.
+:::
+
+#### `requirements.txt`
+
+The `requirements.txt` file contains a list of dependencies.
+These are the packages that are required to run the code in the repository.
+
+The list is empty for now, but we will be adding some dependencies later.
+
+To install the dependencies, run the following command:
+
+```bash
+pip3 install -r requirements.txt
+```
+
+#### `hello.py`
+
+The `hello.py` file contains a simple Python program that prints `Hello, World!` to the console.
+It also contains a set of functions that we will be implementing in the exercises.
+
+#### `test_hello.py`
+
+The `test_hello.py` file contains a set of tests for the functions in `hello.py`.
+We will be using these tests to check if our implementations are correct.
+
+### Running the tests
+
+To run the tests, we will use the `Testing` tab in Visual Studio Code.
+The first time you open the `Testing` tab, you will be prompted to select a test framework.
+Select `unittest` and click on `OK`.
+
+Now you can run the tests by clicking on the `Run All Tests` button.
+
+As you can see, all the tests are failing.
+Can you find out why?
+
+:::warning Check-off
+Review with a TA or instructor to check-off this section.
+:::
+
+### Implement the functions
+
+Let's implement the functions in `hello.py` so that the tests pass.
+
+First make sure you understand what the functions are supposed to do.
+Next, implement the tests one by one.
+Now, you can implement the functions so that the tests pass.
+
+:::tip
+Every time you make a change to the code, you need to run the tests again to make sure that you didn't break anything.
+:::
+
+:::tip
+Always keep track of your changes by committing them to the repository.
+:::
+
+You can see that some functions need `numpy` to work.
+Let's add `numpy` to the list of dependencies in `requirements.txt`.
+Now you can install the new dependencies by running the following command:
+
+```bash
+pip3 install -r requirements.txt
+```
+
+:::warning Check-off
+Review with a TA or instructor to check-off this section.
+
+All functions should be implemented and all tests should pass.
+Write at least 3 tests for each function.
+
+Make sure that you have committed your changes to the repository.
+:::
+
+## Python Basics
+
+### Variables
+
+Variables are used to store values.
+A variable is created the moment you first assign a value to it.
+
+```python
+x = 5
+y = "John"
+print(x)
+print(y)
+```
+
+Variables do not need to be declared with any particular type and can even change type after they have been set.
+
+```python
+x = 4       # x is of type int
+x = "Sally" # x is now of type str
+print(x)
+```
+
+### Data Types
+
+Python has the following data types built-in by default, in these categories:
+
+- Text Type: `str`
+- Numeric Types: `int`, `float`, `complex`
+- Sequence Types: `list`, `tuple`, `range`
+- Mapping Type: `dict`
+- Set Types: `set`, `frozenset`
+- Boolean Type: `bool`
+- Binary Types: `bytes`, `bytearray`, `memoryview`
+
+#### Getting the Data Type
+
+You can get the data type of any object by using the `type()` function:
+
+```python
+x = 5
+print(type(x))
+```
+
+#### Setting the Data Type
+
+In Python, the data type is set when you assign a value to a variable:
+
+```python
+x = "Hello World" # str
+x = 20            # int
+x = 20.5          # float
+x = 1j            # complex
+x = ["apple", "banana", "cherry"] # list
+x = ("apple", "banana", "cherry") # tuple
+x = range(6)      # range
+x = {"name" : "John", "age" : 36}  # dict
+x = {"apple", "banana", "cherry"}  # set
+x = frozenset({"apple", "banana", "cherry"}) # frozenset
+x = True          # bool
+x = b"Hello"      # bytes
+x = bytearray(5)  # bytearray
+x = memoryview(bytes(5)) # memoryview
+```
+
+#### Setting the Specific Data Type
+
+If you want to specify the data type, you can use the following constructor functions:
+
+```python
+x = str("Hello World") # str
+x = int(20)            # int
+x = float(20.5)        # float
+x = complex(1j)        # complex
+x = list(("apple", "banana", "cherry")) # list
+x = tuple(("apple", "banana", "cherry")) # tuple
+x = range(6)           # range
+x = dict(name="John", age=36) # dict
+x = set(("apple", "banana", "cherry")) # set
+x = frozenset(("apple", "banana", "cherry")) # frozenset
+x = bool(5)            # bool
+x = bytes(5)           # bytes
+x = bytearray(5)       # bytearray
+x = memoryview(bytes(5)) # memoryview
+```
+
+### Functions
+
+A function is a block of code which only runs when it is called.
+You can pass data, known as parameters, into a function.
+A function can return data as a result.
+
+#### Creating a Function
+
+In Python a function is defined using the `def` keyword:
+
+```python
+def my_function():
+  print("Hello from a function")
+```
+
+#### Calling a Function
+
+To call a function, use the function name followed by parenthesis:
+
+```python
+def my_function():
+  print("Hello from a function")
+
+my_function()
+```
+
+#### Arguments
+
+Information can be passed into functions as arguments.
+Arguments are specified after the function name, inside the parentheses.
+
+You can add as many arguments as you want, just separate them with a comma.
+
+The following example has a function with one argument (`fname`).
+When the function is called, we pass along a first name, which is used inside the function to print the full name:
+
+```python
+def my_function(fname):
+  print(fname + " Refsnes")
+
+my_function("Emil")
+my_function("Tobias")
+my_function("Linus")
+```
+
+#### Parameters or Arguments?
+
+The terms "parameter" and "argument" can be used for the same thing: information that are passed into a function.
+
+From a function's perspective:
+
+- A parameter is the variable listed inside the parentheses in the function definition.
+- An argument is the value that is sent to the function when it is called.
+
+### Loops
+
+Python has two primitive loop commands:
+
+- `while` loops
+- `for` loops
+
+#### The `while` Loop
+
+With the `while` loop we can execute a set of statements as long as a condition is true.
+
+```python
+i = 1
+while i < 6:
+  print(i)
+  i += 1
+```
+
+#### The `for` Loop
+
+A `for` loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string).
+
+```python
+fruits = ["apple", "banana", "cherry"]
+for x in fruits:
+  print(x)
+```
+
+#### The `break` Statement
+
+With the `break` statement we can stop the loop even if the while condition is true:
+
+```python
+i = 1
+while i < 6:
+  print(i)
+  if i == 3:
+    break
+  i += 1
+```
+
+#### The `continue` Statement
+
+With the `continue` statement we can stop the current iteration, and continue with the next:
+
+```python
+i = 0
+while i < 6:
+  i += 1
+  if i == 3:
+    continue
+  print(i)
+```
+
+### Classes and Objects
+
+Python is an object oriented programming language.
+
+Almost everything in Python is an object, with its properties and methods.
+
+A Class is like an object constructor, or a "blueprint" for creating objects.
+
+#### Create a Class
+
+To create a class, use the keyword `class`:
+
+```python
+class MyClass:
+  x = 5
+```
+
+#### Create Object
+
+Now we can use the class named `MyClass` to create objects:
+
+```python
+class MyClass:
+  x = 5
+
+p1 = MyClass()
+print(p1.x)
+```
+
+#### The `__init__()` Function
+
+The examples above are classes and objects in their simplest form, and are not really useful in real life applications.
+
+To understand the meaning of classes we have to understand the built-in `__init__()` function.
+
+All classes have a function called `__init__()`, which is always executed when the class is being initiated.
+
+Use the `__init__()` function to assign values to object properties, or other operations that are necessary to do when the object is being created:
+
+```python
+class Person:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+p1 = Person("John", 36)
+
+print(p1.name)
+print(p1.age)
+```
+
+#### Object Methods
+
+Objects can also contain methods. Methods in objects are functions that belong to the object.
+
+Let us create a method in the Person class:
+
+```python
+class Person:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+  def myfunc(self):
+    print("Hello my name is " + self.name)
+
+p1 = Person("John", 36)
+p1.myfunc()
+```
+
+#### The `self` Parameter
+
+The `self` parameter is a reference to the current instance of the class, and is used to access variables that belong to the class.
+
+It does not have to be named `self` , you can call it whatever you like, but it has to be the first parameter of any function in the class:
+
+```python
+class Person:
+  def __init__(mysillyobject, name, age):
+    mysillyobject.name = name
+    mysillyobject.age = age
+
+  def myfunc(abc):
+    print("Hello my name is " + abc.name)
+
+p1 = Person("John", 36)
+p1.myfunc()
+```
+
+#### Modify Object Properties
+
+You can modify properties on objects like this:
+
+```python
+p1.age = 40
+```
+
+## Python Modules
+
+A module is a file containing a set of functions you want to include in your application.
+
+For example, `numpy` is a module that we can use to work with arrays:
+
+```python
+import numpy
+
+arr = numpy.array([1, 2, 3, 4, 5])
+
+print(arr)
+print(type(arr))
+```
+
+## Exercise
+
+### Exercise 1
+
+Create a simulation of a bank account.
+
+- The account should have a balance, a name and an account number.
+- The account should have a method to withdraw money.
+- The account should have a method to deposit money.
+- The account should have a method to print the current balance.

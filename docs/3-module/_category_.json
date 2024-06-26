@@ -1,8 +1,9 @@
 {
-  "label": "Module 3 - Putting it all together",
-  "position": 5,
-  "link": {
-    "type": "generated-index",
-    "description": "Putting it all together.",
+    "label": "Module 3 - ...",
+    "position": 5,
+    "link": {
+      "type": "generated-index",
+      "description": "closed-loop control, computer vision."
+    }
   }
-}
+  

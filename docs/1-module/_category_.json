@@ -1,8 +1,9 @@
 {
-  "label": "Module 1 - Underwater Robotics",
-  "position": 3,
-  "link": {
-    "type": "generated-index",
-    "description": "Introduction to Underwater Robotics."
+    "label": "Module 1 - ...",
+    "position": 3,
+    "link": {
+      "type": "generated-index",
+      "description": "Introduction to Underwater Robotics."
+    }
   }
-}
+  

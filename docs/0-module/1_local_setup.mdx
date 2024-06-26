@@ -1,0 +1,208 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Local Setup
+
+For this course, you will need a Mac or Ubuntu (GNU/Linux) machine.
+
+:::note
+
+If you are using Windows, you can run Ubuntu inside Windows thanks to [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
+
+:::
+
+## Package Manager
+
+First, let's get a package manager to help install the software that will be needed.
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+macOS doesn't come with a package manager by default, so we will install
+[Homebrew](https://brew.sh/).
+
+Open a terminal and run the following command:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Once Homebrew is installed, you can install software by running:
+
+```bash
+brew install <package-name>
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+Ubuntu comes with a package manager called `apt`. To install software, run the following command in a terminal:
+
+```bash
+sudo apt install <package-name>
+```
+
+</TabItem>
+</Tabs>
+
+## Visual Studio Code
+
+We will be using [Visual Studio Code](https://code.visualstudio.com/) as our
+code editor.
+
+To install it, run:
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+```bash
+brew install --cask visual-studio-code
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+```bash
+sudo apt install code
+```
+
+</TabItem>
+</Tabs>
+
+## Docker
+
+We will be using [Docker](https://www.docker.com/) to run our code in a
+consistent environment.
+
+To install it, run:
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+```bash
+brew install --cask docker
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+```bash
+sudo apt install docker-ce docker-ce-cli
+```
+
+</TabItem>
+</Tabs>
+
+## Python
+
+We will be using [Python](https://www.python.org/) as one of our programming languages.
+Python is a popular programming language that is used for many different things: from web development to data science.
+It is an interpreted language, which means that it is not compiled: it is run directly.
+
+Python 3 is the latest version of Python.
+It should be installed by default on macOS and Ubuntu.
+
+To check if you have Python 3 installed, run:
+
+```bash
+python3 --version
+```
+
+### Pip
+
+[Pip](https://pypi.org/project/pip/) is the package manager for Python.
+
+To check if you have Pip installed, run:
+
+```bash
+pip3 --version
+```
+
+If you don't have Pip installed, you can install it by running:
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+```bash
+brew install pip
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+```bash
+sudo apt install python3-pip
+```
+
+</TabItem>
+</Tabs>
+
+## C++
+
+We will be using [C++](https://www.cplusplus.com/) as one of our programming languages.
+C++ is a popular programming language that is used for many different things: from embedded systems to video games.
+It is a compiled language, which means that it is compiled into machine code before it is run.
+
+### CLang
+
+[CLang](https://clang.llvm.org/) is a compiler for C++.
+A compiler is a program that takes code written in a programming language and turns it into machine code.
+
+To check if you have CLang installed, run:
+
+```bash
+clang --version
+```
+
+If you don't have CLang installed, you can install it by running:
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+```bash
+brew install llvm
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+```bash
+sudo apt install clang
+```
+
+</TabItem>
+</Tabs>
+
+### CMake
+
+[CMake](https://cmake.org/) is a build system for C++.
+A build system is a program that organizes the compilation of a project.
+
+To check if you have CMake installed, run:
+
+```bash
+cmake --version
+```
+
+If you don't have CMake installed, you can install it by running:
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+```bash
+brew install cmake
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+```bash
+sudo apt install cmake
+```
+
+</TabItem>
+</Tabs>

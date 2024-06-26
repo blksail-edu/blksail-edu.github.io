@@ -1,8 +1,9 @@
 {
-  "label": "Module 0 - Introduction & Setup",
-  "position": 2,
-  "link": {
-    "type": "generated-index",
-    "description": "Let's get things set up for the course."
+    "label": "Module 0 - Introduction & Setup",
+    "position": 2,
+    "link": {
+      "type": "generated-index",
+      "description": "..."
+    }
   }
-}
+  
