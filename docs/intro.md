@@ -41,11 +41,11 @@ This is a chance for you to put your newly acquired skills to test and gain real
 
 ## Important Dates
 
-- ** Course Start Date: _July 10th, 2023_ **
+- ** Course Start Date: _July 8th, 2024_ **
 
-- ** Course End Date: _August 4th, 2023_ **
+- ** Course End Date: _August 2nd, 2024_ **
 
-- ** Final Project Presentations: _TBD_ **
+- ** Final Project Presentations: August 3rd, 2024 **
 
 ---
 
