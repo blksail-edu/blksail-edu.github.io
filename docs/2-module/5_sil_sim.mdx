@@ -2,6 +2,274 @@
 sidebar_position: 5
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import Image from "@theme/IdealImage";
+
 # Software-in-the-loop Simulation
 
+[Gazebo](https://gazebosim.org/) is a set of open source tools for simulating robots in an environment.
+It is commonly used in robotics research and education.
 
+We will be using Gazebo to simulate the robot (BlueROV2) in a virtual (pool) environment.
+
+:::note
+
+We will be using Gazebo Harmonic, the latest version of Gazebo (as of 2024).
+
+:::
+
+## Gazebo Installation
+
+The documentation for installing Gazebo can be found [here](https://gazebosim.org/docs/harmonic/install).
+See "**Binary Installation**" for instructions on installing Gazebo on your operating system.
+Below is a summary of the steps.
+
+:::note
+
+Only Ubuntu is fully supported by Gazebo.
+macOS is partially supported.
+In Windows, the simulation will run, but the GUI will not work.
+
+:::
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+First we need to install ruby from Homebrew:
+
+```bash
+brew install ruby
+```
+
+Then we have to add the Homebrew Ruby to our path:
+
+```bash
+echo 'export PATH="$(brew --prefix)/opt/ruby/bin:$PATH"' >> ~/.zshrc
+```
+
+Now, we add the `osrf/simulation` tap:
+
+```bash
+brew tap osrf/simulation
+```
+
+:::tip Apple Silicon-based Macs
+
+For Apple Silicon-based Macs, we need to modify the Formulae before installing Gazebo.
+
+```bash
+cd /opt/homebrew/Library/Taps/osrf/homebrew-simulation/Formula
+sed -i '' 's|cmake_args << "-DCMAKE_INSTALL_RPATH=#{rpath}"|cmake_args << "-DCMAKE_INSTALL_RPATH=#{rpath};/opt/homebrew/lib"|' *.rb
+```
+
+:::
+
+Next we install Gazebo:
+
+```bash
+brew install gz-harmonic
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+First let's update and install some dependencies:
+
+```bash
+sudo apt-get update
+sudo apt-get install lsb-release wget gnupg
+```
+
+Next we install the Gazebo package repository:
+
+```bash
+sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
+```
+
+Finally, we install Gazebo:
+
+```bash
+sudo apt-get update
+sudo apt-get install gz-harmonic
+```
+
+</TabItem>
+</Tabs>
+
+### Test the Gazebo Installation
+
+To test your installation, run the following command:
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+In one terminal, run:
+
+```bash
+gz sim -v4 -s shapes.sdf
+```
+
+In another terminal, run:
+
+```bash
+gz sim -v4 -g
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+In one terminal, run:
+
+```bash
+gz sim -v4 shapes.sdf
+```
+
+</TabItem>
+</Tabs>
+
+You should see a window pop up with some 3D objects in it.
+
+
+## QGroundControl
+
+[QGroundControl](https://qgroundcontrol.com/) is an open source ground control station (GCS) software that provides a flexible framework for planning, monitoring, and controlling drone missions.
+
+We will use QGroundControl to test manual control of the ROV in our custom simulation. Download QGroundControl [here](https://docs.qgroundcontrol.com/master/en/qgc-user-guide/getting_started/download_and_install.html).
+
+## ArduSub Installation
+
+ArduSub is an open source project designed for controlling remotely operated underwater vehicles (ROVs). It is part of the ArduPilot suite and is used in underwater robotics research and exploration.
+
+The documentation for installing ArduSub can be found [here](https://ardupilot.org/dev/docs/building-setup-linux.html). Below is a summary of the steps:
+
+First, in the `backseat`, we install the ArduPilot package repository:
+
+```bash
+git clone --recurse-submodules https://github.com/ardupilot/ardupilot
+cd ardupilot
+```
+
+Next, we update dependencies and install prerequisites:
+
+```bash
+sudo apt-get update
+python3 -m pip install empy==3.3.4 pexpect mavproxy future dronecan setuptools
+sudo apt-get install ccache
+./waf configure
+```
+
+Now we reload the path to make it permanent and clean the submodules:
+
+```bash
+. ~/.profile
+./waf clean
+```
+
+Open the `.zshrc` file with your favorite text editor and add the following lines:
+
+```bash
+export PATH=$PATH:$HOME/ardupilot/Tools/autotest
+export PATH=/usr/lib/ccache:$PATH
+```
+
+We install the gcc-arm cross-compiler next:
+
+```bash
+cd ~/ardupilot && mkdir TARGET_DIR && cd TARGET_DIR
+wget -c https://firmware.ardupilot.org/Tools/STM32-tools/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+```
+
+Unpack the compiler:
+
+```bash
+tar -xjvf gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+```
+
+Open the `.zshrc` file with your favorite text editor and add the following line:
+
+```bash
+PATH=$PATH:$HOME/ardupilot/TARGET_DIR/gcc-arm-none-eabi-10-2020-q4-major/bin
+```
+
+Setup permissions and ccache:
+
+```bash
+sudo usermod -a -G dialout $USER
+cd /usr/lib/ccache
+sudo ln -s /usr/bin/ccache arm-none-eabi-g++
+sudo ln -s /usr/bin/ccache arm-none-eabi-gcc
+```
+
+### Testing the ArduSub Installation
+
+With QGroundControl running, start the `SITL` in the `backseat`:
+
+```bash
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:YOUR_COMPUTER_IP:14550
+```
+
+Replace `YOUR_COMPUTER_IP` with the IP address of your computer.
+
+You should now see the ROV in QGroundControl.
+
+... images
+
+
+## Our Custom Simulation
+
+We built a custom simulation for the BlueROV2.
+It lives in this repository: [gazebo_bluerov2](https://github.com/blksail-edu/gazebo_bluerov2).
+
+Clone the repository into your workspace:
+
+```bash
+git clone https://github.com/blksail-edu/gazebo_bluerov2
+```
+
+Add dependencies:
+
+```bash
+sudo apt-get install rapidjson-dev libopencv-dev
+```
+
+Build the simulation:
+
+```bash
+cd gazebo_bluerov2
+./build.sh
+```
+
+Start the example simulation:
+
+```bash
+./launch.sh
+```
+
+:::warning
+
+Sometimes, the simulation will not quit properly.
+If this happens, you will need to kill the process manually.
+
+```bash
+pkill -9 gz
+```
+
+:::
+
+![Gazebo BlueROV2](./gz-sim.png)
+
+## Controlling the Robot
+
+With QGroundControl open and the Gazebo simulation running, start the `SITL` in the `backseat`:
+
+```bash
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:YOUR_COMPUTER_IP:14550
+```
+
+Replace `YOUR_COMPUTER_IP` with the IP address of your computer.
+
+You should now see the ROV in QGroundControl. Commands performed by the `SITL` in QGroundControl should be reflected in the Gazebo simulation, subject to the environmental constraints (pool walls and floor).
+
+... images
