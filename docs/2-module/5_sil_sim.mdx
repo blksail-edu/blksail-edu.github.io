@@ -135,7 +135,7 @@ You should see a window pop up with some 3D objects in it.
 
 ArduSub is an open source project designed for controlling remotely operated underwater vehicles (ROVs). It is part of the ArduPilot suite and is used in underwater robotics research and exploration.
 
-The documentation for installing ArduSub can be found [here] (https://ardupilot.org/dev/docs/building-setup-linux.html). Below is a summary of the steps:
+The documentation for installing ArduSub can be found [here](https://ardupilot.org/dev/docs/building-setup-linux.html). Below is a summary of the steps:
 
 First, in the `backseat`, we install the ArduPilot package repository:
 
@@ -204,13 +204,23 @@ pkill -9 gz
 
 ![Gazebo BlueROV2](./gz-sim.png)
 
+## QGroundControl
+
+[QGroundControl](https://qgroundcontrol.com/) is an open source ground control station (GCS) software that provides a flexible framework for planning, monitoring, and controlling drone missions.
+
+We will use QGroundControl to test manual control of the ROV in our custom simulation. Download QGroundControl [here](https://docs.qgroundcontrol.com/master/en/qgc-user-guide/getting_started/download_and_install.html).
+
 ## Controlling the Robot
 
-First, in the `backseat`, start the `SITL`:
+With the simulation running, start the `SITL` in the `backseat`:
 
 ```bash
-cd PATH_TO_ARDUSUB
-Tools/autotest/sim_vehicle.py -L RATBeach -v ArduSub -f vectored --model=JSON --out=udp:SIMULATION_COMPUTER_IP:14550 --console
+cd ~/ardupilot/ArduSub
+../Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:YOUR_COMPUTER_IP:14550
 ```
 
-Open QGroundControl ...
+Replace `YOUR_COMPUTER_IP` with the IP address of your computer. 
+
+You should now see the ROV in QGroundControl. 
+
+ADD IMAGE OF ARMING -> ACTIONS -> CHANGE IN SIM FROM QGC
