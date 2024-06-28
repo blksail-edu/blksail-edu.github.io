@@ -148,9 +148,9 @@ Next, we update dependencies and install prerequisites:
 
 ```bash
 sudo apt-get update
-./waf configure
 python3 -m pip install empy==3.3.4 pexpect mavproxy future dronecan setuptools
 sudo apt-get install ccache
+./waf configure
 ```
 
 Now we reload the path to make it permanent and clean the submodules:
@@ -165,6 +165,34 @@ Open the `.zshrc` file with your favorite text editor and add the following line
 ```bash
 export PATH=$PATH:$HOME/ardupilot/Tools/autotest
 export PATH=/usr/lib/ccache:$PATH
+```
+
+We install the gcc-arm cross-compiler next:
+
+```bash
+cd ~/ardupilot && mkdir TARGET_DIR && cd TARGET_DIR
+wget -c https://firmware.ardupilot.org/Tools/STM32-tools/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+```
+
+Unpack the compiler:
+
+```bash
+tar -xjvf gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+```
+
+Open the `.zshrc` file with your favorite text editor and add the following line:
+
+```bash
+PATH=$PATH:$HOME/ardupilot/TARGET_DIR/gcc-arm-none-eabi-10-2020-q4-major/bin
+```
+
+Setup permissions and ccache:
+
+```bash
+sudo usermod -a -G dialout $USER
+cd /usr/lib/ccache
+sudo ln -s /usr/bin/ccache arm-none-eabi-g++
+sudo ln -s /usr/bin/ccache arm-none-eabi-gcc
 ```
 
 ## Our Custom Simulation
