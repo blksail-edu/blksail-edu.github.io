@@ -131,6 +131,13 @@ gz sim -v4 shapes.sdf
 
 You should see a window pop up with some 3D objects in it.
 
+
+## QGroundControl
+
+[QGroundControl](https://qgroundcontrol.com/) is an open source ground control station (GCS) software that provides a flexible framework for planning, monitoring, and controlling drone missions.
+
+We will use QGroundControl to test manual control of the ROV in our custom simulation. Download QGroundControl [here](https://docs.qgroundcontrol.com/master/en/qgc-user-guide/getting_started/download_and_install.html).
+
 ## ArduSub Installation
 
 ArduSub is an open source project designed for controlling remotely operated underwater vehicles (ROVs). It is part of the ArduPilot suite and is used in underwater robotics research and exploration.
@@ -195,6 +202,21 @@ sudo ln -s /usr/bin/ccache arm-none-eabi-g++
 sudo ln -s /usr/bin/ccache arm-none-eabi-gcc
 ```
 
+### Testing the ArduSub Installation
+
+With QGroundControl running, start the `SITL` in the `backseat`:
+
+```bash
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:YOUR_COMPUTER_IP:14550
+```
+
+Replace `YOUR_COMPUTER_IP` with the IP address of your computer.
+
+You should now see the ROV in QGroundControl.
+
+... images
+
+
 ## Our Custom Simulation
 
 We built a custom simulation for the BlueROV2.
@@ -238,23 +260,16 @@ pkill -9 gz
 
 ![Gazebo BlueROV2](./gz-sim.png)
 
-## QGroundControl
-
-[QGroundControl](https://qgroundcontrol.com/) is an open source ground control station (GCS) software that provides a flexible framework for planning, monitoring, and controlling drone missions.
-
-We will use QGroundControl to test manual control of the ROV in our custom simulation. Download QGroundControl [here](https://docs.qgroundcontrol.com/master/en/qgc-user-guide/getting_started/download_and_install.html).
-
 ## Controlling the Robot
 
-With the simulation running, start the `SITL` in the `backseat`:
+With QGroundControl open and the Gazebo simulation running, start the `SITL` in the `backseat`:
 
 ```bash
-cd ~/ardupilot/ArduSub
-../Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:YOUR_COMPUTER_IP:14550
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:YOUR_COMPUTER_IP:14550
 ```
 
 Replace `YOUR_COMPUTER_IP` with the IP address of your computer.
 
-You should now see the ROV in QGroundControl.
+You should now see the ROV in QGroundControl. Commands performed by the `SITL` should be reflected in the Gazebo simulation, subject to the environmental constraints (pool walls and depth).
 
-ADD IMAGE OF ARMING -> ACTIONS -> CHANGE IN SIM FROM QGC
+... images
