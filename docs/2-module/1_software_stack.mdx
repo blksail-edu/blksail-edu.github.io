@@ -102,6 +102,7 @@ Now add the class's constructor. `super().__init__("nodename")` initializes a no
 def __init__(self):
     super().__init__("tutorial_publisher")
     self.pub = self.create_publisher(Vector3, "/tutorial/vector3", 10)
+    self.get_logger().info("Started Tutorial Publisher Node")
 ```
 
 In this case, the publisher named `pub` will publish `Vector3` messages to the topic named `/tutorial/vector3`. Define a method to run the node. For this node, you want to publish a single `Vector3` message and then shutdown the node. Add the following method to the `TutorialPublisher` class:
@@ -113,6 +114,7 @@ def run_node(self):
     msg.y = 4
     msg.z = 5
     self.pub.publish(msg)
+    self.get_logger().info("Vector3 msg published to /tutorial/vector3")
 ```
 
 Lastly, you define the main function:
@@ -145,14 +147,20 @@ def __init__(self):
         self.callback,
         10
     )
-self.subscription
+    self.subscription
+    self.get_logger().info("Started Tutorial Subscriber Node")
 ```
 
 In the class's constructor, `create_subscription` declares that the node subscribes to `Vector3` messages on the named topic `/tutorial/vector3` and that these messages are directed to the `callback` method. Next, define the callback method:
 
 ```bash
 def callback(self, msg):
-    print(f"Vector3\n\tx: {msg.x}\n\ty: {msg.y}\n\tz: {msg.z}
+    magnitude = np.sqrt(msg.x ** 2 + msg.y ** 2 + msg.z ** 2)
+    data = Vector3()
+    data.x = msg.x / magnitude
+    data.y = msg.y / magnitude
+    data.z = msg.z / magnitude
+    self.get_logger().info(f"\nVector3\n\tx: {data.x}\n\ty: {data.y}\n\tz: {data.z}
 ```
 
 Lastly, you define our main function:
@@ -199,6 +207,31 @@ Second, open `package.xml` and add a `build_depend` and `exec_depend` line for e
 <exec_depend>rclpy</exec_depend>
 <exec_depend>geometry_msgs</exec_depend>
 ```
+
+Now navigate to the ROS2 workspace  and build the nodes.
+
+```bash
+cd ~/auvc_wc
+colcon build --symlink-install
+```
+
+### Testing the Nodes
+
+Open a new terminal and start the subscriber node:
+
+```bash
+ros2 run intro_to_ros subscriber.py
+```
+
+In the terminal, you should see the message the subscriber node has started. Open a second terminal and run the publisher node:
+
+```bash
+ros2 run intro_to_ros publisher.py
+```
+
+In the terminal running the subscriber node, you should see the unit vector equivalent of the `Vector3` message received from the publisher node.
+
+
 
 
 
