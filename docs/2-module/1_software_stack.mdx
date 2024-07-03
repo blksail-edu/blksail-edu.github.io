@@ -66,6 +66,56 @@ All distribution packages and your user-defined packages in `~/auvc_ws/src` will
 
 ## ROS2 Example Nodes
 
+This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications. To start, navigate to into_to_ros package and open `publisher.py` with your favorite text editor.
+
+The first few lines of code import `rclpy`, the ROS2 client library for Python. You must also import any message types that the node uses. Add the following lines:
+
+```bash
+#!/env/usr/bin python3
+
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Vector3
+```
+
+Next, create a class which inherits from `Node`:
+
+```bash
+class TutorialPublisher(Node):
+```
+
+Now add the class's constructor. `super().__init__("nodename")` initializes a node called nodename. `create_publisher` declares that the node publishes the named message type to the named topic and its queue size.
+
+```bash
+def __init__(self):
+    super().__init__("tutorial_publisher")
+    self.pub = self.create_publisher(Vector3, "/tutorial/vector3", 10)
+```
+
+In this case, the publisher named `pub` will publish `Vector3` messages to the topic named `/tutorial/vector3`. Define a method to run the node. For this node, we want to publish a single `Vector3` message and then shutdown the node. Add the following method to the `TutorialPublisher` class:
+
+```bash
+def run_node(self):
+    msg = Vector3()
+    msg.x = 3
+    msg.y = 4
+    msg.z = 5
+    self.pub.publish(msg)
+```
+
+Lastly, we define the main function:
+
+```bash
+def main(args=None):
+    rclpy.init(args=args)
+    node = TutorialPublisher()
+    node.run_node()
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__=="__main__":
+    main()
+```
 
 
 ### 
