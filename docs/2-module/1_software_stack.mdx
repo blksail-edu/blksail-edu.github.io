@@ -66,9 +66,11 @@ All distribution packages and your user-defined packages in `~/auvc_ws/src` will
 
 ## ROS2 Example Nodes
 
-This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications. To start, navigate to into_to_ros package and open `publisher.py` with your favorite text editor.
+This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications. 
 
-The first few lines of code import `rclpy`, the ROS2 client library for Python. You must also import any message types that the node uses. Add the following lines:
+### Publisher Node
+
+To start, navigate to into_to_ros package and open `publisher.py` with your favorite text editor. The first few lines of code import `rclpy`, the ROS2 client library for Python. You must also import any message types that the node uses. Add the following lines:
 
 ```bash
 #!/env/usr/bin python3
@@ -117,6 +119,8 @@ if __name__=="__main__":
     main()
 ```
 
+### Subscriber Node
+
 Save and exit the `publisher.py` file. Now open `subscriber.py`. In this node, we want to subscribe to messages published by `publisher.py` and print the corresponding unit vector to the terminal. We start with the same imports used in the publisher node. Then, define your class and constructor:
 
 ```bash
@@ -141,9 +145,23 @@ def callback(self, msg):
     print(f"Vector3\n\tx: {msg.x}\n\ty: {msg.y}\n\tz: {msg.z}
 ```
 
-This callback function 
+Lastly, we define our main function:
 
-### 
+```bash
+def main(args=None):
+    rclpy.init(args=args)
+    node = TutorialSubscriber()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__=="__main__":
+    main()
+```
+
+Here, instead of having the node perform a single task like the publisher node, we use 'rclpy.spin` to keep the node active.
+
+### Testing the Nodes
 
 ## Problem Set
 
