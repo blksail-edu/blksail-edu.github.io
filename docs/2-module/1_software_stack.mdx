@@ -80,7 +80,32 @@ Here are some terminal commands that you may find useful for general use and tes
 
 ### General Use
 
-1. 
+1. Build packages in a ROS2 workspace:
+- Packages must be located in your_ws/src/.
+- Build command must be run in your_ws/.
+
+```bash
+colcon build
+```
+
+2. Build packages in a ROS2 workspace with symbolic links (recommended):
+
+```bash
+colcon build --symlink-install
+```
+
+3. Build specific packages in ROS2 workspace:
+
+```bash
+colcon build --packages-select my_package
+```
+
+4. Run an individual node:
+- If the executable is not found, try `source ~/.zshrc` and then `chmod +x /path/to/executable`.
+
+```
+ros2 run my_package my_executable.py
+```
 
 ### Testing & Debugging
 
