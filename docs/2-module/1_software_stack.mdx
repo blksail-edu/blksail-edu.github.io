@@ -148,11 +148,16 @@ ros2 topic hz /your/topic
 
 ## ROS2 Example Nodes
 
-This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications.
+This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications. Install and build our introduction nodes:
+
+```bash
+cd ~/auvc_ws/src && git clone https://github.com/blksail-edu/ros_bluerov2
+cd ../ && colcon build --symlink-install
+```
 
 ### Publisher Node
 
-To start, navigate to into_to_ros package and open `publisher.py` with your favorite text editor. The first few lines of code import `rclpy`, the ROS2 client library for Python. You must also import any message types that the node uses. Add the following lines:
+To start, navigate to into_to_ros package using `cd ~/auvc_ws/src/ros_bluerov2/intro_to_ros` and then open `publisher.py` with your favorite text editor. The first few lines of code import `rclpy`, the ROS2 client library for Python. You must also import any message types that the node uses. Add the following lines:
 
 ```bash
 #!/env/usr/bin python3
