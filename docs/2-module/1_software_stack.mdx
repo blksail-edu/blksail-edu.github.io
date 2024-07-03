@@ -107,6 +107,12 @@ colcon build --packages-select my_package
 ros2 run my_package my_executable.py
 ```
 
+5. Create a new node:
+- You will need to configure the `CMakeLists.txt` and `package.xml` files like as shown in [ROS2 Example Nodes](## ROS2 Example Nodes)
+
+```bash
+ros2 pkg create --build-type ament_cmake your_node_name
+
 ### Testing & Debugging
 
 1. View a list of all active nodes:
@@ -310,6 +316,8 @@ In the terminal running the subscriber node, you should see the unit vector equi
 ## Problem Set
 
 ### Problem One
+
+Create a new ROS
 
 
 
