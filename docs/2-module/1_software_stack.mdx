@@ -190,6 +190,19 @@ install(PROGRAMS
 )
 ```
 
+Second, open `package.xml` and add a `build_depend` and `exec_depend` line for each imported module. Below `buildtool_depend` add:
+
+```bash
+<build_depend>rclpy</build_depend>
+<build_depend>geometry_msgs</build_depend>
+
+<exec_depend>rclpy</exec_depend>
+<exec_depend>geometry_msgs</exec_depend>
+```
+
+
+
+
 ## Problem Set
 
 ### Problem One
