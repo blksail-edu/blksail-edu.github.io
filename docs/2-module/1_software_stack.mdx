@@ -320,7 +320,7 @@ In the terminal running the subscriber node, you should see the unit vector equi
 
 ### Problem One
 
-Create a new ROS
+Create a new ROS2 node in the `intro_to_ros` package. Your node should subscribe to `geometry_msgs/Pose2D` on the `/intro/pose2d` topic and then run your simulation from Problem 10 in Underwater Physics. The node should use the fields from the `Pose2D` message for `x0`, `y0`, and `theta0` in the simulation. Test your node by running `ros2 topic topic pub /intro/pose2d geometry_msgs/Pose2D '{x: 1.0, y: 2.0, theta: 0.5}'`.
 
 
 
