@@ -117,6 +117,31 @@ if __name__=="__main__":
     main()
 ```
 
+Save and exit the `publisher.py` file. Now open `subscriber.py`. In this node, we want to subscribe to messages published by `publisher.py` and print the corresponding unit vector to the terminal. We start with the same imports used in the publisher node. Then, define your class and constructor:
+
+```bash
+class TutorialSubscriber(Node)
+```
+
+```bash
+def __init__(self):
+    self.sub = self.create_subscription(
+        Vector3,
+        "/tutorial/vector3",
+        self.callback,
+        10
+    )
+self.subscription
+```
+
+In the class's constructor, `create_subscription` declares that the node subscribes to `Vector3` messages on the named topic `/tutorial/vector3` and that these messages are directed to the `callback` method. Next, define the callback method:
+
+```bash
+def callback(self, msg):
+    print(f"Vector3\n\tx: {msg.x}\n\ty: {msg.y}\n\tz: {msg.z}
+```
+
+This callback function 
 
 ### 
 
