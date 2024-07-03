@@ -78,11 +78,44 @@ Now, all distribution packages and all your user-defined packages in `~/auvc_ws/
 
 Here are some terminal commands that you may find useful for general use and testing/debugging.
 
-1. List all nodes that are currently running:
+### General Use
+
+1. 
+
+### Testing & Debugging
+
+1. View a list of all active nodes:
 
 ```bash
 ros2 node list
 ```
+
+2. View a list of all named topics:
+
+```bash
+ros2 topic list
+```
+
+3. View the message type of a topic:
+
+```bash
+ros2 topic type /your/topic
+```
+
+4. View messages on a topic in the terminal:
+
+```bash
+ros2 topic echo /your/topic
+```
+
+5. Publish a message on a topic (replace `N` with the number of times you want to publish the message):
+
+```bash
+ros2 topic pub -N /your/topic std_msgs/String "{data: 'hello from terminal'}"
+```
+
+
+
 
 ## ROS2 Example Nodes
 
