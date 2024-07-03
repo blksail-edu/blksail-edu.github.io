@@ -18,7 +18,17 @@ Topics are named buses that nodes use to exchange messages. Nodes can both publi
 
 ### Messages
 
-Messages are data structures used to communicate information between nodes via topics. These structures contain combinations of fields and data types, and are defined in .msg files. The field is the name of specific data in the structure, while the data type is typically either a primitive data type or another message type. Messages define specific information such as sensor data or control input.
+Messages are data structures used to communicate information betyouen nodes via topics. These structures contain combinations of fields and data types, and are defined in .msg files. The field is the name of specific data in the structure, while the data type is typically either a primitive data type or another message type. Messages define specific information such as sensor data or control input.
+
+For example, in the built-in geometry_msgs package, a `Vector3` message defines a vector in free space. `Vector3.msg` is structured as:
+
+```bash
+float64 x
+float64 y
+float64 z
+```
+
+In this message type, there are three fields representing the magnitude of the vector in the primary axes. Each of these fields represents a float64 value in the message.
 
 ### Publishers & Subscribers
 
@@ -49,7 +59,7 @@ The --symlink-install argument creates symbolic links to node executables that r
 
 :::
 
-Now, using your favorite text editor, open the `.zshrc` file and add the following lines:
+Using your favorite text editor, open the `.zshrc` file and add the following lines:
 
 ```bash
 source /opt/ros/jazzy/setup.zsh
@@ -62,11 +72,11 @@ Then, resource the `.zshrc` file:
 source ~/.zshrc
 ```
 
-All distribution packages and your user-defined packages in `~/auvc_ws/src` will automatically be sourced every time a new terminal is started. Without this step, you would need to execute both lines added to the `.zshrc` file in every new terminal opened; otherwise, ROS2 is inaccessible in that terminal.
+Now, all distribution packages and all your user-defined packages in `~/auvc_ws/src` will be automatically sourced in every new terminal that you open. Without this step, you would need to execute both lines added to the `.zshrc` file in every new terminal opened; otherwise, ROS2 is inaccessible in that terminal.
 
 ## ROS2 Example Nodes
 
-This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications. 
+This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications.
 
 ### Publisher Node
 
@@ -94,7 +104,7 @@ def __init__(self):
     self.pub = self.create_publisher(Vector3, "/tutorial/vector3", 10)
 ```
 
-In this case, the publisher named `pub` will publish `Vector3` messages to the topic named `/tutorial/vector3`. Define a method to run the node. For this node, we want to publish a single `Vector3` message and then shutdown the node. Add the following method to the `TutorialPublisher` class:
+In this case, the publisher named `pub` will publish `Vector3` messages to the topic named `/tutorial/vector3`. Define a method to run the node. For this node, you want to publish a single `Vector3` message and then shutdown the node. Add the following method to the `TutorialPublisher` class:
 
 ```bash
 def run_node(self):
@@ -105,7 +115,7 @@ def run_node(self):
     self.pub.publish(msg)
 ```
 
-Lastly, we define the main function:
+Lastly, you define the main function:
 
 ```bash
 def main(args=None):
@@ -121,7 +131,7 @@ if __name__=="__main__":
 
 ### Subscriber Node
 
-Save and exit the `publisher.py` file. Now open `subscriber.py`. In this node, we want to subscribe to messages published by `publisher.py` and print the corresponding unit vector to the terminal. We start with the same imports used in the publisher node. Then, define your class and constructor:
+Save and exit the `publisher.py` file. Now open `subscriber.py`. In this node, you want to subscribe to messages published by `publisher.py` and print the corresponding unit vector to the terminal. you start with the same imports used in the publisher node. Then, define your class and constructor:
 
 ```bash
 class TutorialSubscriber(Node)
@@ -145,7 +155,7 @@ def callback(self, msg):
     print(f"Vector3\n\tx: {msg.x}\n\ty: {msg.y}\n\tz: {msg.z}
 ```
 
-Lastly, we define our main function:
+Lastly, you define our main function:
 
 ```bash
 def main(args=None):
@@ -159,9 +169,26 @@ if __name__=="__main__":
     main()
 ```
 
-Here, instead of having the node perform a single task like the publisher node, we use 'rclpy.spin` to keep the node active.
+Here, instead of having the node perform a single task like the publisher node, you use 'rclpy.spin` to keep the node active.
 
-### Testing the Nodes
+### Building the Nodes
+
+To build the nodes, you must update `CMakeLists.txt` and `package.xml` with the dependencies from our nodes. First, open `CMakeLists.txt` and add `find_package` for each package defined in any nodes in the packages `src` directory.
+
+```bash
+find_package(rclpy REQUIRED)
+find_package(geometry_msgs REQUIRED)
+```
+
+You must also specify executables in the node. Below `ament_python_install_package` add:
+
+```bash
+install(PROGRAMS
+    src/publisher.py
+    src/subscriber.py
+    DESTINATION lib/${PROJECT_NAME}
+)
+```
 
 ## Problem Set
 
