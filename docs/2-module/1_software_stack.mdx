@@ -28,7 +28,9 @@ Publishers and subscribers are communication interfaces that enable nodes to com
 
 Services and clients provide an alternate communication interface with a request-response mechanism. A client sends requests to a service and receives responses after the service completes its task.
 
-### ROS2 Environment
+## ROS2 Configuration
+
+### Environment
 
 To access ROS2 packages from a terminal, the ROS2 environments must be sourced. There are two types of environments: the ROS2 distribution from the installation process and ROS2 workspaces. Create a new workspace for this course:
 
@@ -39,6 +41,7 @@ cd && mkdir auvc_ws && cd auvc_ws && mkdir src
 In the workspace, all user-defined packages are located in the `src` directory. The ROS2 compiler `colcon` will not compile your packages if they are not located in the `src` directory. Initialize the workspace by building with an empty `src` directory:
 
 ```bash
+source /opt/ros/jazzy/setup.zsh
 cd ~/auvc_ws && colcon build --symlink-install
 ```
 
@@ -48,6 +51,20 @@ The --symlink-install argument creates symbolic links to node executables that r
 
 :::
 
+Now, using your favorite text editor, open the `.zshrc` file and add the following lines:
+
+```bash
+source /opt/ros/jazzy/setup.zsh
+source $HOME/auvc_ws/install/setup.zsh
+```
+
+Then, resource the `.zshrc` file:
+
+```bash
+source ~/.zshrc
+```
+
+All distribution packages and your user-defined packages in `~/auvc_ws/src` will automatically be sourced every time a new terminal is started. Without this step, you would need to execute both lines added to the `.zshrc` file in every new terminal opened; otherwise, ROS2 is inaccessible in that terminal.
 
 
 ## ROS2 Example Nodes
