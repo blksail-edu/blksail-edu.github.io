@@ -108,10 +108,11 @@ ros2 run my_package my_executable.py
 ```
 
 5. Create a new node:
-- You will need to configure the `CMakeLists.txt` and `package.xml` files like as shown in [ROS2 Example Nodes](## ROS2 Example Nodes)
+- You will need to configure the `CMakeLists.txt` and `package.xml` files like as shown in ROS2 Example Nodes.
 
 ```bash
 ros2 pkg create --build-type ament_cmake your_node_name
+```
 
 ### Testing & Debugging
 
@@ -263,6 +264,8 @@ To build the nodes, you must update `CMakeLists.txt` and `package.xml` with the 
 ```bash
 find_package(rclpy REQUIRED)
 find_package(geometry_msgs REQUIRED)
+
+ament_python_install_package(src)
 ```
 
 You must also specify executables in the node. Below `ament_python_install_package` add:
