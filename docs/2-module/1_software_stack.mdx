@@ -4,4 +4,40 @@ sidebar_position: 1
 
 # Programming an Underwater Robot: Software Stack
 
+## ROS2 Terminology
+
+ROS2 (Robot Operating System 2) is a set of open-source libraries and tools used to build robotics applications. It is  used in robotics research and industry.
+
+### Nodes
+
+Nodes are instances of executables that act as individual computation entitites in the ROS2 environment. They perform specific tasks, such as processing sensor data or controlling hardware. Nodes communicate with each other by publishing and subscribing to topics or by using services. Nodes typically consist of combinations of publishers, subscribers, and services.
+
+### Topics
+
+Topics are named buses that nodes use to exchange messages. Nodes can both publish messages on a topic and receive messages in a callback function on a subscribed topic. Each topic is limited to an individual message type specified in a node's executable.
+
+### Messages
+
+Messages are data structures used to communicate information between nodes via topics. These structures contain combinations of fields and data types, and are defined in .msg files. The field is the name of specific data in the structure, while the data type is typically either a primitive data type or another message type. Messages define specific information such as sensor data or control input.
+
+### Publishers & Subscribers
+
+Publishers and subscribers are communication interfaces that enable nodes to communicate. A publisher sends messages on a topic and a subscriber receives messages on a topic.
+
+### Services
+
+Services and clients provide an alternate communication interface with a request-response mechanism. A client sends requests to a service and receives responses after the service completes its task.
+
+### ROS2 Environment
+
+To access ROS2 packages from a terminal, the ROS2 environments must be sourced. There are two types of environments: the ROS2 distribution from the installation process and ROS2 workspaces. Create a new workspace for this course:
+
+```bash
+cd && mkdir auvc_ws && cd auvc_ws && mkdir src
+```
+
+
+
+## ROS2 Example Nodes
+
 
