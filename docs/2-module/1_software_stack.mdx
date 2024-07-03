@@ -36,6 +36,16 @@ To access ROS2 packages from a terminal, the ROS2 environments must be sourced. 
 cd && mkdir auvc_ws && cd auvc_ws && mkdir src
 ```
 
+In the workspace, all user-defined packages are located in the `src` directory. The ROS2 compiler `colcon` will not compile your packages if they are not located in the `src` directory. Initialize the workspace by building with an empty `src` directory:
+
+```bash
+cd ~/auvc_ws && colcon build --symlink-install
+```
+
+:::note Note
+The --symlink-install argument creates symbolic links to node executables that reduces subsequent build times.
+:::
+
 
 
 ## ROS2 Example Nodes
