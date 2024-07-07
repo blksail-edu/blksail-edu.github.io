@@ -40,24 +40,28 @@ Services and clients provide an alternate communication interface with a request
 
 ## ROS2 Environment
 
-To access ROS2 packages from a terminal, the ROS2 environments must be sourced. There are two types of environments: the ROS2 distribution from the installation process and ROS2 workspaces. Create a new workspace for this course:
+To access ROS2 packages from a terminal, the ROS2 environments must be sourced. There are two types of environments: the ROS2 distribution from the installation process and ROS2 workspaces. First, setup the `.zshrc` file to automatically source the ROS2 installation. In a terminal, type:
+
+```bash
+echo "source /opt/ros/jazzy/setup.zsh" >> $HOME/.zshrc
+```
+
+Then, create a workspace for this course named `auvc_ws`:
 
 ```bash
 cd && mkdir auvc_ws && cd auvc_ws && mkdir src
 ```
 
-In the workspace, all user-defined packages are located in the `src` directory. The ROS2 compiler `colcon` will not compile your packages if they are not located in the `src` directory. Initialize the workspace by building with an empty `src` directory:
+In a workspace, all user-defined packages are located within the `src` directory. The ROS2 compiler `colcon` will not compile your packages if they are not located in the `src` directory of the workspace you are currently building. Initialize the workspace by building with an empty `src` directory. 
 
 ```bash
-source /opt/ros/jazzy/setup.zsh
-cd ~/auvc_ws && colcon build --symlink-install
+cd ~/auvc_ws && colcon build
 ```
 
-Using your favorite text editor, open the `.zshrc` file and add the following lines:
+Now, setup the `.zshrc` file to automatically source the `auvc_ws` ROS2 workspace. In a terminal, type:
 
 ```bash
-source /opt/ros/jazzy/setup.zsh
-source $HOME/auvc_ws/install/setup.zsh
+echo "source $HOME/auvc_ws/install/setup.zsh" >> $HOME/.zshrc
 ```
 
 Then, resource the `.zshrc` file:
@@ -66,7 +70,7 @@ Then, resource the `.zshrc` file:
 source ~/.zshrc
 ```
 
-Now, all distribution packages and all your user-defined packages in `~/auvc_ws/src` will be automatically sourced in every new terminal that you open. Without this step, you would need to execute both lines added to the `.zshrc` file in every new terminal opened; otherwise, ROS2 is inaccessible in that terminal.
+Now, all distribution packages and all your user-defined packages in `~/auvc_ws/src` will be automatically sourced in every new terminal that you open. Without this step, you would need to execute both lines added to the `.zshrc` file in every new terminal opened; otherwise, ROS2 would be inaccessible in that terminal.
 
 ## ROS2 Terminal Commands
 
@@ -95,7 +99,7 @@ colcon build --packages-select my_package
 ```
 
 4. Run an individual node:
-- If the executable is not found, try `source ~/.zshrc` and then `chmod +x /path/to/executable`.
+- If the executable is not found, try `source ~/.zshrc` and then `chmod +x $HOME/auvc_ws/src/path_to_executable`.
 
 ```
 ros2 run my_package my_executable.py
@@ -146,9 +150,9 @@ ros2 topic pub -N /your/topic std_msgs/String "{data: 'hello from terminal'}"
 ros2 topic hz /your/topic
 ```
 
-## ROS2 Example Nodes
+## ROS2
 
-This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications. Install and build our introduction nodes:
+This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications.
 
 ```bash
 cd ~/auvc_ws/src && git clone https://github.com/blksail-edu/ros_bluerov2
@@ -319,4 +323,4 @@ In the terminal running the subscriber node, you should see the unit vector equi
 
 ### Problem One
 
-Create a new ROS2 node in the `intro_to_ros` package. Your node should subscribe to `geometry_msgs/Pose2D` on the `/intro/pose2d` topic and then run your simulation from Problem 10 in Underwater Physics whenever a callback is received. The node should use the fields from the `Pose2D` message for `x0`, `y0`, and `theta0` in the simulation. Test your code by entering `ros2 topic topic pub /intro/pose2d geometry_msgs/Pose2D '{x: 1.0, y: 2.0, theta: 0.5}'` in a seperate terminal while the node is running.
+Create a new ROS2 node in the `intro_to_ros` package. Your node should subscribe to `geometry_msgs/Pose2D` on the `/intro/pose2d` topic and then run your simulation from Problem 10 in Underwater Physics whenever a callback is received. The node should use the fields from the `Pose2D` message for `x0`, `y0`, and `theta0` in the simulation. Test your code by entering `ros2 topic topic pub /intro/pose2d geometry_msgs/Pose2D '{x: 1.0, y: 2.0, theta: 0.5}'` in a seperate terminal while the node is running. You should save your graphs as PNG files on the `backseat`.
