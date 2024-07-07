@@ -89,7 +89,7 @@ const config: Config = {
 
   themeConfig: {
     /* Your theme config here */
-    image: "img/AUVC2023.001.png",
+    image: "img/AUVC.MIT.BWSI.001.png",
     navbar: {
       title: "AUVC",
       logo: {
