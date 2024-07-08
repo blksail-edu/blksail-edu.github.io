@@ -322,6 +322,10 @@ In the terminal running the subscriber node, you should see the unit vector equi
 
 ### Problem One
 
+Create a `launch` file in Python3 that starts both the `publisher` and `subscriber` nodes. You can read more about launch files [here](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Launch/Launch-Main.html).
+
+### Problem Two
+
 Create a new ROS2 package called `underwater_physics`. Your package should contain a node called `simulator.py` that subscribes to the `geometry_msgs/Pose2D` messages on the topic named `/intro/pose2d`. 
 
 The first time that the node receives a message, it should run your simulation from Problem 10 in the Underwater Physics problem set. Use `x0 = msg.x`, `y0 = msg.y`, and `theta0 = msg.theta` as initial conditions in your simulation.
