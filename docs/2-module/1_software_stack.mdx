@@ -86,30 +86,24 @@ Here are some terminal commands that you may find useful for general use and tes
 colcon build
 ```
 
-2. Build packages in a ROS2 workspace with symbolic links (recommended):
-
-```bash
-colcon build --symlink-install
-```
-
-3. Build specific packages in ROS2 workspace:
+2. Build specific packages in ROS2 workspace:
 
 ```bash
 colcon build --packages-select my_package
 ```
 
-4. Run an individual node:
+3. Run an individual node:
 - If the executable is not found, try `source ~/.zshrc` and then `chmod +x $HOME/auvc_ws/src/path_to_executable`.
 
 ```
 ros2 run my_package my_executable.py
 ```
 
-5. Create a new node:
+4. Create a new node:
 - You will need to configure the `CMakeLists.txt` and `package.xml` files like as shown in ROS2 Example Nodes.
 
 ```bash
-ros2 pkg create --build-type ament_cmake your_node_name
+ros2 pkg create --build-type ament_python your_node_name
 ```
 
 ### Testing & Debugging
@@ -154,14 +148,13 @@ ros2 topic hz /your/topic
 
 This section provides an overview of an offical [ROS2 tutorial](https://docs.ros.org/en/jazzy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html) for writing a simple publisher and subscriber with some modifications.
 
-```bash
-cd ~/auvc_ws/src && git clone https://github.com/blksail-edu/ros_bluerov2
-cd ../ && colcon build --symlink-install
-```
+The example publisher node publishes a single `Vector3` message. The subscriber node subscribes to the `Vector3` message and prints the corresponding unit vector to the terminal.
+
+For this lesson and the subsequent problem set, you will fork and work on your own copy of the `intro_to_ros` repository. After creating your fork, clone it into `auvc_ws/src` on the `backseat`.  In any given ROS2 package that uses the `ament_python` build tool (the only build tool we'll be using), all executables are located within `your_ws/src/package_name/package_name/`.
 
 ### Publisher Node
 
-To start, navigate to into_to_ros package using `cd ~/auvc_ws/src/ros_bluerov2/intro_to_ros` and then open `publisher.py` with your favorite text editor. The first few lines of code import `rclpy`, the ROS2 client library for Python. You must also import any message types that the node uses. Add the following lines:
+To start, open the `publisher.py` file. The first lines of code are the shebang and the imports. In each ROS2 node, you must import the appropriate ROS2 client library for either python or c++, respectively. You must also import any message and service types that you use in the node. In this example, only the `Vector3` message type is used. Add the following lines:
 
 ```bash
 #!/env/usr/bin python3
@@ -171,22 +164,26 @@ from rclpy.node import Node
 from geometry_msgs.msg import Vector3
 ```
 
-Next, create a class which inherits from `Node`:
+Next, create a class for the publisher node which inherits from `Node`:
 
 ```bash
 class TutorialPublisher(Node):
 ```
 
-Now add the class's constructor. `super().__init__("nodename")` initializes a node called nodename. `create_publisher` declares that the node publishes the named message type to the named topic and its queue size.
+Within the class's constructor, `super().__init__("nodename")` initializes a ROS2 node called nodename and `create_publisher` declares that the node publishes `Vector3` to the topic named `/tutorial/vector3` with a queue size of `10`.
 
 ```bash
 def __init__(self):
     super().__init__("tutorial_publisher")
-    self.pub = self.create_publisher(Vector3, "/tutorial/vector3", 10)
+    self.pub = self.create_publisher(
+        Vector3, 
+        "/tutorial/vector3", 
+        10
+    )
     self.get_logger().info("Started Tutorial Publisher Node")
 ```
 
-In this case, the publisher named `pub` will publish `Vector3` messages to the topic named `/tutorial/vector3`. Define a method to run the node. For this node, you want to publish a single `Vector3` message and then shutdown the node. Add the following method to the `TutorialPublisher` class:
+Given that the publisher's task is to execute a one-time process, define a method to run the node:
 
 ```bash
 def run_node(self):
@@ -198,15 +195,21 @@ def run_node(self):
     self.get_logger().info("Vector3 msg published to /tutorial/vector3")
 ```
 
-Lastly, you define the main function:
+Lastly, define the main function:
 
 ```bash
 def main(args=None):
     rclpy.init(args=args)
     node = TutorialPublisher()
-    node.run_node()
-    node.destroy_node()
-    rclpy.shutdown()
+
+    try:
+        node.run_node()
+    except KeyboardInterrupt:
+        print("\nKeyboardInterrupt received, shutting down...")
+    finally:
+        node.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 if __name__=="__main__":
     main()
@@ -214,25 +217,30 @@ if __name__=="__main__":
 
 ### Subscriber Node
 
-Save and exit the `publisher.py` file. Now open `subscriber.py`. In this node, you want to subscribe to messages published by `publisher.py` and print the corresponding unit vector to the terminal. you start with the same imports used in the publisher node. Then, define your class and constructor:
+Save and exit the `publisher.py` file. Now open `subscriber.py`. Use the same shebang and imports from the publisher node with the addition of `import numpy as np`. 
+
+Next, create a class for the subscriber node which inherits from `Node`:
 
 ```bash
-class TutorialSubscriber(Node)
+class TutorialSubscriber(Node):
 ```
+
+Within the class's constructor, `super().__init__("nodename")` initializes a ROS2 node called nodename and `create_subscription` declares that the node subscribes to `Vector3` to the topic named `/tutorial/vector3` with a queue size of `10`. All messages on this topic received by the subscriber node are passed to the `self.callback` method.
 
 ```bash
 def __init__(self):
+    super().__init__("tutorial_publisher")
     self.sub = self.create_subscription(
         Vector3,
         "/tutorial/vector3",
         self.callback,
         10
     )
-    self.subscription
+    self.sub
     self.get_logger().info("Started Tutorial Subscriber Node")
 ```
 
-In the class's constructor, `create_subscription` declares that the node subscribes to `Vector3` messages on the named topic `/tutorial/vector3` and that these messages are directed to the `callback` method. Next, define the callback method:
+Next, define the callback method:
 
 ```bash
 def callback(self, msg):
@@ -241,47 +249,41 @@ def callback(self, msg):
     data.x = msg.x / magnitude
     data.y = msg.y / magnitude
     data.z = msg.z / magnitude
-    self.get_logger().info(f"\nVector3\n\tx: {data.x}\n\ty: {data.y}\n\tz: {data.z})
+    self.get_logger().info(f"\nVector3\n\tx: {data.x}\n\ty: {data.y}\n\tz: {data.z}")
 ```
 
-Lastly, you define our main function:
+Lastly, define the main function.
 
 ```bash
 def main(args=None):
     rclpy.init(args=args)
     node = TutorialSubscriber()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        print("\nKeyboardInterrupt received, shutting down...")
+    finally:
+        node.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 if __name__=="__main__":
     main()
 ```
 
-Here, instead of having the node perform a single task like the publisher node, you use `rclpy.spin` to keep the node active.
+Here, instead of using a method like `run_node` from the publisher node, `rclpy.spin(node)` keeps the node running until it is shutdown by the user.
 
-### Building the Nodes
+### Building the Package
 
-To build the nodes, you must update `CMakeLists.txt` and `package.xml` with the dependencies from our nodes. First, open `CMakeLists.txt` and add `find_package` for each package defined in any nodes in the packages `src` directory.
-
-```bash
-find_package(rclpy REQUIRED)
-find_package(geometry_msgs REQUIRED)
-
-ament_python_install_package(src)
-```
-
-You must also specify executables in the node. Below `ament_python_install_package` add:
+Before building the package, the `setup.py` file must be updated to include entry points for each executable. Add the following lines within the square brackets in `entry_points={'console_scripts': [],}`:
 
 ```bash
-install(PROGRAMS
-    src/publisher.py
-    src/subscriber.py
-    DESTINATION lib/${PROJECT_NAME}
-)
+'publisher = intro_to_ros.publisher:main',
+'subscriber = intro_to_ros.subscriber:main',
 ```
 
-Second, open `package.xml` and add a `build_depend` and `exec_depend` line for each imported module. Below `buildtool_depend` add:
+Next, open `package.xml` and all dependencies from nodes in the package. Below the `license` line, add:
 
 ```bash
 <build_depend>rclpy</build_depend>
@@ -291,11 +293,12 @@ Second, open `package.xml` and add a `build_depend` and `exec_depend` line for e
 <exec_depend>geometry_msgs</exec_depend>
 ```
 
-Now navigate to the ROS2 workspace  and build the nodes.
+To build the package, check for any missing dependencies and then run the `colcon build` command:
 
 ```bash
-cd ~/auvc_wc
-colcon build --symlink-install
+cd $HOME/auvc_ws
+rosdep install -i --from-path src --rosdistro jazzy -y
+colcon build --symlink-install --packages-select intro_to_ros
 ```
 
 ### Testing the Nodes
@@ -314,13 +317,18 @@ ros2 run intro_to_ros publisher.py
 
 In the terminal running the subscriber node, you should see the unit vector equivalent of the `Vector3` message received from the publisher node.
 
-
-
-
-
-
 ## Problem Set
 
 ### Problem One
+
+Create a new ROS2 package called `underwater_physics`. Your package should contain a node called `simulator.py` that subscribes to the `geometry_msgs/Pose2D` messages on the topic named `/intro/pose2d`. 
+
+The first time that the node receives a message, it should run your simulation from Problem 10 in the Underwater Physics problem set. Use `x0 = msg.x`, `y0 = msg.y`, and `theta0 = msg.theta` as initial conditions in your simulation.
+
+Your node should save the resulting graphs as PNG files on the `backseat`. Test your code by entering the following command in a terminal on the `backseat` while your node is running:
+
+```bash
+ros2 topic pub -1 /intro/pose2d geometry_msgs/Pose2D '{x: 1.0, y: 2.0, theta: 0.5}'
+```
 
 Create a new ROS2 node in the `intro_to_ros` package. Your node should subscribe to `geometry_msgs/Pose2D` on the `/intro/pose2d` topic and then run your simulation from Problem 10 in Underwater Physics whenever a callback is received. The node should use the fields from the `Pose2D` message for `x0`, `y0`, and `theta0` in the simulation. Test your code by entering `ros2 topic topic pub /intro/pose2d geometry_msgs/Pose2D '{x: 1.0, y: 2.0, theta: 0.5}'` in a seperate terminal while the node is running. You should save your graphs as PNG files on the `backseat`.
