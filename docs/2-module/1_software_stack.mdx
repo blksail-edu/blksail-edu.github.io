@@ -299,6 +299,7 @@ To build the package, check for any missing dependencies and then run the `colco
 cd $HOME/auvc_ws
 rosdep install -i --from-path src --rosdistro jazzy -y
 colcon build --symlink-install --packages-select intro_to_ros
+source install/setup.zsh
 ```
 
 ### Testing the Nodes
