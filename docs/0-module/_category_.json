@@ -1,9 +1,8 @@
 {
-    "label": "Module 0 - Introduction & Setup",
+    "label": "Module 0 - Setup",
     "position": 2,
     "link": {
       "type": "generated-index",
-      "description": "..."
+      "description": "Setting up your environment & Raspberry Pi for the challenge."
     }
   }
-  

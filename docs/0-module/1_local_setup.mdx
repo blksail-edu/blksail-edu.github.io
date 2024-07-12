@@ -5,7 +5,7 @@ sidebar_position: 1
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-# Local Setup
+# Local Machine Setup
 
 For this course, you will need a Mac or Ubuntu (GNU/Linux) machine.
 
@@ -49,9 +49,124 @@ sudo apt install <package-name>
 </TabItem>
 </Tabs>
 
+## Shell
+
+A shell is a program that takes commands from the keyboard and gives them to the
+operating system to perform. In the old days, it was the only user interface
+available on a Unix-like system such as Linux. Nowadays, we have graphical user
+interfaces (GUIs) in addition to command line interfaces (CLIs) such as the
+shell.
+
+To open a shell, you can use the following keyboard shortcut:
+
+- **Mac**: `Cmd + Space` and type `Terminal`
+- **Linux**: `Ctrl + Alt + T`
+
+### BASH
+
+`bash` is a Unix shell and command language written by Brian Fox for the GNU
+Project as a free software replacement for the Bourne shell. First released in
+1989, it has been used widely as the default login shell for most Linux
+distributions and Apple's macOS Mojave and earlier versions.
+
+We will not go into the details of `bash` here, but you can find more
+information on the [Wikipedia page](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>).
+
+While we will not be using `bash` as our default shell, it is still a good idea
+to know how to use it.
+Furthermore, many of the commands we will be using in this course are written
+for `bash`.
+
+### ZSH
+
+`zsh` is a Unix shell that can be used as an interactive login shell and as a
+command interpreter for shell scripting. Zsh is an extended Bourne shell with a
+large number of improvements, including some features of Bash, ksh, and tcsh.
+
+We will be using `zsh` as our default shell in this course.
+
+#### Install
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+```bash
+brew install zsh
+```
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+```bash
+sudo apt install zsh
+```
+
+</TabItem>
+</Tabs>
+
+#### Set as default shell
+
+Set `zsh` as default shell:
+
+```bash
+chsh -s $(which zsh)
+```
+
+#### Oh-My-Zsh
+
+[Oh-My-Zsh](https://ohmyz.sh/) is an open source, community-driven framework
+for managing your zsh configuration (and it comes with a bunch of plugins and
+themes).
+
+##### Install
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+#### `.zshrc`
+
+The `.zshrc` file is a script that is executed each time a new `zsh` shell is
+started. It is located in your home directory (`~/.zshrc`).
+
+You can edit the `.zshrc` file with your favorite text editor.
+
+We will be adding some configuration to the `.zshrc` file in the next sections.
+
+
+## Git
+
+Git is a free and open source distributed version control system designed to
+handle everything from small to very large projects with speed and efficiency.
+
+A version control system (VCS) allows you to track the history of a collection
+of files. It supports creating different versions of this collection. Each
+version captures a snapshot of the files at a certain point in time and the
+VCS allows you to switch between these versions.
+
+Check out the [Git documentation](https://git-scm.com/doc) for more information.
+
+To check if you have Git installed, open a shell and run the following command:
+
+```bash
+git --version
+```
+
+:::note
+
+If you don't have Git installed, you can install it with your package manager
+
+:::
+
+
 ## Visual Studio Code
 
-We will be using [Visual Studio Code](https://code.visualstudio.com/) as our
+[Visual Studio Code](https://code.visualstudio.com/) is a free source-code
+editor made by Microsoft for Windows, Linux and macOS. Features include support
+for debugging, syntax highlighting, intelligent code completion, snippets, code
+refactoring, and embedded Git.
+
+We will be using Visual Studio Code as our
 code editor.
 
 To install it, run:
@@ -73,35 +188,39 @@ sudo apt install code
 </TabItem>
 </Tabs>
 
-## Docker
+It is a good idea to install the following extensions for Visual Studio Code.
+These extensions will make your life easier when working on the assignments.
 
-We will be using [Docker](https://www.docker.com/) to run our code in a
-consistent environment.
+### Extensions
 
-To install it, run:
+Open Visual Studio Code and click on the **Extensions** icon in the sidebar.
 
-<Tabs groupId="operating-systems">
-<TabItem value="macos" label="macOS">
+#### [Live Share](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)
 
-```bash
-brew install --cask docker
-```
+This extension allows you to share your code with others and collaborate in real
+time.
 
-</TabItem>
-<TabItem value="ubuntu" label="Ubuntu">
+#### [Remote Dev](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 
-```bash
-sudo apt install docker-ce docker-ce-cli
-```
+This extension allows you to develop inside a container, on a remote machine, or
+in the Windows Subsystem for Linux (WSL).
 
-</TabItem>
-</Tabs>
+#### [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+
+This extension adds support for Python to Visual Studio Code.
+
+#### [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+
+This extension adds support for Jupyter notebooks to Visual Studio Code.
 
 ## Python
 
-We will be using [Python](https://www.python.org/) as one of our programming languages.
+[Python](https://www.python.org/) is an interpreted, high-level and general-purpose programming language.
+Python's design philosophy emphasizes code readability with its notable use of
+significant indentation.
 Python is a popular programming language that is used for many different things: from web development to data science.
-It is an interpreted language, which means that it is not compiled: it is run directly.
+
+We will be using it as the main programming language.
 
 Python 3 is the latest version of Python.
 It should be installed by default on macOS and Ubuntu.
@@ -141,68 +260,46 @@ sudo apt install python3-pip
 </TabItem>
 </Tabs>
 
-## C++
+### Virtual Environments
 
-We will be using [C++](https://www.cplusplus.com/) as one of our programming languages.
-C++ is a popular programming language that is used for many different things: from embedded systems to video games.
-It is a compiled language, which means that it is compiled into machine code before it is run.
+To avoid conflicts between different Python projects, it is a good idea to use
+virtual environments. A virtual environment is a directory tree which contains
+Python executable files and other files which indicate that it is a virtual
+environment.
 
-### CLang
+#### Install
 
-[CLang](https://clang.llvm.org/) is a compiler for C++.
-A compiler is a program that takes code written in a programming language and turns it into machine code.
-
-To check if you have CLang installed, run:
-
-```bash
-clang --version
-```
-
-If you don't have CLang installed, you can install it by running:
-
-<Tabs groupId="operating-systems">
-<TabItem value="macos" label="macOS">
+Let's install the `virtualenv` package and `virtualenvwrapper` extension for
+Python.
 
 ```bash
-brew install llvm
+pip3 install --user virtualenv virtualenvwrapper
 ```
 
-</TabItem>
-<TabItem value="ubuntu" label="Ubuntu">
+#### `.zshrc`
+
+We will be adding some configuration to the `.zshrc` file.
+
+Open the `.zshrc` file with your favorite text editor and add the following
+lines:
 
 ```bash
-sudo apt install clang
+# Python
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source virtualenvwrapper.sh
 ```
 
-</TabItem>
-</Tabs>
+### Jupyter
 
-### CMake
+[Jupyter Notebook](https://jupyter.org/) is an open-source web application that
+allows you to create and share documents that contain live code, equations,
+visualizations and narrative text.
 
-[CMake](https://cmake.org/) is a build system for C++.
-A build system is a program that organizes the compilation of a project.
+We will be using Jupyter Notebook to write some assignments.
 
-To check if you have CMake installed, run:
+#### Install
 
 ```bash
-cmake --version
+pip3 install jupyter
 ```
-
-If you don't have CMake installed, you can install it by running:
-
-<Tabs groupId="operating-systems">
-<TabItem value="macos" label="macOS">
-
-```bash
-brew install cmake
-```
-
-</TabItem>
-<TabItem value="ubuntu" label="Ubuntu">
-
-```bash
-sudo apt install cmake
-```
-
-</TabItem>
-</Tabs>

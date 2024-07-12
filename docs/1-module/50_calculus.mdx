@@ -1,0 +1,92 @@
+---
+sidebar_position: 5
+---
+
+# Calculus
+
+[Calculus](https://en.wikipedia.org/wiki/Calculus) is a branch of mathematics that deals with the study of rates of change.
+It is a fundamental tool in many fields of science and engineering, and is essential for understanding the behavior of functions and solving problems involving motion, growth, and change.
+In this module, we will introduce two basic concepts of calculus that are essential for understanding the subject: differentiation and integration.
+
+## Differentiation
+
+[Differentiation](https://en.wikipedia.org/wiki/Derivative) is the process of finding the rate at which a function changes with respect to one of its variables.
+The derivative of a function is a measure of how the function changes as its input changes.
+It is defined as the limit of the average rate of change of the function over a small interval as the interval approaches zero.
+
+![Derivative Animation](https://upload.wikimedia.org/wikipedia/commons/3/34/Sec2tan.gif)
+
+The derivative of a function $f(x)$ with respect to the variable $x$ is denoted by $f'(x)$ (prime notation), $\frac{df}{dx}$ (Leibniz notation), or $\dot{f}(x)$ (Newton's notation).
+It represents the rate of change of the function with respect to $x$.
+The derivative of a function can be interpreted geometrically as the slope of the tangent line to the graph of the function at a given point.
+
+![Derivative](https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Tangent_line_to_a_curve.svg/600px-Tangent_line_to_a_curve.svg.png)
+
+The derivative of a function can be calculated using the rules of differentiation, which are based on the properties of elementary functions such as polynomials, exponentials, logarithms, and trigonometric functions.
+
+### Rules of Differentiation
+
+The following are some of the basic rules of differentiation that we will be using in this course:
+
+1. **Power Rule**: If $f(x) = x^n$, then $f'(x) = nx^{n-1}$.
+2. **Sum Rule**: If $f(x) = g(x) + h(x)$, then $f'(x) = g'(x) + h'(x)$.
+3. **Product Rule**: If $f(x) = g(x)h(x)$, then $f'(x) = g'(x)h(x) + g(x)h'(x)$.
+4. **Quotient Rule**: If $f(x) = \frac{g(x)}{h(x)}$, then $f'(x) = \frac{g'(x)h(x) - g(x)h'(x)}{(h(x))^2}$.
+5. **Chain Rule**: If $f(x) = g(h(x))$, then $f'(x) = g'(h(x))h'(x)$.
+6. **Trigonometric Functions**: $\frac{d}{dx} \sin(x) = \cos(x)$, $\frac{d}{dx} \cos(x) = -\sin(x)$, $\frac{d}{dx} \tan(x) = 1 + \tan^2(x)$.
+
+## Integration
+
+[Integration](https://en.wikipedia.org/wiki/Integral) is the process of finding the area under a curve or the accumulation of a quantity over an interval.
+The integral of a function is a measure of the total quantity represented by the function over a given interval.
+It is defined as the limit of the sum of the function values times the width of the intervals as the number of intervals approaches infinity.
+
+![Integral Animation](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Riemann_Integration_and_Darboux_Lower_Sums.gif/600px-Riemann_Integration_and_Darboux_Lower_Sums.gif)
+
+The integral of a function $f(x)$ with respect to the variable $x$ is denoted by $\int f(x) dx$.
+It represents the area under the curve of the function over the interval $[a, b]$.
+The integral of a function can be interpreted geometrically as the area under the curve of the function between two points.
+
+![Integral](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Integral_example.svg/600px-Integral_example.svg.png)
+
+### Antiderivative
+
+The antiderivative of a function $f(x)$ is a function $F(x)$ such that $F'(x) = f(x)$.
+In other words, the antiderivative of a function is the reverse process of differentiation.
+The antiderivative of a function is also known as the indefinite integral of the function.
+
+### Rules of Integration
+
+The following are some of the basic rules of integration that we will be using in this course:
+
+1. **Power Rule**: $\int x^n dx = \frac{x^{n+1}}{n+1} + C$, where $C$ is the constant of integration.
+2. **Sum Rule**: $\int (f(x) + g(x)) dx = \int f(x) dx + \int g(x) dx$.
+3. **Constant Multiple Rule**: $\int k f(x) dx = k \int f(x) dx$, where $k$ is a constant.
+4. **Substitution Rule**: If $u = g(x)$, then $\int f(g(x)) g'(x) dx = \int f(u) du$.
+5. **Trigonometric Functions**: $\int \sin(x) dx = -\cos(x) + C$, $\int \cos(x) dx = \sin(x) + C$, $\int \tan(x) dx = -\log|\cos(x)| + C$.
+
+
+## Summary
+
+- Calculus is a powerful mathematical tool that is used to study the behavior of functions and solve problems involving motion, growth, and change.
+- Differentiation is the process of finding the rate at which a function changes with respect to one of its variables.
+- Integration is the process of finding the area under a curve or the accumulation of a quantity over an interval.
+
+## Problem Set
+
+### Problem 1
+
+Find the derivative of the following functions:
+
+1. $f(x) = x^2 + 3x - 5$
+2. $g(x) = \sin(x) + \cos(x)$
+3. $h(x) = \frac{1}{x^3} + \tan(x)$
+4. $k(x) = \cos^2(x^2)$
+
+### Problem 2
+
+Find the integral of the following functions:
+
+1. $\int (x^2 + 3x - 5) dx$
+2. $\int (\sin(x) + \cos(x)) dx$
+3. $\int (\frac{1}{x^3} + \cos(x)) dx$

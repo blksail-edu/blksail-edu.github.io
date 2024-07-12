@@ -1,9 +1,8 @@
 {
-    "label": "Module 1 - ...",
+    "label": "Module 1 - Basics",
     "position": 3,
     "link": {
       "type": "generated-index",
-      "description": "Introduction to Underwater Robotics."
+      "description": "Basic knowledge to master Underwater Robotics."
     }
   }
-  

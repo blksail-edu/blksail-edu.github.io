@@ -1,0 +1,321 @@
+---
+sidebar_position: 4
+---
+
+# Linear Algebra
+
+[Linear algebra](https://en.wikipedia.org/wiki/Linear_algebra) is a branch of mathematics that deals with vectors and matrices.
+It is a fundamental tool in machine learning and data science.
+In this module, we will cover the basics of linear algebra, including vectors, matrices, and operations on them.
+
+
+## Scalars, Vectors, and Matrices
+
+### Scalars
+
+A [scalar](https://en.wikipedia.org/wiki/Scalar_(mathematics)) is a single number, denoted by lowercase letters (e.g., $a$, $b$, $c$).
+You can think of a scalar as a quantity that has only magnitude and no direction.
+For example, the temperature of a place, the number of students in a class, etc., are scalars.
+
+
+### Vectors
+
+A [vector](https://en.wikipedia.org/wiki/Vector_(mathematics_and_physics)) is an array of numbers, denoted by lowercase bold letters (e.g., $\mathbf{a}$, $\mathbf{b}$, $\mathbf{c}$).
+A vector has both magnitude and direction.
+For example, the velocity of a moving car, the position of a point in space, etc., are vectors.
+A vector can be represented as a column vector or a row vector.
+A column vector is a vector with a single column, while a row vector is a vector with a single row.
+
+$$
+\mathbf{a} = \begin{bmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix}
+$$
+
+is a column vector, and
+
+$$
+\mathbf{b} = \begin{bmatrix} b_1 & b_2 & \cdots & b_n \end{bmatrix}
+$$
+
+is a row vector.
+
+The number of elements in a vector is called its dimension.
+For example, a vector with $n$ elements is said to be an $n$-dimensional vector.
+
+A row vector with $n$ elements is said to be a $1 \times n$ vector, while a column vector with $n$ elements is said to be an $n \times 1$ vector.
+
+
+### Matrices
+
+A [matrix](https://en.wikipedia.org/wiki/Matrix_(mathematics)) is a 2D array of numbers, denoted by uppercase bold letters (e.g., $\mathbf{A}$, $\mathbf{B}$, $\mathbf{C}$).
+A matrix can be thought of as a collection of vectors.
+For example, the coefficients of a system of linear equations, the pixel values of an image, etc., are matrices.
+A matrix can be represented as a collection of rows or columns.
+A matrix with $m$ rows and $n$ columns is said to have dimensions $m \times n$.
+
+$$
+\mathbf{A} = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{bmatrix}
+$$
+
+is a matrix with $m$ rows and $n$ columns.
+
+
+## Operations on Vectors and Matrices
+
+### Addition and Subtraction
+
+Addition and subtraction of vectors and matrices are done element-wise.
+For example, the sum of two vectors $\mathbf{a}$ and $\mathbf{b}$ is given by:
+
+$$
+\mathbf{a} + \mathbf{b} = \begin{bmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix} + \begin{bmatrix} b_1 \\ b_2 \\ \vdots \\ b_n \end{bmatrix} = \begin{bmatrix} a_1 + b_1 \\ a_2 + b_2 \\ \vdots \\ a_n + b_n \end{bmatrix}
+$$
+
+Similarly, the difference of two vectors $\mathbf{a}$ and $\mathbf{b}$ is given by:
+
+$$
+\mathbf{a} - \mathbf{b} = \begin{bmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix} - \begin{bmatrix} b_1 \\ b_2 \\ \vdots \\ b_n \end{bmatrix} = \begin{bmatrix} a_1 - b_1 \\ a_2 - b_2 \\ \vdots \\ a_n - b_n \end{bmatrix}
+$$
+
+The addition and subtraction of matrices are done in a similar way:
+
+$$
+\mathbf{A} + \mathbf{B} = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{bmatrix} + \begin{bmatrix} b_{11} & b_{12} & \cdots & b_{1n} \\ b_{21} & b_{22} & \cdots & b_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ b_{m1} & b_{m2} & \cdots & b_{mn} \end{bmatrix}\\
+= \begin{bmatrix} a_{11} + b_{11} & a_{12} + b_{12} & \cdots & a_{1n} + b_{1n} \\ a_{21} + b_{21} & a_{22} + b_{22} & \cdots & a_{2n} + b_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} + b_{m1} & a_{m2} + b_{m2} & \cdots & a_{mn} + b_{mn} \end{bmatrix}
+$$
+
+:::danger
+
+The matrices being added or subtracted must have the same dimensions.
+
+:::
+
+
+### Scalar Multiplication
+
+Scalar multiplication of a vector or a matrix is done by multiplying each element of the vector or matrix by the scalar.
+For example, the scalar multiplication of a vector $\mathbf{a}$ by a scalar $c$ is given by:
+
+$$
+c \mathbf{a} = c \begin{bmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix} = \begin{bmatrix} c a_1 \\ c a_2 \\ \vdots \\ c a_n \end{bmatrix}
+$$
+
+Similarly, the scalar multiplication of a matrix $\mathbf{A}$ by a scalar $c$ is given by:
+
+$$
+c \mathbf{A} = c \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{bmatrix} = \begin{bmatrix} c a_{11} & c a_{12} & \cdots & c a_{1n} \\ c a_{21} & c a_{22} & \cdots & c a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ c a_{m1} & c a_{m2} & \cdots & c a_{mn} \end{bmatrix}
+$$
+
+
+### Matrix product
+
+Matrix product is a bit more complex than addition, subtraction, and scalar multiplication.
+The product of two matrices $\mathbf{A}$ and $\mathbf{B}$ is given by:
+
+$$
+\mathbf{A} \mathbf{B} = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{bmatrix} \begin{bmatrix} b_{11} & b_{12} & \cdots & b_{1p} \\ b_{21} & b_{22} & \cdots & b_{2p} \\ \vdots & \vdots & \ddots & \vdots \\ b_{n1} & b_{n2} & \cdots & b_{np} \end{bmatrix}\\
+= \begin{bmatrix} a_{11} b_{11} + a_{12} b_{21} + \cdots + a_{1n} b_{n1} & a_{11} b_{12} + a_{12} b_{22} + \cdots + a_{1n} b_{n2} & \cdots & a_{11} b_{1p} + a_{12} b_{2p} + \cdots + a_{1n} b_{np} \\ a_{21} b_{11} + a_{22} b_{21} + \cdots + a_{2n} b_{n1} & a_{21} b_{12} + a_{22} b_{22} + \cdots + a_{2n} b_{n2} & \cdots & a_{21} b_{1p} + a_{22} b_{2p} + \cdots + a_{2n} b_{np} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} b_{11} + a_{m2} b_{21} + \cdots + a_{mn} b_{n1} & a_{m1} b_{12} + a_{m2} b_{22} + \cdots + a_{mn} b_{n2} & \cdots & a_{m1} b_{1p} + a_{m2} b_{2p} + \cdots + a_{mn} b_{np} \end{bmatrix}
+$$
+
+The product of two matrices $\mathbf{A}$ and $\mathbf{B}$ is a matrix with the number of rows equal to the number of rows in the first matrix and the number of columns equal to the number of columns in the second matrix.
+i.e., if $\mathbf{A}$ is an $m \times n$ matrix and $\mathbf{B}$ is an $n \times p$ matrix, then the product $\mathbf{A} \mathbf{B}$ is an $m \times p$ matrix.
+
+:::danger
+
+The number of columns in the first matrix must be equal to the number of rows in the second matrix for matrix product to be defined.
+
+:::
+
+:::info
+
+Matrix product is not commutative, i.e., $\mathbf{A} \mathbf{B} \neq \mathbf{B} \mathbf{A}$ in general.
+
+:::
+
+#### Dot Product of Vectors
+
+The dot product of two vectors $\mathbf{a}$ and $\mathbf{b}$ is a special case of matrix product.
+The dot product of two vectors is given by:
+
+$$
+\mathbf{a} \cdot \mathbf{b} = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n
+$$
+
+### Transpose
+
+The transpose of a matrix $\mathbf{A}$ is obtained by interchanging its rows and columns.
+The transpose of a matrix $\mathbf{A}$ is denoted by $\mathbf{A}^T$.
+
+$$
+\mathbf{A} = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{bmatrix} \quad \Rightarrow \quad \mathbf{A}^T = \begin{bmatrix} a_{11} & a_{21} & \cdots & a_{m1} \\ a_{12} & a_{22} & \cdots & a_{m2} \\ \vdots & \vdots & \ddots & \vdots \\ a_{1n} & a_{2n} & \cdots & a_{mn} \end{bmatrix}
+$$
+
+
+### Magnitude of a Vector
+
+The magnitude of a vector $\mathbf{a}$ is given by:
+
+$$
+\| \mathbf{a} \| = \sqrt{a_1^2 + a_2^2 + \cdots + a_n^2}
+$$
+
+The magnitude of a vector is also known as the Euclidean norm or the $L^2$ norm.
+
+:::info
+
+The magnitude of a vector is always a non-negative number.
+
+Velocity and acceleration are examples of vector quantities that have magnitude.
+
+:::
+
+
+## Summary
+
+- Scalars are single numbers, vectors are arrays of numbers, and matrices are 2D arrays of numbers.
+- Vectors and matrices can be added, subtracted, and multiplied by scalars.
+- The product of two matrices is defined only if the number of columns in the first matrix is equal to the number of rows in the second matrix.
+- Matrix multiplication is not commutative.
+- The transpose of a matrix is obtained by interchanging its rows and columns.
+- The magnitude of a vector is given by the square root of the sum of the squares of its elements.
+
+
+## Linear Algebra in Python
+
+Python provides several libraries for linear algebra operations, such as [NumPy](https://numpy.org/), [SciPy](https://scipy.org/), and [PyTorch](https://pytorch.org/).
+NumPy is a popular library for numerical computing in Python and provides support for arrays, matrices, and linear algebra operations.
+We will use NumPy for performing linear algebra operations in Python.
+
+In the same virtual environment where you used in the previous modules (`python-refresher`), install NumPy using the following command:
+
+```bash
+workon python-refresher # Activate the virtual environment
+pip install numpy
+```
+
+Now, you can use NumPy in your Python scripts by importing it as follows:
+
+```python
+import numpy as np
+```
+
+### Vectors and Matrices in NumPy
+
+You can create vectors and matrices in NumPy using the `np.array()` function.
+
+```python
+import numpy as np
+
+# Create a vector
+a = np.array([1, 2, 3])
+print(f"Vector a: {a}")
+
+# Create a matrix
+A = np.array([[1, 2], [3, 4]])
+print(f"Matrix A: {A}")
+```
+
+### Operations on Vectors and Matrices in NumPy
+
+You can perform operations on vectors and matrices in NumPy, such as addition, subtraction, scalar multiplication, matrix multiplication, and transpose.
+
+```python
+import numpy as np
+
+# Create vectors
+a = np.array([1, 2, 3])
+b = np.array([4, 5, 6])
+
+# Create matrices
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+
+# Addition of vectors
+sum_vector = a + b
+print(f"Sum of vectors a and b: {sum_vector}")
+
+# Subtraction of vectors
+diff_vector = a - b
+print(f"Difference of vectors a and b: {diff_vector}")
+
+# Dot product of vectors
+dot_product = np.dot(a, b)
+print(f"Dot product of vectors a and b: {dot_product}")
+
+# Addition of matrices
+sum_matrix = A + B
+print(f"Sum of matrices A and B: {sum_matrix}")
+
+# Subtraction of matrices
+diff_matrix = A - B
+print(f"Difference of matrices A and B: {diff_matrix}")
+
+# Scalar multiplication of vectors
+c = 2
+scalar_mult_vector = c * a
+print(f"Scalar multiplication of vector a by {c}: {scalar_mult_vector}")
+
+# Scalar multiplication of matrices
+scalar_mult_matrix = c * A
+print(f"Scalar multiplication of matrix A by {c}: {scalar_mult_matrix}")
+
+# Matrix multiplication
+product_matrix = np.dot(A, B)
+print(f"Product of matrices A and B: {product_matrix}")
+
+# Transpose of a matrix
+transpose_matrix = A.T
+print(f"Transpose of matrix A: {transpose_matrix}")
+```
+
+### Magnitude of a Vector in NumPy
+
+You can calculate the magnitude of a vector in NumPy using the `np.linalg.norm()` function.
+
+```python
+import numpy as np
+
+# Create a vector
+a = np.array([1, 2, 3])
+
+# Calculate the magnitude of the vector
+magnitude = np.linalg.norm(a)
+print(f"Magnitude of vector a: {magnitude}")
+```
+
+
+## Problem Set
+
+:::warning
+
+For the following problems, first solve them manually on paper and then verify your solutions using NumPy in Python.
+
+Create a Python script `linear_algebra.py` where you will write the code to solve the problems using NumPy.
+
+:::
+
+
+
+### Problem 1
+
+Given the vectors $\mathbf{a} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$ and $\mathbf{b} = \begin{bmatrix} 4 \\ 5 \\ 6 \end{bmatrix}$, find the sum and difference of the vectors.
+
+### Problem 2
+
+Given the matrices $\mathbf{A} = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$ and $\mathbf{B} = \begin{bmatrix} 5 & 6 \\ 7 & 8 \end{bmatrix}$, find the sum and difference of the matrices.
+
+
+### Problem 3
+
+Given the vectors $\mathbf{a} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$ and $\mathbf{b} = \begin{bmatrix} 4 \\ 5 \\ 6 \end{bmatrix}$, find the dot product of the vectors.
+
+### Problem 4
+
+Given the matrices $\mathbf{A} = \begin{bmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \end{bmatrix}$ and $\mathbf{B} = \begin{bmatrix} 7 & 8 & 9 & 10 \\ 11 & 12 & 13 & 14 \\ 15 & 16 & 17 & 18 \end{bmatrix}$, find the product of the matrices.
+
+### Problem 5
+
+Given the vector $\mathbf{a} = \begin{bmatrix} 1 \\ 1 \\ 2 \end{bmatrix}$, find the magnitude of the vector.
+
+### Problem 6
+
+Given the matrix $\mathbf{A} = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$, find the transpose of the matrix.
