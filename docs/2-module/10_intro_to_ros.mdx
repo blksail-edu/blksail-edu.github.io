@@ -1,0 +1,168 @@
+---
+slidebar_position: 1
+---
+
+# Introduction to ROS2
+
+Robot Operating System 2 aka ROS2 is a set of open-source libraries and tools used to build robot applications.
+
+## The ROS2 Graph
+
+The ROS2 Graph describes the general terminology and structure of ROS2 at the user-level. The ROS2 graph consists of:
+- Nodes
+- Topics
+- Messages
+- Parameters
+- Services
+- Actions
+
+### Nodes
+
+Nodes are instances of executables that act as individual computation entitites in the ROS2 environment. They perform specific tasks, such as processing sensor data or controlling hardware. Nodes communicate with each other by publishing and subscribing to topics or by using services. Nodes typically consist of combinations of publishers, subscribers, and services. Nodes may also communicate using services, actions, and parameters.
+
+### Topics
+
+Topics are named buses that nodes use to exchange messages. Nodes can both publish messages on a topic and receive messages in a callback function on a subscribed topic. Each topic is limited to an individual message type specified in a node's executable.
+
+### Messages
+
+Messages are data structures used to communicate information betyouen nodes via topics. These structures contain combinations of fields and data types, and are defined in .msg files. The field is the name of specific data in the structure, while the data type is typically either a primitive data type or another message type. Messages define specific information such as sensor data or control input.
+
+### Parameters
+
+Parmaeters are configuration values assigned to nodes. Parameters can either be node-specific or applied to multiple nodes in the ROS2 environment.
+
+### Services
+
+Services provide an alternate communication method with a request-response mechanism. A client sends requests to a server and receives responses after the sevice is complete.
+
+### Actions
+
+Actions are another communication alternative intended for long-running tasks. Actions consist of three elements: a goal, status updates, and a result.
+
+## Creating a ROS2 Workspace
+
+For ROS2 packages to be accessible to the system, the ROS2 installation and workspaces must be source. The ROS2 installation contains all default packages and supporting software. ROS2 workspaces are user-defined locations that contain packages, nodes, etc.
+
+Configure the `.zshrc` file to source the ROS2 installation. In a terminal on the `backseat`, enter the following command:
+
+```zsh
+echo "source /opt/ros/jazzy/setup.zsh" >> ~/.zshrc
+```
+
+Before, the `.zshrc` file was edited by opening the file and then copying/pasting new lines. The above command adds `source /opt/ros/jazzy/setup.zsh` as a new line at the end of the `.zshrc` file. Resource the `.zshrc` file to apply the changes:
+
+```zsh
+source ~/.zshrc
+```
+
+Now, create a ROS2 workspace for this course:
+
+```zsh
+cd && mkdir auvc_ws && cd auvc_ws && mkdir src
+```
+
+This ROS2 workspace is called `auvc_ws` and is located at the home directory. It contains an empty `src` directory for initialization. In the future, all your custom packages must be located in `src`. 
+
+Compile the empty workspace:
+
+```zsh
+cd ~/auvc_ws && colcon build
+```
+
+The ROS2 workspace now contains directories named `build`, `install`, `logs`, `src`.
+
+The `build` directory is used during compiling to build executables from packages in `src`. The `install` directory contains the final results from `build`. The `logs` directory contains log data about the workspace.
+
+Configure the `.zshrc` file to source the `auvc_ws` workspace:
+
+```zsh
+echo "source $HOME/auvc_ws/install/setup.zsh" >> ~/.zshrc
+```
+
+Resource the `.zshrc` file:
+
+```zsh
+source ~/.zshrc
+```
+
+Now all installation files and packages within your `auvc_ws` workspace will be sourced in each new terminal. When you compile new packages or recompile existing packages, you should resource the workspace with `source ~/auvc_ws/install/setup.zsh`.
+
+## Creating ROS2 packages
+
+Create a new ROS2 package called `intro_to_ros` for this lesson. First, navigate to `~/auvc_ws/src` then use `ros2 pkg create`:
+
+```zsh
+cd ~/auvc_ws/src
+ros2 pkg create --build-type ament_python intro_to_ros
+```
+
+SYNC NEW PKG WITH GIT REPO
+
+## Publisher/Subscriber Example
+
+This section contains a ROS2 tutorial for writing publisher and subscriber nodes that communicate.
+
+Each of these nodes has a specific purpose: the publisher node publishes a single `Vector3` message, while the subscriber node receives that `Vector3` message and prints the resulting unit vector. This example differs from one in the presentation and is a better example of inter-node communication using topics and messages.
+
+### Publisher Node
+
+Create a new file in `intro_to_ros/intro_to_ros/` called `publisher.py`.
+
+Add the shebang to the first line of the file:
+
+```py
+#!/usr/bin/env python3
+```
+
+Next, specify the imports. In all nodes, `import rclpy` and `from rclpy.node import Node` are required to properly use the ROS2 Python3 client library. For this specific node, since we're using `Vector3` from the `geometry_msgs` package, we must import it as well. Other libraries like `numpy` or `opencv2` can be imported as needed.
+
+```py
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Vector3
+
+import random
+```
+
+Now, create a class for the node which inherits from `Node`:
+
+```py
+class TutorialPublisher(Node):
+```
+
+Within the class's constructor, we start the node and define attributes relating to ROS2 communication. 
+
+```py
+    def __init__(self):
+        super().__init__("tutorial_publisher")
+        self.publisher = self.create_publisher(
+            Vector3,
+            "/tutorial/vector3",
+            10
+        )
+        self.publisher_timer(
+            1.0, self.run_node
+        )
+        self.get_logger().info("starting publisher node")
+```
+
+This constuctor does four things:
+1. Start a node named `tutorial_publisher` that is an instance of the `TutorialPublisher` class.
+2. Create a publisher that broadcasts `Vector3` messages to the topic named `/tutorial/vector3`.
+3. Create a timer that runs the `run_node` method every `1.0` seconds.
+4. Log that the node is starting to the terminal.
+
+For this tutorial, the `run_node` method will publish random `Vector3` messages.
+
+```py
+    def run_node(self):
+        msg = Vector3()
+        msg.x = random.uniform(-10.0, 10.0)
+        msg.y = random.uniform(-10.0, 10.0)
+        msg.z = random.uniform(-10.0, 10.0)
+        self.publisher.publish(msg)
+        self.get_logger().info(f"publishing [x={msg.x}; y={msg.y}; z={msg.z}")
+```
+
+This method, when called, will generate a `Vector3` message with pseudo random values.
