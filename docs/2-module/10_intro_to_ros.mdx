@@ -341,7 +341,7 @@ Let's test the publisher node. In a terminal on the `backseat`, start an instanc
 ros2 run intro_to_ros publisher
 ```
 
-In the terminal, you should see the x, y, and z components of a pseudo random vector being printed every 1.0 seconds. Shutdown the node using CTRL + C or CMD + C.
+In the terminal, you should see the x, y, and z components of a pseudo random vector being printed every `1.0` seconds. Shutdown the node using CTRL + C or CMD + C.
 
 ### Testing the Subscriber Node
 
@@ -545,5 +545,6 @@ In your `intro_to_ros` package, create a new node called `bluerov2_sensors`. Thi
 4. Have a class attribute for the IMU message type.
 5. Update the battery attribute to the latest battery sensor message when it is received.
 6. Update the IMU attribute to the latest IMU sensor message when it is received.
+7. Create a timer and a corresponding method to check whether the battery has fallen below a safe voltage. If it has, log a message to the terminal. This method should run every `5.0` seconds.
 
 Update `package.xml` and `setup.py` to account for your new node, then rebuild the `intro_to_ros` package.
