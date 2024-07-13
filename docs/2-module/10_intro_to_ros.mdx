@@ -2,6 +2,9 @@
 slidebar_position: 1
 ---
 
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
 # Introduction to ROS2
 
 Robot Operating System 2 aka ROS2 is a set of open-source libraries and tools used to build robot applications.
@@ -458,6 +461,8 @@ source ~/auvc_ws/install/setup.zsh
 
 ### Problem Set Setup
 
+#### Installing ArduSub
+
 `MAVROS` is a ROS2 package that enables communication between flight control softwares like `ArduSub` and the ROS2 environment. For the purposes of this problem set and future simulations, you must install `ArduSub`. When you interface with the ROVs themselves, you'll connect to a `SITL` running onboard and therefore you will not need to run your own.
 
 Install `ArduSub` from the official Git repository on the `backseat`.
@@ -513,6 +518,8 @@ Add the compiler to path on the `backseat` using the following terminal command:
 echo "PATH=$PATH:$HOME/ardupilot/TARGET_DIR/gcc-arm-none-eabi-10-2020-q4-major/bin" >> ~/.zshrc
 ```
 
+#### Configuring MAVROS
+
 Before you can use `ArduSub`, you must finalize the `MAVROS` installation. We have preinstalled `MAVORS` on your Raspberry Pi, but you must fun the following commands to install an additional library:
 
 ```zsh
@@ -521,27 +528,56 @@ chmod +x ./install_geographiclib_datasets.sh
 sudo ./install_geographiclib_datasets.sh
 ```
 
+#### Launching ArduSub
+
 Now, in a terminal on the `backseat`, start a `SITL` with the following command:
 
 ```zsh
-~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:127.0.0.1:14550
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:YOUR_COMPUTER_IP:14550
 ```
 
 :::note Note
 The first time you start the SITL, it may take some time to configure.
 :::
 
+#### Launching MAVROS
+
 Once the `SITL` is running, you can connect to it by launching  `MAVROS` in another terminal on the `backseat`:
 
 ```zsh
-ros2 launch mavros apm.launch fcu_url:=udp://127.0.0.1:14550@14555 gcs_url:=udp://:14550@127.0.0.1:14550 tgt_system:=1 tgt_component:=1 system_id:=255 component_id:=240
+ros2 launch mavros apm.launch fcu_url:=udp://127.0.0.1:14550@14555 gcs_url:=udp://:14550@YOUR_COMPUTER_IP:14550 tgt_system:=1 tgt_component:=1 system_id:=255 component_id:=240
 ```
 
+:::note Note
 When you run this command on the `backseat`, `MAVROS` may warn you that RTT is too high for timesync. 
+:::
 
 :::note Note
 The above `ros2 launch` command only connects to the SITL running locally on the RPI. You will use different arguments to connect to the BlueROV2 vehicles.
 :::
+
+#### Getting Your Computer's IP
+
+To get your computer's IP address,
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+hi
+
+</TabItem>
+<TabItem value="ubuntu" label="Windows">
+
+In a `powershell` terminal, run the following command:
+
+```zsh
+ipconfig
+```
+
+Use the IP address of the interface with your Raspberry Pi. If you are unsure which interface that is, search `View Network Connections` in Windows and find the interface for 
+`USB Ethernet/RNDIS Gadget`.
+</TabItem>
+</Tabs>
 
 ### Problem One
 
@@ -559,7 +595,19 @@ In your `intro_to_ros` package, create a new node called `bluerov2_sensors`. Thi
 
 Update `package.xml` and `setup.py` to account for your new node, then rebuild the `intro_to_ros` package.
 
-### Problem two
+### Problem Two
+
+Open `QGroundControl` on your Windows or macOs machine. You should see the the `BlueROV2` on the United State's west coast. Modify your `bluerov2_sensors` node so that it prints the battery voltage at each callback, then, run your node.
+
+In QGroundControl, arm the ROV and change the flight mode to `GUIDED`. Then, click on a point anywhere else in the water and select `Go to location`. After holding down space or dragging the slider, you should see the ROV start moving. 
+
+Now check the terminal where your node is running. What do you observe about the battery's voltage?
+
+:::warning Check-off
+Review with a TA or instructor to check-off this section.
+:::
+
+### Problem Three
 
 Create a new node called 'physics_sim'. This node should do the following:
 
