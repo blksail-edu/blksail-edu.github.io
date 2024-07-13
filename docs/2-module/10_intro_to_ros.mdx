@@ -88,7 +88,7 @@ source ~/.zshrc
 
 Now all installation files and packages within your `auvc_ws` workspace will be sourced in each new terminal. When you compile new packages or recompile existing packages, you should resource the workspace with `source ~/auvc_ws/install/setup.zsh`.
 
-## Creating ROS2 packages
+## Creating ROS2 Packages
 
 Create a new ROS2 package called `intro_to_ros` for this lesson. First, navigate to `~/auvc_ws/src` then use `ros2 pkg create`:
 
@@ -97,13 +97,42 @@ cd ~/auvc_ws/src
 ros2 pkg create --build-type ament_python intro_to_ros
 ```
 
-SYNC NEW PKG WITH GIT REPO
+Now, open the ROS2 package in Code:
+
+```zsh
+code ~/auvc_ws/src/intro_to_ros
+```
+
+Since you created the package on the `backseat`, it is not currently backed up on GitHub. Go to https://github.com on your laptop and create an empty repository called `intro_to_ros`. This repository will store all files for your `intro_to_ros` package. Now sync your package on `backseat` to your Git repository.
+
+Now, on the `backseat`, initialize the Git repository:
+
+```zsh
+cd ~/auvc_ws/src/intro_to_ros
+git init
+```
+
+Add the remote repository:
+
+```zsh
+git remote add origin https://github.com/YOUR_GITHUB_USERNAME/intro_to_ros.git
+```
+
+Add your files and commit:
+
+```zsh
+git add .
+git commit -m "initial commit"
+git branch -M main
+```
+
+Now, to publish your branch and push your initial commit, go to the `Source Control` tab and click `Publish Branch`.
 
 ## Publisher/Subscriber Example
 
 This section contains a ROS2 tutorial for writing publisher and subscriber nodes that communicate.
 
-Each of these nodes has a specific purpose: the publisher node publishes a single `Vector3` message, while the subscriber node receives that `Vector3` message and prints the resulting unit vector. This example differs from one in the presentation and is a better example of inter-node communication using topics and messages.
+Each of these nodes has a specific purpose: the publisher node publishes `Vector3` message with random values at a frequency of `1 Hz`, while the subscriber node receives those `Vector3` message and prints the corresponding unit vector. This example differs from one in the presentation and is a better example of inter-node communication using topics and messages.
 
 ### Publisher Node
 
@@ -115,7 +144,7 @@ Add the shebang to the first line of the file:
 #!/usr/bin/env python3
 ```
 
-Next, specify the imports. In all nodes, `import rclpy` and `from rclpy.node import Node` are required to properly use the ROS2 Python3 client library. For this specific node, since we're using `Vector3` from the `geometry_msgs` package, we must import it as well. Other libraries like `numpy` or `opencv2` can be imported as needed.
+Next, specify the imports. In all nodes, `import rclpy` and `from rclpy.node import Node` are required to properly use the ROS2 Python3 client library. For this specific node, since you're using `Vector3` from the `geometry_msgs` package, you must import it as well. Other libraries like `numpy` or `opencv2` can be imported as needed.
 
 ```py
 import rclpy
@@ -131,7 +160,7 @@ Now, create a class for the node which inherits from `Node`:
 class TutorialPublisher(Node):
 ```
 
-Within the class's constructor, we start the node and define attributes relating to ROS2 communication. 
+Within the class's constructor, you start the node and define attributes relating to ROS2 communication. 
 
 ```py
     def __init__(self):
@@ -141,17 +170,17 @@ Within the class's constructor, we start the node and define attributes relating
             "/tutorial/vector3",
             10
         )
-        self.publisher_timer(
+        self.publisher_timer = self.create_timer(
             1.0, self.run_node
         )
         self.get_logger().info("starting publisher node")
 ```
 
 This constuctor does four things:
-1. Start a node named `tutorial_publisher` that is an instance of the `TutorialPublisher` class.
+1. Start a node named `tutorial_publisher` in an instance of the `TutorialPublisher` class.
 2. Create a publisher that broadcasts `Vector3` messages to the topic named `/tutorial/vector3`.
 3. Create a timer that runs the `run_node` method every `1.0` seconds.
-4. Log that the node is starting to the terminal.
+4. Log that the node is starting in the terminal.
 
 For this tutorial, the `run_node` method will publish random `Vector3` messages.
 
@@ -162,7 +191,359 @@ For this tutorial, the `run_node` method will publish random `Vector3` messages.
         msg.y = random.uniform(-10.0, 10.0)
         msg.z = random.uniform(-10.0, 10.0)
         self.publisher.publish(msg)
-        self.get_logger().info(f"publishing [x={msg.x}; y={msg.y}; z={msg.z}")
+        self.get_logger().info(f"Vector3\n\tx: {msg.x}\ty: {msg.y}\tz: {msg.z}")
 ```
 
 This method, when called, will generate a `Vector3` message with pseudo random values.
+
+Lastly, define the `main` function. `rclpy.init` starts the ROS2 Python3 client, `node` creates an instance of the `TutorialPublisher` class, `rclpy.spin` keeps `node` running until there is an exception, `destroy_node` destroys `node` at the end of the program's lifespan, and `rclpy.shutdown` closes the ROS2 Python3 client if it is still active.
+
+```py
+def main(args=None):
+    rclpy.init(args=args)
+    node = TutorialPublisher()
+
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        print("\nKeyboardInterrupt received, shutting down...")
+    finally:
+        node.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
+
+if __name__=="__main__":
+    main()
+```
+
+### Subscriber Node
+
+
+Create a new file in `intro_to_ros/intro_to_ros/` called `subscriber.py`.
+
+Add the shebang and imports:
+
+```py
+#!/usr/bin/env python3
+
+import rclpy
+from rclpy.node import Node
+from geometry_msgs.msg import Vector3
+
+import numpy as np
+```
+
+Now, create a class for the node which inherits from `Node`:
+
+```py
+class TutorialSubscriber(Node):
+```
+
+Within the class's constructor, you start the node and define attributes relating to ROS2 communication. 
+
+```py
+    def __init__(self):
+        super().__init__("tutorial_subscriber")
+        self.subscriber = self.create_subscription(
+            Vector3,
+            "/tutorial/vector3",
+            self.callback,
+            10
+        )
+        self.subscriber
+        self.get_logger().info("starting subscriber node")
+```
+
+This constuctor does three things:
+1. Start a node named `tutorial_subscriber` in an instance of the `TutorialPublisher` class.
+2. Create a subscriber that receives `Vector3` messages on the topic named `/tutorial/vector3` in the method `self.callback`.
+3. Log that the node is starting in the terminal.
+
+For each subscriber that a node contains, there must be a callback method. Define a callback method for the subscriber attribute called `subscription`:
+
+```py
+    def callback(self, msg):
+        magnitude = np.sqrt(msg.x ** 2 + msg.y ** 2 + msg.z ** 2)
+        data = Vector3()
+        data.x = msg.x / magnitude
+        data.y = msg.y / magnitude
+        data.z = msg.z / magnitude
+        self.get_logger().info(f"Vector3\n\tx: {data.x}\ty: {data.y}\tz: {data.z}")
+```
+
+Lastly, define the main function:
+
+```py
+def main(args=None):
+    rclpy.init(args=args)
+    node = TutorialSubscriber()
+
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        print("\nKeyboardInterrupt received, shutting down...")
+    finally:
+        node.destroy_node()
+        if rclpy.ok():
+            rclpy.shutdown()
+
+if __name__=="__main__":
+    main()
+```
+
+### Updating package.xml
+
+Before building the package, all dependencies for ROS2 packages and system libraries in all nodes in the package must be added to `package.xml`. Below the `license` line, add a `build_depend` tag and `exec_depend` tag for each dependency that is a ROS2 package or a system library. 
+
+For the `intro_to_ros` package, you only use ROS2 packages; `numpy` and `random` are Python3 libraries, so they do not need to be added.
+
+```xml
+  <build_depend>rclpy</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+```
+
+### Updating setup.py
+
+Before building the package, all executables must have an entry point in `setup.py`. Add the following lines within the square brackets in `entry_points={'console_scripts': [],}`:
+
+```py
+'publisher = intro_to_ros.publisher:main',
+'subscriber = intro_to_ros.subscriber:main',
+```
+
+The variable names in this case define the name of the built executable. `intro_to_ros.publisher.main` specifies the package and the name of the executable in the `src` directory.
+
+### Build the Package
+
+The `intro_to_ros` is now configured properly to build the `publisher.py` and `subscriber.py` nodes. In a terminal on the `backseat`, build the package:
+
+```zsh
+cd ~/auvc_ws
+colcon build --packages-select intro_to_ros --symlink-install
+```
+
+A warning may appear saying that easy_install is deprecated since the `--symlink-install` argument is specified, but this warning can be ignored.
+
+Since this is a new package, source the workspace's install file:
+
+```zsh
+source ~/auvc_ws/install/setup.zsh
+```
+
+### Testing the Publisher Node
+
+Let's test the publisher node. In a terminal on the `backseat`, start an instance of `publisher.py`:
+
+```zsh
+ros2 run intro_to_ros publisher
+```
+
+In the terminal, you should see the x, y, and z components of a pseudo random vector being printed every 1.0 seconds. Shutdown the node using CTRL + C or CMD + C.
+
+### Testing the Subscriber Node
+
+Now, let's test the subscriber node. In a terminal on the `backseat`, start an instance of `subscriber.py`:
+
+```zsh
+ros2 run intro_to_ros subscriber
+```
+
+Initially, the node will only log that it is started. Since there are no messages on the topic when only the subscriber node is running, the callback function does not run.
+
+To test the subsriber, publish a single `Vector` message. Open a new terminal on the `backseat` while the subscriber node is running. In that terminal, enter the following command:
+
+```zsh
+ros2 topic pub /tutorial/vector3 geometry_msgs/Vector3 '{x: 1.0, y: 1.0, z: 1.0}'
+```
+
+Look at the terminal where the subscriber node is running. You should find that the node logged a unit vector with equal components.
+
+### Testing the Publisher/Subscriber Pair
+
+Now that you have confirmed each node works independently, run an instance of each node in two seperate terminals on the `backseat`.
+
+:::warning Check-off
+Review with a TA or instructor to check-off this section.
+:::
+
+## ROS2 Terminal Commands
+
+This section breaks down useful terminal commands for debugging and testing in the ROS2 environment.
+
+:::warning Warning
+You do not need to run commands in this section in the terminal at this time.
+:::
+
+1. Create a new package (must be executed a workspace's `src` directory; e.g., `~/auvc_ws/src`)
+
+```zsh
+ros2 pkg create --build-type ament_python your_package_name
+```
+
+2. Build all packages in a workspace (must be executed in the workspace directory; e.g., `~/auvc_ws`):
+
+```zsh
+colcon build
+```
+
+3. Build a specific package within a workspace (must be executed in the workspace directory; e.g., `~/auvc_ws`):
+
+```zsh
+colcon build --packages-select your_package_name
+```
+
+4. Create symbolic links while building (if you modify any currently existing files in the package, you won't need to recompile):
+
+```zsh
+colcon build --packages-select your_package_name --symlink-install
+```
+
+5. Run an individual node:
+```zsh
+ros2 run your_package_name your_executable_name
+```
+
+6. List all active nodes:
+
+```zsh
+ros2 node list
+```
+
+7. List all named topics:
+
+```zsh
+ros2 topic list
+```
+
+8. Check the message type of a topic:
+
+```zsh
+ros2 topic type /your/topic
+```
+
+9. Echo all messages on a specific topic to the current terminal:
+
+```zsh
+ros2 topic echo /your/topic
+```
+
+10. Manually publish a message on a topic `N` times:
+
+```zsh
+ros2 topic echo -N /your_topic std_msgs/String '{data: "hello world"}'
+```
+
+11. Check the frequency of messages on a topic:
+
+```zsh
+ros2 topic hz /your/topic
+```
+
+
+
+## Problem Set
+
+### Problem Set Setup
+
+`MAVROS` is a ROS2 package that enables communication between flight control softwares like `ArduSub` and the ROS2 environment. For the purposes of this problem set and future simulations, you must install `ArduSub`. When you interface with the ROVs themselves, you'll connect to a `SITL` running onboard and therefore you will not need to run your own.
+
+Install `ArduSub` from the official Git repository on the `backseat`.
+
+```zsh
+cd && git clone --recurse-submodules https://github.com/ardupilot/ardupilot
+cd ~/ardupilot
+```
+
+Create a new virtual environment for `ArduSub` and install the following dependencies:
+
+```zsh
+python3 -m pip install empy==3.3.4 pexpect mavproxy future dronecan setuptools
+```
+
+Also install the `ccache` system library:
+
+```zsh
+sudo apt-get install ccache
+```
+
+Now, configure `ArduPilot`:
+
+```zsh
+./waf configure
+. ~/.profile
+./waf clean
+```
+
+On the `backseat`, use the following commands in a terminal to add `ArduPilot` to path:
+
+```zsh
+echo "export PATH=$PATH:$HOME/ardupilot/Tools/autotest" >> ~/.zshrc
+echo "export PATH=/usr/lib/ccache:$PATH" >> ~/.zshrc
+```
+
+Next, install the `gcc-arm cross-compiler`:
+
+```zsh
+cd ~/ardupilot && mkdir TARGET_DIR && cd TARGET_DIR
+wget -c https://firmware.ardupilot.org/Tools/STM32-tools/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+```
+
+Unpack the compiler:
+
+```zsh
+tar -xjvf gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+```
+
+Add the compiler to path on the `backseat` using the following terminal command:
+
+```zsh
+echo "PATH=$PATH:$HOME/ardupilot/TARGET_DIR/gcc-arm-none-eabi-10-2020-q4-major/bin" >> ~/.zshrc
+```
+
+Before you can use `ArduSub`, you must finalize the `MAVROS` installation. We have preinstalled `MAVORS` on your Raspberry Pi, but you must fun the following commands to install an additional library:
+
+```zsh
+cd && wget https://raw.githubusercontent.com/mavlink/mavros/ros2/mavros/scripts/install_geographiclib_datasets.sh
+chmod +x ./install_geographiclib_datasets.sh
+sudo ./install_geographiclib_datasets.sh
+```
+
+Now, in a terminal on the `backseat`, start a `SITL` with the following command:
+
+```zsh
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:127.0.0.1:14550
+```
+
+:::note Note
+The first time you start the SITL, it may take some time to configure.
+:::
+
+Once the `SITL` is running, you can connect to it by launching  `MAVROS` in another terminal on the `backseat`:
+
+```zsh
+ros2 launch mavros apm.launch fcu_url:=udp://127.0.0.1:14550@14555 gcs_url:=udp://:14550@127.0.0.1:14550 tgt_system:=1 tgt_component:=1 system_id:=255 component_id:=240
+```
+
+When you run this command on the `backseat`, `MAVROS` may warn you that RTT is too high for timesync. 
+
+:::note Note
+The above `ros2 launch` command only connects to the SITL running locally on the RPI. You will use different arguments to connect to the BlueROV2 vehicles.
+:::
+
+### Problem One
+
+With both `ArduSub` and `MAVROS` running on the `backseat`, you can access simulated messages from the BlueROV2 vehicle in the ROS2 environment.
+
+In your `intro_to_ros` package, create a new node called `bluerov2_sensors`. This node should do the following:
+
+1. Subscribe to the BlueROV2's battery sensor messages.
+2. Subscribe to the BlueROV2's inertial measurement unit (IMU) sensor messages.
+3. Have a class attribute for the battery message type.
+4. Have a class attribute for the IMU message type.
+5. Update the battery attribute to the latest battery sensor message when it is received.
+6. Update the IMU attribute to the latest IMU sensor message when it is received.
+
+Update `package.xml` and `setup.py` to account for your new node, then rebuild the `intro_to_ros` package.
