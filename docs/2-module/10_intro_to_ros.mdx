@@ -558,3 +558,30 @@ In your `intro_to_ros` package, create a new node called `bluerov2_sensors`. Thi
 7. Create a timer and a corresponding method to check whether the battery has fallen below a safe voltage. If it has, log a message to the terminal. This method should run every `5.0` seconds.
 
 Update `package.xml` and `setup.py` to account for your new node, then rebuild the `intro_to_ros` package.
+
+### Problem two
+
+Create a new node called 'physics_sim'. This node should do the following:
+
+1. Subscribe to [Pose2D](https://docs.ros.org/en/noetic/api/geometry_msgs/html/msg/Pose2D.html) messages on the topic named `/physics/`pose2d`.
+2. Have a method that runs your `simulate_auv2_motion` function from `Problem 10` in `Underwater Physics`.
+3. Have a method called `posed2d_callback` that receives `Pose2D` messages. When you receive, run the `simulate_auv2_motion` using `x0=msg.x`, `y0=msg.y`, and `theta0=msg.theta`. For the remaining inputs, use the following values (not accurate to the BlueROV2):
+- `T = np.ndarray(shape=(4,), dtype=float, buffer=np.array([2.0, 1.0, 2.0, 1.0]))`
+- `alpha = np.pi / 4`
+- `L = 0.3`
+- `l = 0.2`
+- `mass = 1.0`
+- `dt = 0.1`
+- `t_final = 10.0`
+
+4. Save the plots as .png file(s) on the `backseat`.
+
+Add any additional attributes or methods as needed. Update `package.xml` and `setup.py` to account for your new node, then rebuild the `intro_to_ros` package.
+
+For this problem especially, use the `--symlink-install` argument when you build the package. This way, if your node does not work as intended, you do not have to recompile the package when you make changes to `physics_sim.py`.
+
+With your node running on the `backseat`, open a new terminal and run the following command:
+
+```zsh
+ros2 topic pub -1 /physics/pose2d geometry_msgs/Pose2D '{x: 1.0, y: 1.0, theta: 0.5}
+```
