@@ -7,7 +7,13 @@ import TabItem from "@theme/TabItem";
 
 # Introduction to ROS2
 
-# NEED TO EMBED SLIDES
+<iframe
+  src="https://blksail-edu.github.io/slides/2024_intro_to_ros"
+  width="100%"
+  height={320}
+  frameborder="0"
+  allowfullscreen
+></iframe>
 
 Robot Operating System 2 aka ROS2 is a set of open-source libraries and tools used to build robot applications.
 
@@ -67,7 +73,7 @@ Now, create a ROS2 workspace for this course:
 cd && mkdir auvc_ws && cd auvc_ws && mkdir src
 ```
 
-This ROS2 workspace is called `auvc_ws` and is located at the home directory. It contains an empty `src` directory for initialization. In the future, all your custom packages must be located in `src`. 
+This ROS2 workspace is called `auvc_ws` and is located at the home directory. It contains an empty `src` directory for initialization. In the future, all your custom packages must be located in `src`.
 
 Compile the empty workspace:
 
@@ -165,7 +171,7 @@ Now, create a class for the node which inherits from `Node`:
 class TutorialPublisher(Node):
 ```
 
-Within the class's constructor, you start the node and define attributes relating to ROS2 communication. 
+Within the class's constructor, you start the node and define attributes relating to ROS2 communication.
 
 ```py
     def __init__(self):
@@ -244,7 +250,7 @@ Now, create a class for the node which inherits from `Node`:
 class TutorialSubscriber(Node):
 ```
 
-Within the class's constructor, you start the node and define attributes relating to ROS2 communication. 
+Within the class's constructor, you start the node and define attributes relating to ROS2 communication.
 
 ```py
     def __init__(self):
@@ -298,7 +304,7 @@ if __name__=="__main__":
 
 ### Updating package.xml
 
-Before building the package, all dependencies for ROS2 packages and system libraries in all nodes in the package must be added to `package.xml`. Below the `license` line, add a `build_depend` tag and `exec_depend` tag for each dependency that is a ROS2 package or a system library. 
+Before building the package, all dependencies for ROS2 packages and system libraries in all nodes in the package must be added to `package.xml`. Below the `license` line, add a `build_depend` tag and `exec_depend` tag for each dependency that is a ROS2 package or a system library.
 
 For the `intro_to_ros` package, you only use ROS2 packages; `numpy` and `random` are Python3 libraries, so they do not need to be added.
 
@@ -551,7 +557,7 @@ ros2 launch mavros apm.launch fcu_url:=udp://127.0.0.1:14550@14555 gcs_url:=udp:
 ```
 
 :::note Note
-When you run this command on the `backseat`, `MAVROS` may warn you that RTT is too high for timesync. 
+When you run this command on the `backseat`, `MAVROS` may warn you that RTT is too high for timesync.
 :::
 
 :::note Note
@@ -576,7 +582,7 @@ In a `powershell` terminal, run the following command:
 ipconfig
 ```
 
-Use the IP address of the interface with your Raspberry Pi. If you are unsure which interface that is, search `View Network Connections` in Windows and find the interface for 
+Use the IP address of the interface with your Raspberry Pi. If you are unsure which interface that is, search `View Network Connections` in Windows and find the interface for
 `USB Ethernet/RNDIS Gadget`.
 </TabItem>
 </Tabs>
@@ -601,7 +607,7 @@ Update `package.xml` and `setup.py` to account for your new node, then rebuild t
 
 Open `QGroundControl` on your Windows or macOs machine. You should see the the `BlueROV2` on the United State's west coast. Modify your `bluerov2_sensors` node so that it prints the battery voltage at each callback, then, run your node.
 
-In QGroundControl, arm the ROV and change the flight mode to `GUIDED`. Then, click on a point anywhere else in the water and select `Go to location`. After holding down space or dragging the slider, you should see the ROV start moving. 
+In QGroundControl, arm the ROV and change the flight mode to `GUIDED`. Then, click on a point anywhere else in the water and select `Go to location`. After holding down space or dragging the slider, you should see the ROV start moving.
 
 Now check the terminal where your node is running. What do you observe about the battery's voltage?
 
