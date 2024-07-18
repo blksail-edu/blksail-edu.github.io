@@ -36,11 +36,15 @@ cd ~/auvc_ws && colcon build
 
 ### Additional colcon build arguments
 
-You can specify additional arguments while using `colcon build` to increase compiling speed. Adding `--packages-select MY_PACKAGE` allows you to recompile one specific package. Adding `--symlink-install` creates a symbolic link between currently existing files in `~/auvc_ws/src/YOUR_PACKAGE` and `~/auvc_ws/install`. If you use this argument, currently existing files AND ONLY those files will not need to be recompiled. If you do add or remove files, recompile.
+You can specify additional arguments while using `colcon build` to increase compiling speed. 
+
+Adding `--packages-select MY_PACKAGE` allows you to recompile one specific package. 
 
 ```zsh
 cd ~/auvc_ws && colcon build --packages-select YOUR_PACKAGE
 ```
+
+Adding `--symlink-install` creates a symbolic link between currently existing files in `~/auvc_ws/src/YOUR_PACKAGE` and `~/auvc_ws/install`. If you use this argument, currently existing files AND ONLY those files will not need to be recompiled. If you do add or remove files, recompile.
 
 ```zsh
 cd ~/auvc_ws && colcon build --symlink-install --packages-select YOUR_PACKAGE
