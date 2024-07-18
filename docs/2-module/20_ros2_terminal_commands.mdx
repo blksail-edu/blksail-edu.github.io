@@ -1,0 +1,102 @@
+---
+slidebar_position: 2
+---
+
+# ROS2 Terminal Commands
+
+## Creating ROS2 workspaces
+
+Workspaces in ROS2 are locations where user-written code is stored and compiled. Workspaces can be located at any path; however, it is recommended to create them in the home directory. The below command navigates to home, creates a directory called `auvc_ws/`, navigates to `auvc_ws/src/`, then initializes the workspace using `colcon build`.
+
+```zsh
+cd && mkdir auvc_ws && cd auvc_ws && mkdir src && colcon build
+```
+
+## Creating ROS2 packages
+
+To create a new ROS2 package, you must have a ROS2 workspace. Packages MUST be located within the workspace's `src` directory; e.g., `~/auvc_ws/src/my_package`.
+
+```zsh
+cd ~/auvc_ws/src && ros2 pkg create --build-type ament_cmake my_package_name
+```
+
+## Compiling ROS2 packages
+
+ROS2 utilizes a compiling tool called `colcon build`. When you use this tool, you MUST be in the workspace directory; e.g., `auvc_ws`. Check your current using `pwd` (print working directory).
+
+```zsh
+pwd
+```
+
+If your path does not look like `/home/YOUR_USERNAME/auvc_ws, DO NOT use `colcon build`. Instead, navigate to the workspace AND THEN run `colcon build`.
+
+```zsh
+cd ~/auvc_ws && colcon build
+```
+
+### Additional colcon build arguments
+
+You can specify additional arguments while using `colcon build` to increase compiling speed. 
+
+Adding `--packages-select MY_PACKAGE` allows you to recompile one specific package. 
+
+```zsh
+cd ~/auvc_ws && colcon build --packages-select YOUR_PACKAGE
+```
+
+Adding `--symlink-install` creates a symbolic link between currently existing files in `~/auvc_ws/src/YOUR_PACKAGE` and `~/auvc_ws/install`. If you use this argument, currently existing files AND ONLY those files will not need to be recompiled. If you do add or remove files, recompile.
+
+```zsh
+cd ~/auvc_ws && colcon build --symlink-install --packages-select YOUR_PACKAGE
+```
+
+### Sourcing the workspace
+
+After you compile a package, if you added new executables, you must re-source the workspace.
+
+```zsh
+source ~/auvc_ws/install/setup.zsh
+```
+
+## Node Commands
+
+### List all active nodes
+
+```zsh
+ros2 node list
+```
+
+## Topic Commands
+
+### List all named topics
+
+```zsh
+ros2 topic list
+```
+
+### Check the message type of a topic
+
+```zsh
+ros2 topic type /your/topic
+```
+
+### View message data in the terminal
+
+```zsh
+ros2 topic echo /your/topic
+```
+
+### Manually publish data to a topic
+
+```zsh
+ros2 topic echo -1 /your/topic std_msgs/String '{data: "hello world"}'
+```
+
+## Package Commands
+
+### Check what executables are in a node
+
+```zsh
+ros2 pkg interface show /your_package
+```
+
