@@ -58,3 +58,45 @@ After you compile a package, if you added new executables, you must re-source th
 source ~/auvc_ws/install/setup.zsh
 ```
 
+## Node Commands
+
+### List all active nodes
+
+```zsh
+ros2 node list
+```
+
+## Topic Commands
+
+### List all named topics
+
+```zsh
+ros2 topic list
+```
+
+### Check the message type of a topic
+
+```zsh
+ros2 topic type /your/topic
+```
+
+### View message data in the terminal
+
+```zsh
+ros2 topic echo /your/topic
+```
+
+### Manually publish data to a topic
+
+```zsh
+ros2 topic echo -1 /your/topic std_msgs/String '{data: "hello world"}'
+```
+
+## Package Commands
+
+### Check what executables are in a node
+
+```zsh
+ros2 pkg interface show /your_package
+```
+
