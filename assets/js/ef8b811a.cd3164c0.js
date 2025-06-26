@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblksail_edu_github_io=self.webpackChunkblksail_edu_github_io||[]).push([[8947],{6600:s=>{s.exports=JSON.parse('{"authors":[{"name":"Mohamed Saad Ibn Seddik, Dr.Eng.","title":"CEO of blkSAIL","url":"https://github.com/msis","imageURL":"https://github.com/msis.png","key":"msis","page":null,"count":2}]}')}}]);
