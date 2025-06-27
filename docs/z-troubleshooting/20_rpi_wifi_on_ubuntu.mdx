@@ -42,12 +42,12 @@ network:
 To add your home wifi network, add a new `wlan0` interface to wifis at the bottom of the file:
 
 ```yaml
-    wlan0:
-        access-points:
-            HOME_WIFI:
-                password: YOUR_SUPER_SECRET_PASSWORD
-        dhcp4: true
-        optional: true
+        wlan0:
+            access-points:
+                HOME_WIFI:
+                    password: YOUR_SUPER_SECRET_PASSWORD
+            dhcp4: true
+            optional: true
 ```
 
 Change `HOME_WIFI` to the name of your home wifi network. Also change `YOUR_SUPER_SECRET_PASSWORD` to your home wifi network's password.
