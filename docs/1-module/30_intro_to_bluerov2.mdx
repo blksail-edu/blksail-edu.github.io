@@ -3,4 +3,104 @@ sidebar_position: 3
 ---
 
 # 1.3 BlueROV2 Platform
+Remotely operated vehicles (ROV) and Autonomous Underwater Vehicles (AUV) have numerous applications, especially in a water environment, most commonly the ocean.
+
+
+Autonomous vehicles are preprogrammed with missions, allowing the vehicle to operate independently for hours or days.
+They can navigate appropriately using GPS at the surface and internal navigation systems when underwater. 
+Depending on the type and duration of the mission, the AUVs can surface throughout the mission and send data back to the team via satellite. 
+Due to the independent nature of these applications, the robots are untethered. Autonomous vehicles can perform a variety of missions, such as:
+- Seafloor mapping
+- Environmental
+- Climate research
+- Pipeline and cable surveys
+- Military applications 
+- Archaeology/Oceanographic and exploration missions
+
+![glider](glider.png)
+
+*<small> AUV: Slocum glider used by BIOS for Oceanographic monitoring and research, gathering data on physical, chemical, and biological processes.</small>*
+
+
+ROVs require a tether and a team, especially a pilot at the surface to control the vehicle. 
+The team is either above the surface on a boat or a platform.
+ An advantage of an ROV is the real-time control and live feed. 
+ These vehicles can also carry manipulators, sonars, and sampling devices, allowing the pilot to directly interact with the undersea environment.
+ROVs have many main uses, including:
+- Inspection and maintenance
+- Search and recovery
+- Scientific research
+- Construction Support
+- Environmental Monitoring
+
+![ROV](ROVJason.png)
+
+*<small> WHOI ROV Jason: Used for dives to hydrothermal vents and shipwrecks. 
+This ROV is equipped with sensors, video and still imaging systems, lighting, and numerous sampling systems. 
+The manipulator arm allows for the collection of rock, sediment, and marine life, which can then be passed to the surface for further examination.</small>*
+
+# BlueROV2
+The BlueROV2 is an affordable, remotely (or autonomously) operated vehicle. 
+These vehicles are primarily used for exploratory missions.
+
+Cool Video: https://www.youtube.com/watch?v=4sSxPkhI9Do
+
+## 🔧 **Structure & Design**
+- Modular rectangular frame: 2 side panels, bottom panel, 4 center panels
+- Mounts for: Enclosures, thrusters, buoyancy foam, and ballast
+- Blue fairings with polyurethane foam → provides positive buoyancy
+- Ballast weights added to achieve neutral buoyancy
+
+![ROV Floats](ROVFoats.png)
+
+*<small> Floats on the ROV that makes it positively bouyant.</small>*
+
+## ⚙️ **Thruster Configuration**
+
+![glider](ThrusterConfiguration.png)
+
+*<small>Thruster configuration on the ROV.</small>*
+
+*6 Thrusters Total*
+- 2 vertical (top) → vertical movement
+- 4 vectored (angled at 45°) → precise horizontal control
+
+*6 Degrees of Freedom*
+- Independent thruster control for advanced maneuverability
+
+## **🔋 Power & Control**
+
+Top Enclosure (sealed):
+- 1080p live-feed camera
+- Raspberry Pi + onboard sensors (attitude, heading)
+- FathomX Ethernet interface
+- 6 ESCs (Electronic Speed Controllers)
+- Inputs/outputs for lights, pressure & temp sensors
+- Pressure relief valve & expansion ports
+
+![Electronics Compartment](ElectronicsCompartment.png)
+
+*<small>Electronics compartment of ROV</small>*
+
+![Thruster Connected](ThrustersConnected.png)
+
+*<small>Thrusters connected to the electronics compartment.</small>*
+
+![Image of Back of ROV](BackOfROV.png)
+
+*<small>Back of BlueROV2.</small>*
+
+Bottom Enclosure:
+- Contains battery housing
+
+
+## 💻 **Pilot Interface**
+- Tether connects to FathomX Interface
+
+
+![FathomX connected to ROV](FathomX.png)
+
+*<small>FathomX and computer set up.</small>*
+
+- USB connects to laptop for real-time control & video.
 
