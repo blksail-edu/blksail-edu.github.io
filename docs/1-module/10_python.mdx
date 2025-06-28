@@ -24,7 +24,7 @@ Let's install the `virtualenv` package and `virtualenvwrapper` extension for
 Python.
 
 ```bash
-pip3 install --user virtualenv virtualenvwrapper
+pip3 install --user virtualenv virtualenvwrapper --break-system-packages
 ```
 
 ### Augmenting our `.zshrc` with `virtualenvwrapper`
@@ -53,8 +53,14 @@ We will be using Jupyter Notebook to write some assignments.
 ### Install
 
 ```bash
-pip3 install jupyter
+pip3 install jupyter --break-system-packages
 ```
+
+:::danger
+
+From this point forward, **DO NOT** use the `--break-system-packages` argument when installing python libraries.
+
+:::
 
 ## Let's get started
 
