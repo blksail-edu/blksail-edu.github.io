@@ -1,25 +1,27 @@
 ---
-sidebar_position: 4
+sidebar_position: 3
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import Image from "@theme/IdealImage";
 
-# Sensor-Driven Autonomy
+# 3.3 Sensor-Driven Autonomy
+
+## Gazebo
 
 [Gazebo](https://gazebosim.org/) is a set of open source tools for simulating robots in an environment.
 It is commonly used in robotics research and education.
 
-We will be using Gazebo to simulate the robot (BlueROV2) in a virtual (pool) environment.
+We will be using Gazebo to simulate the BlueROV2 robot in a virtual pool environment.
 
 :::note
 
-We will be using Gazebo Garden, the latest version of Gazebo.
+We will be using `Gazebo Harmonic`, the latest LTS version of Gazebo.
 
 :::
 
-## Installation
+### Installation
 
 The documentation for installing Gazebo can be found [here](https://gazebosim.org/docs/garden/install).
 See "**Binary Installation**" for instructions on installing Gazebo on your operating system.
@@ -27,9 +29,7 @@ Below is a summary of the steps.
 
 :::note
 
-Only Ubuntu is fully supported by Gazebo.
-macOS is partially supported.
-In Windows, the simulation will run, but the GUI will not work.
+Only Ubuntu is fully supported by Gazebo, and macOS is partially supported. On Windows the simulation will run in the WSL environment.
 
 :::
 
@@ -68,37 +68,37 @@ sed -i '' 's|cmake_args << "-DCMAKE_INSTALL_RPATH=#{rpath}"|cmake_args << "-DCMA
 Next we install Gazebo:
 
 ```bash
-brew install gz-garden
+brew install gz-harmonic
 ```
 
 </TabItem>
 <TabItem value="ubuntu" label="Ubuntu">
 
-First let's update and install some dependencies:
+First, **in a WSL terminal**, update and install dependencies:
 
 ```bash
-sudo apt-get update
-sudo apt-get install lsb-release wget gnupg
+sudo apt update
+sudo apt install lsb-release wget gnupg
 ```
 
-Next we install the Gazebo package repository:
+Next, install the Gazebo package repository:
 
 ```bash
 sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
 ```
 
-Finally, we install Gazebo:
+Finally, install `Gazebo Harmonic`:
 
 ```bash
-sudo apt-get update
-sudo apt-get install gz-garden
+sudo apt update
+sudo apt install gz-harmonic
 ```
 
 </TabItem>
 </Tabs>
 
-### Test the installation
+### Testing
 
 To test your installation, run the following command:
 
@@ -126,13 +126,87 @@ In one terminal, run:
 gz sim -v4 shapes.sdf
 ```
 
+You should see a window pop up with some 3D objects in it.
+
+:::info
+
+For **`WSL`** users, hardware acceleration (GPU) may not work properly inside of the virtual environment. If your simulation seems laggy, you can try switching to software acceleration (CPU). 
+
+To do so, add the following line to your `WSL`'s `.zshrc` file:
+
+```zsh
+export LIBGL_ALWAYS_SOFTWARE=1
+```
+
+Then, source `.zshrc` in your `WSL` terminal and restart the simulation.
+
+```zsh
+source ~/.zshrc
+```
+
+:::
+
 </TabItem>
 </Tabs>
 
-You should see a window pop up with some 3D objects in it.
+## BlueROV2 Simulation
 
-## Our custom simulation
+### Installation
 
+In this course, you will use a custom simulation for the BlueROV2. To install the simulation, **clone the repository onto your macOs, Windows WSL, or Ubuntu machine**:
+
+```zsh
+git clone https://github.com/blksail-edu/gazebo_bluerov2
+```
+
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+Dr. Saad it is your time to shine !
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+Install the following dependencies:
+
+```zsh
+sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev rapidjson-dev libopencv-dev
+```
+
+Navigate to the `gazebo_bluerov2` repository, and then run the build command:
+
+```zsh
+./build.sh
+```
+
+After the build is complete, you can start the simulation with:
+
+```zsh
+./launch.sh
+```
+
+:::info
+
+The `./` in the command is the relative path to the `build.sh` and `launch.sh` files. As is, the above commands only run if your working directory is the `gaebo_bluerov2` directory.
+
+:::
+
+</TabItem>
+</Tabs>
+
+### Environment Setup
+
+Now that you can run the BlueROV2 Gazebo simulation, the Gazebo simulation must be bridged with ROS 2. 
+
+:::info
+
+If you are using Windows with WSL, follow the Windows tab rather than the Ubuntu tab when applicable.
+
+:::
+
+
+
+{/* 
 We built a custom simulation for the BlueROV2.
 It lives in this repository: [gazebo_bluerov2](https://github.com/blksail-edu/gazebo_bluerov2).
 
@@ -186,4 +260,4 @@ python3 depth_control.py
 ```
 
 You should see the robot dive to the desired depth.
-
+ */}
