@@ -179,6 +179,8 @@ Navigate to the `gazebo_bluerov2` repository, and then run the build command:
 ./build.sh
 ```
 
+### Testing
+
 After the build is complete, you can start the simulation with:
 
 ```zsh
@@ -198,66 +200,122 @@ The `./` in the command is the relative path to the `build.sh` and `launch.sh` f
 
 Now that you can run the BlueROV2 Gazebo simulation, the Gazebo simulation must be bridged with ROS 2. 
 
-:::info
+#### Raspberry Pi Configuration
 
-If you are using Windows with WSL, follow the Windows tab rather than the Ubuntu tab when applicable.
+In a terminal on the `backseat`, install the `ros_gz_bridge` package:
 
-:::
-
-
-
-{/* 
-We built a custom simulation for the BlueROV2.
-It lives in this repository: [gazebo_bluerov2](https://github.com/blksail-edu/gazebo_bluerov2).
-
-Clone the repository into your workspace:
-
-```bash
-git clone https://github.com/blksail-edu/gazebo_bluerov2
+```zsh
+sudo apt install ros-jazzy-ros-gz-bridge
 ```
 
-Build the simulation:
+Then, with your favorite text editor, open the `.zshrc` file and add the following lines:
 
-```bash
-cd gazebo_bluerov2
-./build.sh
+```zsh
+# Gazebo
+export GZ_PARTITION=my_sim
+export GZ_TRANSPORT_IP=192.168.3.2
+export GZ_TRANSPORT_PUB_PORT=11345
+export GZ_TRANSPORT_SUB_PORT=11346
+export GZ_DISCOVERY_SERVER=192.168.3.1\:11345
 ```
 
-Start the example simulation:
+These environment variables will help point the Raspberry Pi to the Gazebo simulation.
 
-```bash
-./launch.sh
-```
+#### Laptop Configuration
 
 :::warning
 
-Sometimes, the simulation will not quit properly.
-If this happens, you will need to kill the process manually.
-
-```bash
-pkill -9 gz
-```
+If you are using WSL, then for this section only, follow the Windows tab rather than the Ubuntu tab.
 
 :::
 
-![Gazebo BlueROV2](gz-sim.png)
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
 
-## Controlling the robot
+Dr. Saad part two, electric boogaloo !
 
-Try controlling the depth of robot now with `depth_control.py` you previously wrote.
+</TabItem>
+<TabItem value="windows" label="Windows">
 
-First, in the `backseat`, start the `SITL`:
+You must add similar environment variables to your `WSL`'s `.zshrc` file so that Raspberry Pi and Gazebo simulation can communicate. With your favorite text editor, open the `.zshrc` file in `WSL` and add the following lines:
 
-```bash
-cd PATH_TO_ARDUSUB
-Tools/autotest/sim_vehicle.py -L RATBeach -v ArduSub -f vectored --model=JSON --out=udp:SIMULATION_COMPUTER_IP:14550 --console
+```zsh
+# Gazebo
+export GZ_PARTITION=my_sim
+export GZ_TRANSPORT_ID=192.168.3.1
+export GZ_TRANSPORT_PUB_PORT=11345
+export GZ_TRANSPORT_SUB_PORT=11346
 ```
 
-Run your `depth_control.py` script in another terminal:
+This alone is not enough to enable Gazebo communication between your Raspberry Pi and WSL. 
 
-```bash
-python3 depth_control.py
+##### WSL Network Mode
+
+Since WSL is a virtual machine, it is by default an internal network interface, meaning that the WSL interface is only visible to Windows. To fix this, you can change WSL's network mode to mirrored.
+
+In a `Windows PowerShell` terminal, open the `.wslconfig file`:
+
+```zsh
+cd
+notpad .wslconfig
 ```
 
-You should see the robot dive to the desired depth.
- */}
+Insert the following lines to change WSL to have a `mirror` network mode, then save and close the file.
+
+```zsh
+[wsl2]
+networkingMode=mirrored
+```
+
+To apply the changes, shutdown `WSL` from a `Windows PowerShell` terminal:
+
+:::warning
+
+This will close all running `WSL` terminals in your system.
+
+:::
+
+```zsh
+wsl --shutdown
+```
+
+After the shutdown, you can open `WSL` again as normal and the changes will be applied. However, you are still not done.
+
+##### WSL Firewall Access
+
+Create a new Windows Firewall protocol to enable IPv4 communication between WSL and your Raspberry Pi. In a `Windows PowerShell` terminal, run:
+
+```zsh
+New-NetFirewallRule -DisplayName "AUVC Allow ICMPv4 Inbound for WSL2" -Direction Inbound -Protocol ICMPv4 -Action Allow
+```
+
+You can test that this works by pinging your Raspberry Pi. In a `WSL` terminal, run:
+
+```zsh
+ping 192.168.2.2
+```
+
+Then, create two additional Windows Firewall protocols to allow access to the Gazebo ports:
+
+```zsh
+New-NetFirewallRule -DisplayName "AUVC Allow Gazebo Ports 11345-11346 Inbound for WSL2" -Direction Inbound -Protocol UDP -LocalPort 11345-11346 -Action Allow
+New-NetFirewallRule -DisplayName "AUVC Allow Gazebo Ports 11345-11346 Outbound for WSL2" -Direction Outbound -Protocol UDP -RemotePort 11345-11346 -Action Allow
+```
+
+You can test that this is working by running the Gazebo simulation in a `WSL` terminal, and running the following command from your Raspberry Pi:
+
+```zsh
+gz topic -l
+```
+
+You should see a list of Gazebo topics from the Gazebo simulation running in `WSL`.
+
+</TabItem>
+<TabItem value="ubuntu" label="Ubuntu">
+
+Like Windows, but without the bloat.
+
+</TabItem>
+</Tabs>
+
+## ROS 2 Gazebo Bridge
