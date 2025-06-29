@@ -480,6 +480,91 @@ arr = numpy.array([1, 2, 3, 4, 5])
 print(arr)
 print(type(arr))
 ```
+## Python Comments
+
+When writing code in Python, it’s important to make sure that your code can be easily understood by others. 
+Developers also sometimes forget what their own code does, especially if it was written a long time ago or under a lot of pressure.
+
+Comments can come in the form of inline explanations that help clarify a complex function.
+
+### Inline comments
+To write an inline comment in Python, simply put the hash mark `#` before your desired comment:
+
+```python
+# This is a comment
+```
+Python ignores everything after the hash mark and up to the end of the line. You can insert them anywhere in your code, even inline with other code:
+
+```python
+print("This will run.")  # This won't run
+```
+## Python Docstrings
+Python documentation strings (or **docstrings**) provide a convenient way of associating documentation 
+with Python modules, functions, classes, and methods.
+
+They are written in the source code, similar to comments, but are specifically meant to 
+**describe what the function, class, or module does; not how it works**. 
+Unlike regular comments (which use `#`), docstrings are meant to be accessible at runtime through 
+tools like `help()` or the `__doc__` attribute.
+
+### Declaring a Docstring
+
+A docstring is declared using triple quotes (`'''` or `"""`) directly below a function, method, class, or module definition.
+
+```python
+def example():
+    """This is a single-line docstring."""
+    pass
+```
+
+### Docstring Guidelines (PEP 257)
+
+Follow these conventions when writing docstrings:
+
+- Begin with a **capital letter** and end with a **period**.
+- The **first line** should be a **short summary**.
+- If the docstring spans multiple lines:
+  - Leave the **second line blank** to visually separate the summary.
+  - Add a more detailed description in the following lines.
+- Describe:
+  - Purpose of the function/class/module
+  - Parameters and return values
+  - Side effects or exceptions (if any)
+
+### Accessing Docstrings
+
+You can view a docstring in two ways:
+
+```python
+print(function_name.__doc__)
+# or
+help(function_name)
+```
+
+### Example
+
+```python
+def greet(name):
+    """
+    Return a greeting message.
+
+    This function takes a string input `name` and returns a friendly
+    greeting. It does not modify any external state.
+    """
+    return f"Hello, {name}!"
+```
+
+```python
+print(greet.__doc__)
+# Output:
+# Return a greeting message.
+#
+# This function takes a string input `name` and returns a friendly
+# greeting. It does not modify any external state.
+```
+
+**For Reference**: [PEP 257 – Docstring Conventions](https://peps.python.org/pep-0257/)
+
 
 ## Problem Set
 
