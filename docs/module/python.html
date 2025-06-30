@@ -12,8 +12,8 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css" integrity="sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM" crossorigin="anonymous"><link rel="stylesheet" href="/assets/css/styles.857d41a7.css">
-<script src="/assets/js/runtime~main.d52fd8ac.js" defer="defer"></script>
-<script src="/assets/js/main.4378521c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.80ae8b25.js" defer="defer"></script>
+<script src="/assets/js/main.22073026.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -33,7 +33,7 @@ environment.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="install">Install<a href="#install" class="hash-link" aria-label="Direct link to Install" title="Direct link to Install">​</a></h3>
 <p>Let&#x27;s install the <code>virtualenv</code> package and <code>virtualenvwrapper</code> extension for
 Python.</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">pip3 install --user virtualenv virtualenvwrapper</span><br></span></code></pre></div></div>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">pip3 install --user virtualenv virtualenvwrapper --break-system-packages</span><br></span></code></pre></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="augmenting-our-zshrc-with-virtualenvwrapper">Augmenting our <code>.zshrc</code> with <code>virtualenvwrapper</code><a href="#augmenting-our-zshrc-with-virtualenvwrapper" class="hash-link" aria-label="Direct link to augmenting-our-zshrc-with-virtualenvwrapper" title="Direct link to augmenting-our-zshrc-with-virtualenvwrapper">​</a></h3>
 <p>We will be adding some configuration to the <code>.zshrc</code> file.</p>
 <p>Open the <code>.zshrc</code> file with your favorite text editor and add the following
@@ -45,7 +45,8 @@ allows you to create and share documents that contain live code, equations,
 visualizations and narrative text.</p>
 <p>We will be using Jupyter Notebook to write some assignments.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="install-1">Install<a href="#install-1" class="hash-link" aria-label="Direct link to Install" title="Direct link to Install">​</a></h3>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">pip3 install jupyter</span><br></span></code></pre></div></div>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">pip3 install jupyter --break-system-packages</span><br></span></code></pre></div></div>
+<div class="theme-admonition theme-admonition-danger admonition_xJq3 alert alert--danger"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 12 16"><path fill-rule="evenodd" d="M5.05.31c.81 2.17.41 3.38-.52 4.31C3.55 5.67 1.98 6.45.9 7.98c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.31 8.68 2.45 5.05.32L5.03.3l.02.01z"></path></svg></span>danger</div><div class="admonitionContent_BuS1"><p>From this point forward, <strong>DO NOT</strong> use the <code>--break-system-packages</code> argument when installing python libraries.</p></div></div>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="lets-get-started">Let&#x27;s get started<a href="#lets-get-started" class="hash-link" aria-label="Direct link to Let&#x27;s get started" title="Direct link to Let&#x27;s get started">​</a></h2>
 <p>A starter repository is available at <a href="https://github.com/blksail-edu/python-refresher" target="_blank" rel="noopener noreferrer">blksail-edu/python-refresher</a>.</p>
 <p>Let&#x27;s make a fork and start working on the exercises.</p>

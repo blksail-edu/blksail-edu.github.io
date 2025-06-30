@@ -12,8 +12,8 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css" integrity="sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM" crossorigin="anonymous"><link rel="stylesheet" href="/assets/css/styles.857d41a7.css">
-<script src="/assets/js/runtime~main.d52fd8ac.js" defer="defer"></script>
-<script src="/assets/js/main.4378521c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.80ae8b25.js" defer="defer"></script>
+<script src="/assets/js/main.22073026.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><defs>
@@ -51,10 +51,10 @@
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="source-ros-2-in-zshrc-file">Source ROS 2 in <code>.zshrc</code> File<a href="#source-ros-2-in-zshrc-file" class="hash-link" aria-label="Direct link to source-ros-2-in-zshrc-file" title="Direct link to source-ros-2-in-zshrc-file">​</a></h3>
 <p>For ROS 2 to be accessible in the terminal, the ROS 2 installation and all workspaces must be sourced. The installation contains all default packages and tools necessary to use ROS 2. Workspaces are locations that contain user-defined packages/code.</p>
 <ol>
-<li>Configure the <code>.zshrc</code> file to source the ROS 2 installation. In a terminal on the <code>backseat</code>, run the following command.</li>
+<li>Configure the <code>.zshrc</code> file to source the ROS 2 installation.
+Using your favorite text editor, add the following line to the bottom of <code>.zshrc</code> file on the <code>backseat</code>.</li>
 </ol>
-<div class="language-zsh codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-zsh codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">echo &quot;source /opt/ros/jazzy/setup.zsh&quot; &gt;&gt; ~/.zshrc</span><br></span></code></pre></div></div>
-<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>This command will directly insert the line <code>source /opt/ros/jazzy/setup.zsh</code> as a new line in the <code>.zshrc</code> file.</p></div></div>
+<div class="language-zsh codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-zsh codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">source /opt/ros/jazzy/setup.zsh</span><br></span></code></pre></div></div>
 <ol start="2">
 <li>Source the <code>.zshrc</code> file again to apply the changes in the current terminal.</li>
 </ol>
@@ -77,9 +77,10 @@
 <div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>warning</div><div class="admonitionContent_BuS1"><p>When you run <code>colcon build</code> to compile packages in a workspace you MUST run the command in the workspace directory.</p><p>BEFORE running the command, run <code>pwd</code> to print the working directory and ensure that the path ends with <code>auvc_ws</code>.</p></div></div>
 <div class="language-zsh codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-zsh codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">colcon build</span><br></span></code></pre></div></div>
 <ol start="5">
-<li>Configure the <code>.zshrc</code> file to source the workspace and source the workspace.</li>
+<li>Configure the <code>.zshrc</code> file to source the workspace and source the workspace.
+Using your favorite text editor, add the following line:</li>
 </ol>
-<div class="language-zsh codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-zsh codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">echo &quot;source ~/auvc_ws/install/setup.zsh&quot; &gt;&gt; ~/.zshrc &amp;&amp; source ~/.zshrc</span><br></span></code></pre></div></div>
+<div class="language-zsh codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-zsh codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">source ~/auvc_ws/install/setup.zsh</span><br></span></code></pre></div></div>
 <ol start="6">
 <li>Lastly, create the <code>src</code> directory.</li>
 </ol>
