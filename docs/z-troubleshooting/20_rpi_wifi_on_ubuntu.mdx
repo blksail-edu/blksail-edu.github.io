@@ -4,14 +4,16 @@ sidebar_position: 2
 
 # Connecting RPi to Wifi
 
-To connect your Raspberry Pi to the internet, you will need to modify the `50-cloud-init.yaml` file. Open a terminal on the `backseat` and open the file:
+To connect your Raspberry Pi to the internet, you will need to modify the `50-cloud-init.yaml` file.
+Open a terminal on the `backseat` and open the file:
 
 ```zsh
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
 :::warning
 
-Any mistyped characters or any extra spaces will break the network connections. If this occurs, you may not be able to SSH into your Raspberry Pi, so please follow these instructions very carefully.
+Any mistyped characters or any extra spaces will break the network connections.
+If this occurs, you may not be able to SSH into your Raspberry Pi, so please follow these instructions very carefully.
 
 :::
 
@@ -39,7 +41,7 @@ network:
             optional: true
 ```
 
-To add your home wifi network, add a new `wlan0` interface to wifis at the bottom of the file:
+To add your home WiFi network, add a new `wlan0` interface to WiFis at the bottom of the file:
 
 ```yaml
         wlan0:
@@ -50,19 +52,23 @@ To add your home wifi network, add a new `wlan0` interface to wifis at the botto
             optional: true
 ```
 
-Change `HOME_WIFI` to the name of your home wifi network. Also change `YOUR_SUPER_SECRET_PASSWORD` to your home wifi network's password.
+Change `HOME_WIFI` to the name of your home WiFi network.
+Also change `YOUR_SUPER_SECRET_PASSWORD` to your home WiFi network's password.
 
 :::danger
 
-Before closing your file, please ensure that the new lines have the same number of spaces and no incorrect characters. If there are, you may not be able to SSH into your RPi and the TAs must fix it in class.
+Before closing your file, please ensure that the new lines have the same number of spaces and no incorrect characters.
+If there are, you may not be able to SSH into your RPi and the TAs must fix it in class.
 
 :::
 
-Once you are sure that your file has no formatting mistakes, apply the netplan. This will likely close your SSH connection.
+Once you are sure that your file has no formatting mistakes, apply the netplan.
+This will likely close your SSH connection.
 
 :::note
 
-At the bottom of the terminal, there will be instructions to save and close the file. It should appear like CTRL or CMD + S to save the file and CTRL or CMD + X to close the file.
+At the bottom of the terminal, there will be instructions to save and close the file.
+It should appear like `CTRL` or `CMD + S` to save the file and `CTRL` or `CMD + X` to close the file.
 
 :::
 
