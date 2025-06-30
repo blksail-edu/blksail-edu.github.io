@@ -12,7 +12,7 @@
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css" integrity="sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM" crossorigin="anonymous"><link rel="stylesheet" href="/assets/css/styles.857d41a7.css">
-<script src="/assets/js/runtime~main.bdb6f19e.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.d52fd8ac.js" defer="defer"></script>
 <script src="/assets/js/main.4378521c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -31,11 +31,11 @@
 <li>Services</li>
 <li>Parameters</li>
 </ul>
-<p><img decoding="async" loading="lazy" src="https://docs.ros.org/en/kilted/_images/Nodes-TopicandService.gif" alt="gif0" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="nodes, topics, and services visual representation" src="/assets/images/Nodes-TopicandService-70587b66cc1eed397634f7b90337db01.gif" width="854" height="480" class="img_ev3q"></p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="nodes">Nodes<a href="#nodes" class="hash-link" aria-label="Direct link to Nodes" title="Direct link to Nodes">​</a></h3>
 <p>Nodes are instances of executables that act as individual computation entitites. They perform specific tasks, such as processing sensor data or controlling hardware. Nodes communicate with each other using publishers/subscribers, services, and actions.</p>
 <p><em>Multiple nodes can publish to and subscribe to the same topics.</em></p>
-<p><img decoding="async" loading="lazy" src="https://docs.ros.org/en/kilted/_images/Topic-SinglePublisherandSingleSubscriber.gif" alt="gif1" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="single publisher and single subscriber visual representation" src="/assets/images/Topic-SinglePublisherandSingleSubscriber-ca635d618fb42a37dcd4aa9af929b670.gif" width="854" height="480" class="img_ev3q"></p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="topics">Topics<a href="#topics" class="hash-link" aria-label="Direct link to Topics" title="Direct link to Topics">​</a></h3>
 <p>Topics are named buses that nodes use to exchange messages in publisher/subscriber pairs. Nodes talk to other nodes by publishing messages to topics. Nodes listen to other nodes by subscribing to those topics to receive the messages.</p>
 <p><em>Each topic is limited to a single message type specified at the time when the topic is named. Multiple topics can have the same message type.</em></p>
@@ -44,7 +44,7 @@
 <div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>info</div><div class="admonitionContent_BuS1"><p>In the below example message file <code>Vector3.msg</code>, there are three data fields <code>x</code>, <code>y</code>, and <code>z</code>, each with a data type of <code>float64</code>.</p><div class="language-msg codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-msg codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain">Vector3.msg</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">float64 x</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">float64 y</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">float64 z</span><br></span></code></pre></div></div><p>The data type can be any <a href="https://docs.ros.org/en/jazzy/Concepts/Basic/About-Interfaces.html" target="_blank" rel="noopener noreferrer">primitive data type</a>, other message types, or arrays.</p></div></div>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="services">Services<a href="#services" class="hash-link" aria-label="Direct link to Services" title="Direct link to Services">​</a></h3>
 <p>Services are used by nodes to co communication method with a request-response mechanism. A client sends requests to a server and receives responses after the service is complete.</p>
-<p><img decoding="async" loading="lazy" src="https://docs.ros.org/en/kilted/_images/Service-SingleServiceClient.gif" alt="gif2" class="img_ev3q"></p>
+<p><img decoding="async" loading="lazy" alt="single service client visual representation" src="/assets/images/Service-SingleServiceClient-761326bd2253c69c489d2849a5a690c0.gif" width="854" height="480" class="img_ev3q"></p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="parameters">Parameters<a href="#parameters" class="hash-link" aria-label="Direct link to Parameters" title="Direct link to Parameters">​</a></h3>
 <p>Parmaeters are modifiable values assigned to individual or multiple nodes at runtime.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="environment-setup">Environment Setup<a href="#environment-setup" class="hash-link" aria-label="Direct link to Environment Setup" title="Direct link to Environment Setup">​</a></h2>
