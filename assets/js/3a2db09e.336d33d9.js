@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblksail_edu_github_io=self.webpackChunkblksail_edu_github_io||[]).push([[8121],{8070:e=>{e.exports=JSON.parse('{"tags":[{"label":"welcome","permalink":"/blog/tags/welcome","count":2}]}')}}]);
