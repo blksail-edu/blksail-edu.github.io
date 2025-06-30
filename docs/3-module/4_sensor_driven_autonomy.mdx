@@ -351,8 +351,58 @@ You should see a list of Gazebo topics from the Gazebo simulation.
 
 ## ROS 2 Gazebo Bridge
 
-To communicate with the BlueROV2 simulation, you will use the `ros_gz_bridge` package.
+To communicate with the BlueROV2 simulation, you will use the `ros_gz_bridge` package. The `rosmav` package contains a launch file that is already configured for both our single-rov and double-rov simulations.
 
-## Simulating 1x ROV
+:::warning
 
-## Simulating 2x ROV
+The bidge node should be started after the Gazebo simulations to ensure it functions properly.
+
+:::
+
+To start the bridge, run the following command in a terminal on the `backseat`:
+
+```zsh
+ros2 launch rosmav bridge.launch.py
+```
+
+This node will convert Gazebo messages to ROS 2 messages for crucial onboard components like the camera, IMU, magnetometer/compass. It is also configured for thruster manual inputs; however, we **WILL NOT** be using these to control the ROV(s).
+
+## ArduSub with Gazebo
+
+To control the BlueROV2 in the Gazebo simulation, you will use the `rosmav` package to establish a `MAVLINK` connection instances of the `SITL`. The `SITL` will then control the BlueROV2 inside of the Gazebo world. Each simulated vehicle in the Gazebo world must use a different port for the `SITL`.
+
+:::info
+
+When we used the `SITL` with `QGroundControl`, we used port `14550`. This port is specific to `QGroundControl` and will not be used while running Gazebo simulation.
+
+:::
+
+### Simulating 1x ROV
+
+In the **`launch_1z_bluerov2.sh`** file, a Gazebo sim is started containing a single BlueROV2 that uses **port** **9002** for `MAVLINK`. To connect to this vehicle with the `SITL`, the port must be changed to `9002`. The command below also adds the argument `-I 0`, indicating that this `SITL` is instance 0.
+
+```zsh
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:192.168.3.1:9002 -I 0
+```
+
+### Simulating 2x ROV
+
+In the **`launch_2x_bluerov2.sh`** file, a Gazebo sim is started containing two BlueROV2s that use **ports** **9002** and **9012**, respectively. To connect to these vehicles with the `SITL`, two instances must be started in separate terminals.
+
+In the first terminal, you can run:
+
+```zsh
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:192.168.3.1:9002 -I 0
+```
+
+In the second terminal, you will run:
+
+```zsh
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:192.168.3.1:9012 -I 1
+```
+
+:::info
+
+Notice how the port and instance indices change between each command. These link each `SITL` instance to the corresponding BlueROV2 model in the Gazebo world.
+
+:::
