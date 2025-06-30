@@ -4,15 +4,18 @@ slidebar_position: 4
 
 # 2.4 ArduSub & ROSMAV
 
-In this section, we explore `ArduSub` and `rosmav`. ArduSub is a fork of ArduPilot, a flight controller software that runs onboard the BlueROV2 through `BueOS`. The ArduSub software utilizes the `MAVLINK` communication protocol to control the motors, receive sensor data, etc. You will connect to the BlueROV2 through ROS 2 using a custom `rosmav` interface. This interface uses the `MAVLINK` communication protocal inside of a ROS 2 node to talk to the "*frontseat*" onboard the vehicle.
+In this section, we explore `ArduSub` and `rosmav`.
+ArduSub is a fork of ArduPilot, a flight controller software that runs onboard the BlueROV2 through `BueOS`. The ArduSub software utilizes the `MAVLINK` communication protocol to control the motors, receive sensor data, etc.
+You will connect to the BlueROV2 through ROS 2 using a custom `rosmav` interface. This interface uses the `MAVLINK` communication protocal inside of a ROS 2 node to talk to the "*frontseat*" onboard the vehicle.
 
 ## Installing ArduSub
 
-For the purposes of this problem set and future simulations (with QGroundControl), you must install `ArduSub`. When you interface with the ROVs themselves, you'll connect to a `SITL` running onboard and therefore you will not need to run your own.
+For the purposes of this problem set and future simulations (with QGroundControl), you must install `ArduSub`.
+When you interface with the ROVs themselves, you'll connect to a `SITL` running onboard and therefore you will not need to run your own.
 
 :::note
 
-You must install ArduSub while you are in a virtual environment on the Raspberry Pi
+You must install ArduSub while you are in a virtual environment on the Raspberry Pi!
 
 :::
 
