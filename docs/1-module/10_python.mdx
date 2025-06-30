@@ -480,6 +480,30 @@ arr = numpy.array([1, 2, 3, 4, 5])
 print(arr)
 print(type(arr))
 ```
+### Commenting Code
+
+As you will be working in teams during this course, it is important that your code can be easily understood by others. One simple way to improve readability is by using comments and docstrings.
+
+To write a comment, place a hash (#) before your comment. The rest of the words on the line, following the hash, will be ignored by Python.
+
+```python
+# this is a comment
+```
+
+Comments can be placed at the end of the line, and the code before it will run.
+
+```python
+print("this will run)   # this won't run
+```
+
+Whenever a user calls a function, the interpreter can give them a hint as to what it does. The IDE displays the docstring to the user. Docstring syntax is a triple quote right after the function is defined.
+
+```python
+def my_function(param):
+  """Returns something"""
+  print("this is code") # prints action
+  return var
+```
 
 ## Problem Set
 
