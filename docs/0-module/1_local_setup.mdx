@@ -321,20 +321,22 @@ QGroundControl (QGC) is ground control station software that serves as the graph
 Download the latest recommended version from the link below based on your operating system and install it on your computer.
 :::
 
-<Tabs groupId="qgc-install-links">
-<TabItem value="windows" label="Windows">
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
 
-- [QGroundControl for Windows](https://s3.amazonaws.com/downloads.bluerobotics.com/QGC/latest/QGroundControl-installer.exe)
+- [QGroundControl for macOS](https://s3.amazonaws.com/downloads.bluerobotics.com/QGC/latest/QGroundControl.dmg)
 
 </TabItem>
-<TabItem value="ubuntu" label="Linux">
+
+<TabItem value="ubuntu" label="Ubuntu">
 
 - [QGroundControl for Linux](https://s3.amazonaws.com/downloads.bluerobotics.com/QGC/latest/QGroundControl.AppImage)
 
 </TabItem>
-<TabItem value="macos" label="macOS">
 
-- [QGroundControl for macOS](https://s3.amazonaws.com/downloads.bluerobotics.com/QGC/latest/QGroundControl.dmg)
+<TabItem value="windows" label="Windows">
+
+- [QGroundControl for Windows](https://s3.amazonaws.com/downloads.bluerobotics.com/QGC/latest/QGroundControl-installer.exe)
 
 </TabItem>
 </Tabs>
@@ -343,7 +345,41 @@ Download the latest recommended version from the link below based on your operat
 
 When you are done with the installation process, follow the following steps below based on your operating system:
 
-<Tabs groupId="network-setup">
+<Tabs groupId="operating-systems">
+<TabItem value="macos" label="macOS">
+
+1. Go to **System Preferences** > **Network**
+2. Select **USB 10/100 LAN**
+3. Set **Configure IPv4** to **Manually**
+4. Set:
+   - IP Address: `192.168.2.1`
+   - Subnet Mask: `255.255.255.0`
+   ![macOS Network Settings](mac-network-settings-annotated.png)
+
+</TabItem>
+
+<TabItem value="ubuntu" label="Ubuntu">
+
+1. Click the Network icon > **Edit Connections...**
+   ![Linux 1](LinuxStep1.png)
+
+2. Click **Add**
+   ![Linux 2](LinuxStep2.png)
+
+3. Select **Ethernet** and click **Create...**
+   ![Linux 3](LinuxStep3.png)
+
+4. Choose your Ethernet adapter from **Device MAC Address**
+   ![Linux 4](LinuxStep4.png)
+
+5. Go to **IPv4 Settings**, set method to **Manual**, and enter:
+   - Address: `192.168.2.1`
+   - Netmask: `255.255.255.0`
+   - Gateway: `0.0.0.0`
+   Click **Save...**
+   ![Linux 5](LinuxStep5.png)
+
+</TabItem>
 <TabItem value="windows" label="Windows">
 
 1. Go to the Windows **Control Panel** > **Network and Sharing Center**. If not visible, set *View by* to large or small icons.
@@ -373,41 +409,6 @@ When you are done with the installation process, follow the following steps belo
 
 3. Click **Change Settings**, find **QGroundControl** and allow it for **Private** and **Public**.
    ![Firewall 3](brov2-firewall-setup-3.png)
-
-</TabItem>
-
-<TabItem value="macos" label="macOS">
-
-1. Go to **System Preferences** > **Network**
-2. Select **USB 10/100 LAN**
-3. Set **Configure IPv4** to **Manually**
-4. Set:
-   - IP Address: `192.168.2.1`
-   - Subnet Mask: `255.255.255.0`
-   ![macOS Network Settings](mac-network-settings-annotated.png)
-
-</TabItem>
-
-<TabItem value="ubuntu" label="Linux">
-
-1. Click the Network icon > **Edit Connections...**
-   ![Linux 1](LinuxStep1.png)
-
-2. Click **Add**
-   ![Linux 2](LinuxStep2.png)
-
-3. Select **Ethernet** and click **Create...**
-   ![Linux 3](LinuxStep3.png)
-
-4. Choose your Ethernet adapter from **Device MAC Address**
-   ![Linux 4](LinuxStep4.png)
-
-5. Go to **IPv4 Settings**, set method to **Manual**, and enter:
-   - Address: `192.168.2.1`
-   - Netmask: `255.255.255.0`
-   - Gateway: `0.0.0.0`
-   Click **Save...**
-   ![Linux 5](LinuxStep5.png)
 
 </TabItem>
 </Tabs>
