@@ -4,9 +4,113 @@ slidebar_position: 4
 
 # 2.4 ArduSub & ROSMAV
 
-In this section we cover how to connect to the BlueROV2 using a custom `rosmav` interface. This interface uses the `MAVLINK` communication protocal inside of a ROS 2 node to talk to the "*frontseat*" onboard the vehicle.
+In this section, we explore `ArduSub` and `rosmav`. ArduSub is a fork of ArduPilot, a flight controller software that runs onboard the BlueROV2 through `BueOS`. The ArduSub software utilizes the `MAVLINK` communication protocol to control the motors, receive sensor data, etc. You will connect to the BlueROV2 through ROS 2 using a custom `rosmav` interface. This interface uses the `MAVLINK` communication protocal inside of a ROS 2 node to talk to the "*frontseat*" onboard the vehicle.
 
-## Configuring ROSMAV
+## Installing ArduSub
+
+For the purposes of this problem set and future simulations (with QGroundControl), you must install `ArduSub`. When you interface with the ROVs themselves, you'll connect to a `SITL` running onboard and therefore you will not need to run your own.
+
+:::note
+
+You must install ArduSub while you are in a virtual environment on the Raspberry Pi
+
+:::
+
+Open a terminal on the `backseat` and install `ArduSub` from our repository:
+
+```zsh
+cd && git clone --recurse-submodules https://github.com/blksail-edu/ardupilot
+cd ~/ardupilot
+```
+
+Then, create a new virtual environment for `ArduSub`:
+
+```zsh
+mkvirtualenv ardusub
+```
+
+Installing the following python libraries into the `ardusub` virtual environment:
+
+```zsh
+pip install empy==3.3.4 pexpect mavproxy future dronecan setuptools pyyaml
+```
+
+Also install the `ccache` system library and remove the `modemmanager` system library:
+
+```zsh
+sudo apt install ccache -y
+sudo apt remove modemmanager -y
+```
+
+Now, configure the `ArduPilot` repository:
+
+```zsh
+./waf configure
+. ~/.profile
+./waf clean
+```
+
+With your favorite text editor, add the following commands to the `.zshrc` file on the `backseat`:
+
+```zsh
+export PATH=$PATH:$HOME/ardupilot/Tools/autotest
+export PATH=/usr/lib/ccache:$PATH
+```
+
+Source the `.zshrc` file and reactivate the `ardusub` virtual environment:
+
+```zsh
+source ~/.zshrc
+workon ardusub
+```
+
+Next, install the `gcc-arm cross-compiler`:
+
+```zsh
+cd ~/ardupilot && mkdir TARGET_DIR && cd TARGET_DIR
+wget -c https://firmware.ardupilot.org/Tools/STM32-tools/gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+```
+
+Unpack the compiler:
+
+```zsh
+tar -xjvf gcc-arm-none-eabi-10-2020-q4-major-x86_64-linux.tar.bz2
+```
+
+With your favorite text editor, add the following line to the `.zshrc` file on the `backseat` to add the compiler to path:
+
+```zsh
+export PATH=$PATH:$HOME/ardupilot/TARGET_DIR/gcc-arm-none-eabi-10-2020-q4-major/bin
+```
+
+Then, source the `.zshrc` file again and reactivate the `ardusub` virtual environment:
+
+```zsh
+source ~/.zshrc
+workon ardusub
+```
+
+Lastly, install the geographic library datasets:
+
+```zsh
+cd && wget https://raw.githubusercontent.com/mavlink/mavros/ros2/mavros/scripts/install_geographiclib_datasets.sh
+chmod +x ./install_geographiclib_datasets.sh
+sudo ./install_geographiclib_datasets.sh
+```
+
+## Testing ArduSub
+
+In a terminal on the `backseat`, you may now start the software in the loop (SITL).
+
+:::info
+The first time you start the SITL, it will approximately 30 minutes to configure.
+:::
+
+```zsh
+~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:192.168.3.1:14550
+```
+
+## Installing ROSMAV
 
 1. First, create a new virutal environment for the `rosmav` interface.
 
@@ -24,13 +128,21 @@ pip install cv_bridge numpy pymavlink
 3. Now, clone the `rosmav` repository into the `src` directory of your `auvc_ws`.
 
 ```zsh
-cd ~/auvc_ws/src && git clone https://github.com/blksaild-edu/rosmav
+cd ~/auvc_ws/src && git clone https://github.com/blksail-edu/rosmav
 ```
 
-4. Install ROS 2 dependencies:
+4. Install ROS 2 dependencies for `rosmav`:
 
 ```zsh
-cd ../ && rosdep install --from-paths src --ignore-src -r -y
+sudo rosdep init
+```
+
+```zsh
+rosdep update
+```
+
+```zsh
+cd ~/auvc_ws && rosdep install --from-paths src --ignore-src -r -y
 ```
 
 5. Compile the `rosmav` package and source the workspace.

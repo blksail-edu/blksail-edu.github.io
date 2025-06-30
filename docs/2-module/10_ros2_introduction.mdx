@@ -87,17 +87,11 @@ Parmaeters are modifiable values assigned to individual or multiple nodes at run
 
 For ROS 2 to be accessible in the terminal, the ROS 2 installation and all workspaces must be sourced. The installation contains all default packages and tools necessary to use ROS 2. Workspaces are locations that contain user-defined packages/code.
 
-1. Configure the `.zshrc` file to source the ROS 2 installation. In a terminal on the `backseat`, run the following command.
+1. Configure the `.zshrc` file to source the ROS 2 installation. Using your favorite text editor, add the following line to the `.zshrc` file on the `backseat`.
 
 ```zsh
-echo "source /opt/ros/jazzy/setup.zsh" >> ~/.zshrc
+source /opt/ros/jazzy/setup.zs
 ```
-
-:::info
-
-This command will directly insert the line `source /opt/ros/jazzy/setup.zsh` as a new line in the `.zshrc` file.
-
-:::
 
 2. Source the `.zshrc` file again to apply the changes in the current terminal.
 
@@ -133,10 +127,10 @@ BEFORE running the command, run `pwd` to print the working directory and ensure 
 colcon build
 ```
 
-5. Configure the `.zshrc` file to source the workspace and source the workspace.
+5. Configure the `.zshrc` file to source the workspace and source the workspace. Using your favorite text editor, add the following line:
 
 ```zsh
-echo "source ~/auvc_ws/install/setup.zsh" >> ~/.zshrc && source ~/.zshrc
+source ~/auvc_ws/install/setup.zsh
 ```
 
 6. Lastly, create the `src` directory.
