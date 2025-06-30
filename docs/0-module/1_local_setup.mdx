@@ -110,6 +110,13 @@ sudo apt install zsh
 </TabItem>
 </Tabs>
 
+#### Set as default shell
+
+Set `zsh` as default shell:
+
+```bash
+chsh -s $(which zsh)
+```
 
 #### Oh-My-Zsh
 
@@ -237,7 +244,7 @@ python3 --version
 To check if you have Pip installed, run:
 
 ```bash
-pip --version
+pip3 --version
 ```
 
 If you don't have Pip installed, you can install it by running:
@@ -272,7 +279,7 @@ Let's install the `virtualenv` package and `virtualenvwrapper` extension for
 Python.
 
 ```bash
-pip install --user virtualenv virtualenvwrapper --break-system-packages
+pip3 install --user virtualenv virtualenvwrapper --break-system-packages
 ```
 
 #### `.zshrc`
@@ -301,5 +308,5 @@ We will be using Jupyter Notebook to write some assignments.
 #### Install
 
 ```bash
-pip install jupyter --break-system-packages
+pip3 install jupyter --break-system-packages
 ```
