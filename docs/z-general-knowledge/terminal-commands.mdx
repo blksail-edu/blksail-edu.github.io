@@ -10,12 +10,12 @@ Here is a list of terminal commands you may find helpful throughout the course.
 
 | Command | Description | Example |
 | ------- | ----------- | ------- |
-| `echo` | displays text in a given location (terminal by default) | `echo "hello world"` |
-| `ls` | lists all files and directories | `ls` |
-| `cd` | moves to a given location | `cd auvc_ws` |
-| `mkdir` | creates an empty directory | `mkdir intro_to_python` |
-| `code` | opens a file or directory in VS Code | `code .` |
-| `sudo` | runs a command with root permissions | `sudo apt-get update` |
+| `echo` | Displays text in a given location (terminal by default) | `echo "hello world"` |
+| `ls` | Lists all files and directories | `ls` |
+| `cd` | Moves to a given location | `cd auvc_ws` |
+| `mkdir` | Creates an empty directory | `mkdir intro_to_python` |
+| `code` | Opens a file or directory in VS Code | `code .` |
+| `sudo` | Runs a command with root permissions | `sudo apt-get update` |
 
 ## ROS 2 Terminal Commands
 ### Package Commands
@@ -104,45 +104,13 @@ Launch files in ROS 2 are used to start multiple instances of nodes using a sing
 
 The following are common commands used with `virtualenvwrapper` to manage Python virtual environments.
 
-### Creating a Virtual Environment
+| Command | Description | Example |
+| ------- | ----------- | ------- |
+| `mkvirtualenv` | Creates a new virtual environment | `mkvirtualenv <virtual_environment_name>` |
+| `rmvirtualenv` | Deletes a virtual environment (must be deactivated first) | `rmvirtualenv <virtual_environment_name>` |
+| `deactivate` | Deactivates the current virtual environment and returns to system-installed Python | `(virtual_environment_name) deactivate` |
+| `lsvirtualenv` | Lists all created virtual environments | `lsvirtualenv` |
+| `workon` | Activates or switches to the specified virtual environment | `workon <virtual_environment_name>` |
 
-To create a new virtual environment, use:
-
-```bash
-mkvirtualenv <virtual_environment_name>
-```
-
-### Deleting a Virtual Environment
-
-Before deleting a virtual environment, you must first deactivate it:
-
-```bash
-deactivate
-rmvirtualenv <virtual_environment_name>
-```
-
-### Listing All Virtual Environments
-
-To see a list of all created virtual environments:
-
-```bash
-lsvirtualenv
-```
-
-### Switching Between Environments
-
-To activate or switch to a specific virtual environment:
-
-```bash
-workon <virtual_environment_name>
-```
-
-### Exiting the Current Environment
-
-To deactivate the current virtual environment and return to the system-installed Python:
-
-```bash
-(virtual_environment_name) deactivate
-```
 
 **Reference**: [virtualenvwrapper Documentation – Command Reference](https://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html)
