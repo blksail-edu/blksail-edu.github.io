@@ -1,5 +1,5 @@
 ---
-slidebar_position: 40
+slidebar_position: 30
 ---
 
 # Terminal Commands
@@ -98,3 +98,51 @@ Launch files in ROS 2 are used to start multiple instances of nodes using a sing
 | Command | Description | Example |
 | ------- | ----------- | ------- |
 | `ros2 launch` | Runs a ROS 2 launch file. | `ros2 launch \<PACKAGE_NAME\> \<LAUNCH_FILE\>` |
+
+
+## Virtualenvwrapper Commands
+
+The following are common commands used with `virtualenvwrapper` to manage Python virtual environments.
+
+### Creating a Virtual Environment
+
+To create a new virtual environment, use:
+
+```bash
+mkvirtualenv <virtual_environment_name>
+```
+
+### Deleting a Virtual Environment
+
+Before deleting a virtual environment, you must first deactivate it:
+
+```bash
+deactivate
+rmvirtualenv <virtual_environment_name>
+```
+
+### Listing All Virtual Environments
+
+To see a list of all created virtual environments:
+
+```bash
+lsvirtualenv
+```
+
+### Switching Between Environments
+
+To activate or switch to a specific virtual environment:
+
+```bash
+workon <virtual_environment_name>
+```
+
+### Exiting the Current Environment
+
+To deactivate the current virtual environment and return to the system-installed Python:
+
+```bash
+(virtual_environment_name) deactivate
+```
+
+**Reference**: [virtualenvwrapper Documentation – Command Reference](https://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html)
