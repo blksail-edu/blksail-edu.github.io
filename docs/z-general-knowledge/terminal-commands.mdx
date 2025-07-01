@@ -1,10 +1,24 @@
 ---
-slidebar_position: 2
+slidebar_position: 30
 ---
 
-# 2.2 Terminal Commands
+# Terminal Commands
 
-## Package Commands
+## Linux Basic Commands
+
+Here is a list of terminal commands you may find helpful throughout the course.
+
+| Command | Description | Example |
+| ------- | ----------- | ------- |
+| `echo` | Displays text in a given location (terminal by default) | `echo "hello world"` |
+| `ls` | Lists all files and directories | `ls` |
+| `cd` | Moves to a given location | `cd auvc_ws` |
+| `mkdir` | Creates an empty directory | `mkdir intro_to_python` |
+| `code` | Opens a file or directory in VS Code | `code .` |
+| `sudo` | Runs a command with root permissions | `sudo apt-get update` |
+
+## ROS 2 Commands
+### Package Commands
 
 ROS 2 packages are the fundamental building blocks of ROS 2 code. They contain nodes, interfaces, and other resources necessary for ROS 2 applications.
 
@@ -35,7 +49,7 @@ If you've just compiled a new package, you will either need to source the worksp
 
 :::
 
-## Node Commands
+### Node Commands
 
 Nodes are the executable programs in ROS 2 that perform computation. They can communicate with each other through topics, services, and actions.
 
@@ -44,7 +58,7 @@ Nodes are the executable programs in ROS 2 that perform computation. They can co
 | `ros2 node info` | Outputs information about a node. | `ros2 node info /publisher` |
 | `ros2 node list` | Outputs a list of running nodes. | `ros2 node list` |
 
-## Topic Commands
+### Topic Commands
 
 Topics are the communication channels in ROS 2 that nodes use to exchange messages. They are used for one-to-many communication.
 
@@ -55,7 +69,7 @@ Topics are the communication channels in ROS 2 that nodes use to exchange messag
 | `ros2 topic list` | Outputs a list of named topics. | `ros2 topic info` |
 | `ros2 topic pub` | Publishes data to a topic from the terminal. | `ros2 topic pub geometry_msgs/msg/Vector3 "\{x: 1.0, y: 0.0, z: 0.0\}"` |
 
-## Interface Commands
+### Interface Commands
 
 Interfaces are the data structures that nodes use to communicate \(i.e., `.msg` files, `.srv` files, etc.\).
 
@@ -66,7 +80,7 @@ Interfaces are the data structures that nodes use to communicate \(i.e., `.msg` 
 | `ros2 interface packages` | Outputs a list of packages that contain interfaces. | `ros2 interface packages` |
 | `ros2 interface show` | Outputs the structure defined within the interface. | `ros2 interface show geometry_msgs/msg/Vector3Stamped` |
 
-## Service Commands
+### Service Commands
 
 Services are a way for nodes to communicate in a request-response manner. They are used for synchronous communication.
 
@@ -77,10 +91,26 @@ Services are a way for nodes to communicate in a request-response manner. They a
 | `ros2 service list` | Outputs a list of running services. | `ros2 service list` |
 | `ros2 service type` | Outputs the type of a running service. | `ros2 service type \<SERVICE_NAME\>` |
 
-## Launch Commands
+### Launch Commands
 
 Launch files in ROS 2 are used to start multiple instances of nodes using a single terminal command. These files save you time by eliminating the need to open X terminals to `ros2 run` X nodes.
 
 | Command | Description | Example |
 | ------- | ----------- | ------- |
 | `ros2 launch` | Runs a ROS 2 launch file. | `ros2 launch \<PACKAGE_NAME\> \<LAUNCH_FILE\>` |
+
+
+## `virtualenvwrapper` Commands
+
+The following are common commands used with `virtualenvwrapper` to manage Python virtual environments.
+
+| Command | Description | Example |
+| ------- | ----------- | ------- |
+| `mkvirtualenv` | Creates a new virtual environment | `mkvirtualenv <virtual_environment_name>` |
+| `rmvirtualenv` | Deletes a virtual environment (must be deactivated first) | `rmvirtualenv <virtual_environment_name>` |
+| `deactivate` | Deactivates the current virtual environment and returns to system-installed Python | `(virtual_environment_name) deactivate` |
+| `lsvirtualenv` | Lists all created virtual environments | `lsvirtualenv` |
+| `workon` | Activates or switches to the specified virtual environment | `workon <virtual_environment_name>` |
+
+
+**Reference**: [virtualenvwrapper Documentation – Command Reference](https://virtualenvwrapper.readthedocs.io/en/latest/command_ref.html)

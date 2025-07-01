@@ -2,7 +2,7 @@
 slidebar_position: 4
 ---
 
-# 2.4 ArduSub & ROSMAV
+# 2.3 ArduSub & ROSMAV
 
 In this section, we explore `ArduSub` and `rosmav`.
 ArduSub is a fork of ArduPilot, a flight controller software that runs onboard the BlueROV2 through `BueOS`. The ArduSub software utilizes the `MAVLINK` communication protocol to control the motors, receive sensor data, etc.
@@ -135,6 +135,13 @@ After building the `rosmav` package, test the interface by running the following
 ```zsh
 ros2 run rosmav ros_bluerov2_interface
 ```
+
+:::note
+
+Make sure you are running ArduSub! In a new terminal, activate the virtual environment (```workon ardusub```) and run the simulation:
+```~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:192.168.3.1:14550```
+
+:::
 
 If the command runs successfully, you should see the following output:
 
