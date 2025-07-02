@@ -177,6 +177,7 @@ sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev rapidjson-
 Navigate to the `gazebo_bluerov2` repository, and then run the build command:
 
 ```zsh
+chmod +x ./build.sh
 ./build.sh
 ```
 
@@ -188,6 +189,7 @@ Navigate to the `gazebo_bluerov2` repository, and then run the build command:
 After the build is complete, you can start the simulation with:
 
 ```zsh
+chmod +x ./launch_1x_bluerov2.sh
 ./launch_1x_bluerov2.sh
 ```
 
@@ -204,10 +206,17 @@ Now that you can run the BlueROV2 Gazebo simulation, the Gazebo simulation must 
 
 #### Raspberry Pi Configuration
 
-In a terminal on the `backseat`, install the `ros_gz_bridge` package:
+In a terminal on the `backseat`, install the `ros_gz_bridge` package. First, add the Gazebo package repository:
 
 ```zsh
-sudo apt install ros-jazzy-ros-gz-bridge
+sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
+```
+
+Then install the bridge and some dependencies:
+
+```zsh
+sudo apt install ros-jazzy-ros-gz-bridge libgz-transport13-dev libgz-msgs10-dev libgz-common5-dev libgz-tools2-dev
 ```
 
 Then, with your favorite text editor, open the `.zshrc` file and add the following lines:
@@ -272,6 +281,12 @@ cd
 notepad .wslconfig
 ```
 
+:::note
+
+If it says that the file does not exist, please click yes to create a new file.
+
+:::
+
 Insert the following lines to change WSL to have a `mirror` network mode, then save and close the file.
 
 ```zsh
@@ -301,22 +316,31 @@ Create a new Windows Firewall protocol to enable IPv4 communication between WSL 
 New-NetFirewallRule -DisplayName "AUVC Allow ICMPv4 Inbound for WSL2" -Direction Inbound -Protocol ICMPv4 -Action Allow
 ```
 
-You can test that this works by pinging your Raspberry Pi. In a `WSL` terminal, run:
+You can test that this works by pinging your Raspberry Pi. In a **`WSL`** terminal, run:
 
 ```zsh
-ping 192.168.2.2
+ping 192.168.3.2
 ```
 
-Then, create four additional Windows Firewall protocols to allow access to the Gazebo ports:
+Then, create four additional Windows Firewall protocols to allow access to the Gazebo ports. Run the following commands in a **`Windows PowerShell`** terminal:
 
 ```zsh
 New-NetFirewallRule -DisplayName "AUVC Allow Gazebo UDP Ports Inbound for WSL2" -Direction Inbound -Protocol UDP -LocalPort 9000-9100,10317-10318,11345-11355 -Action Allow
+```
+
+```zsh
 New-NetFirewallRule -DisplayName "AUVC Allow Gazebo UDP Ports Outbound for WSL2" -Direction Outbound -Protocol UDP -RemotePort 9000-9100,10317-10318,11345-11355 -Action Allow
+```
+
+```zsh
 New-NetFirewallRule -DisplayName "AUVC Allow Gazebo TCP Ports Inbound for WSL2" -Direction Inbound -Protocol TCP -LocalPort 40000-65535 -Action Allow
+```
+
+```zsh
 New-NetFirewallRule -DisplayName "AUVC Allow Gazebo TCP Ports Outbound for WSL2" -Direction Outbound -Protocol TCP -RemotePort 40000-65535 -Action Allow
 ```
 
-You can test that this is working by running the Gazebo simulation in a `WSL` terminal, and running the following command from your Raspberry Pi:
+You can test that this is working by running the Gazebo `./launch_1x_bluerov.sh` simulation in a `WSL` terminal, and then running the following command from your Raspberry Pi:
 
 ```zsh
 gz topic -l
@@ -362,7 +386,7 @@ To communicate with the BlueROV2 simulation, you will use the `ros_gz_bridge` pa
 
 :::warning
 
-The bidge node should be started after the Gazebo simulations to ensure it functions properly.
+The bridge node should be started after the Gazebo simulations to ensure it functions properly.
 
 :::
 
