@@ -353,29 +353,7 @@ You should see a list of Gazebo topics from the Gazebo simulation running in `WS
 </TabItem>
 <TabItem value="ubuntu" label="Ubuntu">
 
-You must add similar environment variables to your `WSL`'s `.zshrc` file so that Raspberry Pi and Gazebo simulation can communicate. With your favorite text editor, open the `.zshrc` file in `WSL` and add the following lines:
-
-```zsh
-# Gazebo
-export GZ_PARTITION=my_sim
-export GZ_TRANSPORT_ID=192.168.3.1
-export GZ_TRANSPORT_PUB_PORT=11345
-export GZ_TRANSPORT_SUB_PORT=11346
-```
-
-After, source the `.zshrc` file:
-
-```zsh
-source ~/.zshrc
-```
-
-You can test that this is working by running the Gazebo simulation in a terminal on your Ubuntu local machine, and running the following command on the `backseat`:
-
-```zsh
-gz topic -l
-```
-
-You should see a list of Gazebo topics from the Gazebo simulation.
+placeholder
 
 </TabItem>
 </Tabs>
