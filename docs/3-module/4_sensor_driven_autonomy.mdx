@@ -383,13 +383,13 @@ The bridge node should be started after the Gazebo simulations to ensure it func
 
 :::
 
-To start the bridge, run the following command in a terminal on the `backseat`:
-
-```zsh
-ros2 launch rosmav bridge.launch.py
-```
-
 This node will convert Gazebo messages to ROS 2 messages for crucial onboard components like the camera, IMU, magnetometer/compass. It is also configured for thruster manual inputs; however, we **WILL NOT** be using these to control the ROV(s).
+
+:::info
+
+You will start the bridge in the `simulation.launch.py` ROS 2 launch file in the following section.
+
+:::
 
 ## ROS 2 Simulation Interface
 
