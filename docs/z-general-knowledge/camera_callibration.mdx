@@ -17,8 +17,9 @@ Without calibration, pose estimation results (translation and rotation) could be
 ## What You Need
 
 - The camera mounted on the BlueROV2
-- A printed checkerboard calibration target (e.g., 7×6 inner corners, 30 mm square size)
 - A computer connected to the camera (via USB or IP stream)
+- A printed checkerboard calibration target as shown below (this one is 7×6 inner corners, 30 mm square size)
+ ![Checkerboard](checkerboard_7x6_30mm.png)
 
 ## ROS 2–Based Camera Calibration
 
@@ -37,9 +38,10 @@ Without calibration, pose estimation results (translation and rotation) could be
    ```
 ### Step-by-Step Instructions
 
-1. **Print the calibration target**
+1. **Prepare the calibration target**
 
-   Print a checkerboard pattern with known dimensions. For example, a 7×6 checkerboard with 30 mm squares. Mount it flat and keep it rigid.
+   Print a checkerboard pattern with known dimensions. We have a 7×6 checkerboard with 30 mm squares. 
+   Glue it to a stiff backing (like foam board) to keep it flat and rigid during calibration.
 
 2. **Start the camera node**
 
