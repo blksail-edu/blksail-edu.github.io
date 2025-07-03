@@ -177,6 +177,7 @@ sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev rapidjson-
 Navigate to the `gazebo_bluerov2` repository, and then run the build command:
 
 ```zsh
+chmod +x ./build.sh
 ./build.sh
 ```
 
@@ -188,6 +189,7 @@ Navigate to the `gazebo_bluerov2` repository, and then run the build command:
 After the build is complete, you can start the simulation with:
 
 ```zsh
+chmod +x ./launch_1x_bluerov2.sh
 ./launch_1x_bluerov2.sh
 ```
 
@@ -204,10 +206,19 @@ Now that you can run the BlueROV2 Gazebo simulation, the Gazebo simulation must 
 
 #### Raspberry Pi Configuration
 
-In a terminal on the `backseat`, install the `ros_gz_bridge` package:
+In a terminal on the `backseat`, install the `ros_gz_bridge` package. First, add the Gazebo package repository:
 
 ```zsh
-sudo apt install ros-jazzy-ros-gz-bridge
+sudo wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
+```
+
+Then install the bridge and some dependencies:
+
+```zsh
+sudo apt update
+sudo apt install ros-jazzy-ros-gz ros-jazzy-ros-gz-bridge libgz-transport13-dev libgz-msgs10-dev libgz-common5-dev libgz-tools2-dev
+sudo apt upgrade -y
 ```
 
 Then, with your favorite text editor, open the `.zshrc` file and add the following lines:
@@ -218,10 +229,16 @@ export GZ_PARTITION=my_sim
 export GZ_TRANSPORT_IP=192.168.3.2
 export GZ_TRANSPORT_PUB_PORT=11345
 export GZ_TRANSPORT_SUB_PORT=11346
-export GZ_DISCOVERY_SERVER=192.168.3.1\:11345
+export GZ_DISCOVERY_SERVER=192.168.3.1:11345
 ```
 
 These environment variables will help point the Raspberry Pi to the Gazebo simulation.
+
+Source the `.zshrc` file:
+
+```zsh
+source ~/.zshrc
+```
 
 #### Laptop Configuration
 
@@ -265,12 +282,18 @@ This alone is not enough to enable Gazebo communication between your Raspberry P
 
 Since WSL is a virtual machine, it is by default an internal network interface, meaning that the WSL interface is only visible to Windows. To fix this, you can change WSL's network mode to mirrored.
 
-In a `Windows PowerShell` terminal, open the `.wslconfig file`:
+In a **`Windows PowerShell`** terminal, open the `.wslconfig file`:
 
 ```zsh
 cd
-notpad .wslconfig
+notepad .wslconfig
 ```
+
+:::note
+
+If it says that the file does not exist, please click yes to create a new file.
+
+:::
 
 Insert the following lines to change WSL to have a `mirror` network mode, then save and close the file.
 
@@ -279,7 +302,7 @@ Insert the following lines to change WSL to have a `mirror` network mode, then s
 networkingMode=mirrored
 ```
 
-To apply the changes, shutdown `WSL` from a `Windows PowerShell` terminal:
+To apply the changes, shutdown `WSL` from a **`Windows PowerShell`** terminal:
 
 :::warning
 
@@ -295,64 +318,60 @@ After the shutdown, you can open `WSL` again as normal and the changes will be a
 
 ##### WSL Firewall Access
 
-Create a new Windows Firewall protocol to enable IPv4 communication between WSL and your Raspberry Pi. In a `Windows PowerShell` terminal, run:
+Create a new Windows Firewall protocol to enable IPv4 communication between WSL and your Raspberry Pi. In a **`Windows PowerShell`** terminal, run:
 
 ```zsh
 New-NetFirewallRule -DisplayName "AUVC Allow ICMPv4 Inbound for WSL2" -Direction Inbound -Protocol ICMPv4 -Action Allow
 ```
 
-You can test that this works by pinging your Raspberry Pi. In a `WSL` terminal, run:
+You can test that this works by pinging your Raspberry Pi. In a **`WSL`** terminal, run:
 
 ```zsh
-ping 192.168.2.2
+ping 192.168.3.2
 ```
 
-Then, create two additional Windows Firewall protocols to allow access to the Gazebo ports:
+Then, create four additional Windows Firewall protocols to allow access to the Gazebo ports. Run the following commands in a **`Windows PowerShell`** terminal:
 
 ```zsh
-New-NetFirewallRule -DisplayName "AUVC Allow Gazebo Ports 11345-11346 Inbound for WSL2" -Direction Inbound -Protocol UDP -LocalPort 11345-11346 -Action Allow
-New-NetFirewallRule -DisplayName "AUVC Allow Gazebo Ports 11345-11346 Outbound for WSL2" -Direction Outbound -Protocol UDP -RemotePort 11345-11346 -Action Allow
+New-NetFirewallRule -DisplayName "AUVC Allow Gazebo UDP Ports Inbound for WSL2" -Direction Inbound -Protocol UDP -LocalPort 9000-9100,10317-10318,11345-11355 -Action Allow
 ```
 
-You can test that this is working by running the Gazebo simulation in a `WSL` terminal, and running the following command from your Raspberry Pi:
+```zsh
+New-NetFirewallRule -DisplayName "AUVC Allow Gazebo UDP Ports Outbound for WSL2" -Direction Outbound -Protocol UDP -RemotePort 9000-9100,10317-10318,11345-11355 -Action Allow
+```
+
+```zsh
+New-NetFirewallRule -DisplayName "AUVC Allow Gazebo TCP Ports Inbound for WSL2" -Direction Inbound -Protocol TCP -LocalPort 40000-65535 -Action Allow
+```
+
+```zsh
+New-NetFirewallRule -DisplayName "AUVC Allow Gazebo TCP Ports Outbound for WSL2" -Direction Outbound -Protocol TCP -RemotePort 40000-65535 -Action Allow
+```
+
+You can test that this is working by running the Gazebo `./launch_1x_bluerov2.sh` simulation in a `WSL` terminal, and then running the following command from your Raspberry Pi:
 
 ```zsh
 gz topic -l
 ```
 
-You should see a list of Gazebo topics from the Gazebo simulation running in `WSL`.
+You should see a list of Gazebo topics in your terminal on the `backseat` from the Gazebo simulation running in `WSL`.
+
+In the same terminal on the `backseat`, try:
+
+```zsh
+gz topic -e -t /world/bluerov2_pool_sim/model/rov1/link/base_link/sensor/imu_sensor/imu
+```
+
+You should see imu messages output in the terminal.
+
 
 </TabItem>
 <TabItem value="ubuntu" label="Ubuntu">
 
-You must add similar environment variables to your `WSL`'s `.zshrc` file so that Raspberry Pi and Gazebo simulation can communicate. With your favorite text editor, open the `.zshrc` file in `WSL` and add the following lines:
-
-```zsh
-# Gazebo
-export GZ_PARTITION=my_sim
-export GZ_TRANSPORT_ID=192.168.3.1
-export GZ_TRANSPORT_PUB_PORT=11345
-export GZ_TRANSPORT_SUB_PORT=11346
-```
-
-After, source the `.zshrc` file:
-
-```zsh
-source ~/.zshrc
-```
-
-You can test that this is working by running the Gazebo simulation in a terminal on your Ubuntu local machine, and running the following command on the `backseat`:
-
-```zsh
-gz topic -l
-```
-
-You should see a list of Gazebo topics from the Gazebo simulation.
+placeholder
 
 </TabItem>
 </Tabs>
-
-##
 
 ## ROS 2 Gazebo Bridge
 
@@ -360,54 +379,93 @@ To communicate with the BlueROV2 simulation, you will use the `ros_gz_bridge` pa
 
 :::warning
 
-The bidge node should be started after the Gazebo simulations to ensure it functions properly.
+The bridge node should be started after the Gazebo simulations to ensure it functions properly.
 
 :::
-
-To start the bridge, run the following command in a terminal on the `backseat`:
-
-```zsh
-ros2 launch rosmav bridge.launch.py
-```
 
 This node will convert Gazebo messages to ROS 2 messages for crucial onboard components like the camera, IMU, magnetometer/compass. It is also configured for thruster manual inputs; however, we **WILL NOT** be using these to control the ROV(s).
 
-## ArduSub with Gazebo
-
-To control the BlueROV2 in the Gazebo simulation, you will use the `rosmav` package to establish a `MAVLINK` connection instances of the `SITL`. The `SITL` will then control the BlueROV2 inside of the Gazebo world. Each simulated vehicle in the Gazebo world must use a different port for the `SITL`.
-
 :::info
 
-When we used the `SITL` with `QGroundControl`, we used port `14550`. This port is specific to `QGroundControl` and will not be used while running Gazebo simulation.
+You will start the bridge in the `simulation.launch.py` ROS 2 launch file in the following section.
 
 :::
 
-### Simulating 1x ROV
+## ROS 2 Simulation Interface
 
-In the **`launch_1z_bluerov2.sh`** file, a Gazebo sim is started containing a single BlueROV2 that uses **port** **9002** for `MAVLINK`. To connect to this vehicle with the `SITL`, the port must be changed to `9002`. The command below also adds the argument `-I 0`, indicating that this `SITL` is instance 0.
+To control the BlueROV2 vehicle(s) in the Gazebo simulations, you will use the simulation interface in the `rosmav` package. The simulation interface publishes topics identical to those from the hardware interface using a custom node paired with the `ros_gz_bridge` package.
 
-```zsh
-~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:192.168.3.1:9002 -I 0
-```
-
-### Simulating 2x ROV
-
-In the **`launch_2x_bluerov2.sh`** file, a Gazebo sim is started containing two BlueROV2s that use **ports** **9002** and **9012**, respectively. To connect to these vehicles with the `SITL`, two instances must be started in separate terminals.
-
-In the first terminal, you can run:
-
-```zsh
-~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:192.168.3.1:9002 -I 0
-```
-
-In the second terminal, you will run:
-
-```zsh
-~/ardupilot/Tools/autotest/sim_vehicle.py --vehicle=ArduSub --aircraft="bwsibot" -L RATBeach --out=udp:192.168.3.1:9012 -I 1
-```
+First, **start the simulation on your macOs, Windows WSL, or Ubuntu machine**:
 
 :::info
 
-Notice how the port and instance indices change between each command. These link each `SITL` instance to the corresponding BlueROV2 model in the Gazebo world.
+If you want to start a simulation with **1x BlueROV2**, run:
+
+```zsh
+./launch_1x_bluerov2.sh
+```
+
+If you want to start a simulation with **2x BlueROV2**, run:
+
+```zsh
+./launch_2x_bluerov2.sh
+```
 
 :::
+
+Then, on the `backseat`, launch the simulation interface and bridge nodes:
+
+```zsh
+ros2 launch rosmav simulation.launch.py
+```
+
+If all things are working correctly, several topics will be advertised with the `rov1` and `rov2` namespaces that correspond to the same topics from the `bluerov2_hardware_interface` node.
+
+:::note
+
+Topics will be advertised for both ROVs in the simulation interface regardless of whether you are simulating 1x or 2x vehicles.
+
+If you are only simulating 1x vehicle, ignore the `rov2` topics.
+
+:::
+
+:::info
+
+For the simulation, you do not need to arm the ROVs to publish `ManualControl` messages.
+
+:::
+
+## Problem Set
+
+Create a new package that will contain nodes to run with the Gazebo simulations.
+
+### Problem One
+
+Create a new node that deploys your line-following logic with `rov1` in the `./launch_1x_bluerov2` simulation. Publish control messages to the `/rov1/manual_control` topic.
+
+:::info
+
+If you do not want to publish all the `x`, `y`, `z`, and `r` in a single `ManualControl` msg, you can replace any of the fields with `nan`. In this case, the software interface will use the previous value for that field.
+
+:::
+
+:::warning Check-off
+Review with a TA or instructor to check-off this section.
+:::
+
+### Problem Two
+
+Create a launch file that deploys two instances of your control logic for both `rov1` and `rov2`. Please specify the ROV names as namespaces in your launch file.
+
+Then, test your code using the `./launch_2x_bluerov2` simulation and `ros2 launch rosmav simulation.launch.py`.
+
+:::note
+
+This simulation can be used to test your strategy for the final challenge.
+
+:::
+
+:::warning Check-off
+Review with a TA or instructor to check-off this section.
+:::
+
