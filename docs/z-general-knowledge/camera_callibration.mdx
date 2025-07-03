@@ -25,12 +25,8 @@ Without calibration, pose estimation results (translation and rotation) could be
 
 ### Prerequisites
 
-- Check that ROS 2 is installed:
-
-   ```
-   ros2 --version
-   ```
-- Confirm that the camera is publishing to `/camera/image_raw`
+- Make sure you have already completed all the steps until Module 2, section 2.3 (Installing Rosmav)
+- Confirm that the camera is publishing to `/bluerov2/camera`
 - Install the `camera_calibration` package:
 
    ```
@@ -55,7 +51,7 @@ Without calibration, pose estimation results (translation and rotation) could be
 
    ```
    ros2 topic list
-   ros2 topic echo /camera/image_raw
+   ros2 topic echo /bluerov2/camera
    ```
 
 3. **Run the camera calibration tool**
@@ -67,7 +63,7 @@ Without calibration, pose estimation results (translation and rotation) could be
      --size 7x6 \
      --square 0.03 \
      --camera_name blue_rov_camera \
-     --topic /camera/image_raw
+     --topic /bluerov2/camera
    ```
 
    :::tip
