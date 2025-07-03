@@ -234,6 +234,12 @@ export GZ_DISCOVERY_SERVER=192.168.3.1:11345
 
 These environment variables will help point the Raspberry Pi to the Gazebo simulation.
 
+Source the `.zshrc` file:
+
+```zsh
+source ~/.zshrc
+```
+
 #### Laptop Configuration
 
 :::warning
@@ -342,13 +348,22 @@ New-NetFirewallRule -DisplayName "AUVC Allow Gazebo TCP Ports Inbound for WSL2" 
 New-NetFirewallRule -DisplayName "AUVC Allow Gazebo TCP Ports Outbound for WSL2" -Direction Outbound -Protocol TCP -RemotePort 40000-65535 -Action Allow
 ```
 
-You can test that this is working by running the Gazebo `./launch_1x_bluerov.sh` simulation in a `WSL` terminal, and then running the following command from your Raspberry Pi:
+You can test that this is working by running the Gazebo `./launch_1x_bluerov2.sh` simulation in a `WSL` terminal, and then running the following command from your Raspberry Pi:
 
 ```zsh
 gz topic -l
 ```
 
-You should see a list of Gazebo topics from the Gazebo simulation running in `WSL`.
+You should see a list of Gazebo topics in your terminal on the `backseat` from the Gazebo simulation running in `WSL`.
+
+In the same terminal on the `backseat`, try:
+
+```zsh
+gz topic -e -t /world/bluerov2_pool_sim/model/rov1/link/base_link/sensor/imu_sensor/imu
+```
+
+You should see imu messages output in the terminal.
+
 
 </TabItem>
 <TabItem value="ubuntu" label="Ubuntu">
@@ -357,8 +372,6 @@ placeholder
 
 </TabItem>
 </Tabs>
-
-##
 
 ## ROS 2 Gazebo Bridge
 
