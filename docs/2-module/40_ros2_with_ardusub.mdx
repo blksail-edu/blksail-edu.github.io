@@ -122,6 +122,10 @@ rosdep update
 cd ~/auvc_ws && rosdep install --from-paths src --ignore-src -r -y
 ```
 
+```zsh
+sudo apt install ros-jazzy-ros-gz-bridge ros-jazzy-mavros-msgs
+```
+
 5. Compile the `rosmav` package and source the workspace.
 
 ```zsh
@@ -130,10 +134,10 @@ colcon build --packages-select rosmav && source install/setup.zsh
 
 ## Launching ROSMAV
 
-After building the `rosmav` package, test the interface by running the following command in a terminal on the backseat:
+After building the `rosmav` package, test the interface by running the following command in a terminal on the `backseat`:
 
 ```zsh
-ros2 run rosmav ros_bluerov2_interface
+ros2 run rosmav bluerov2_hardware_interface
 ```
 
 :::note
