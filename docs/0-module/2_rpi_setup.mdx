@@ -340,6 +340,11 @@ Click `Apply` and reconnect the interface if needed.
 
 Once these steps are complete, you should be able to run `ping 192.168.3.1` from a terminal on the `Raspberry Pi`.
 
+:::danger
+Make sure you always use the same USB port that the RPi was plugged in when you set the IP address, as that is the specific interface that is now setup. 
+If you use another USB port, it will reset your interface settings. 
+:::
+
 :::warning
 
 When you are done using your Raspberry Pi, run `sudo poweroff` and wait for it to complete before unplugging your RPi.
