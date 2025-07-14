@@ -182,10 +182,13 @@ The force from the thruster can contribute to both **linear acceleration** and *
   - `F_angle`: the angle of the force applied by the thruster in radians.
     The angle is measured from the $x$-axis.
     Positive angles are measured in the counter-clockwise direction.
-  - `mass` (can be set to default value of $100 kg$): the mass of the AUV in kilograms.
-  - `volume` (can be set to default value of $0.1 m^3$): the volume of the AUV in cubic meters.
-  - `thruster_distance` (can be set to default value of $0.5 m$): the distance from the center of mass of the AUV to the thruster in meters.
+  - `mass` (optional): the mass of the AUV in kilograms.
+  The default value is $100 kg$.
+  - `volume` (optional): the volume of the AUV in cubic meters.
+  The default value is $0.1 m^3$.
+  - `thruster_distance` (optional): the distance from the center of mass of the AUV to the thruster in meters.
 - The function should return the linear acceleration of the AUV in meters per second squared.
+The default value is $0.5 m$.
 
 2. Write a Python function, `calculate_auv_angular_acceleration`,
    that calculates the angular acceleration of the AUV.
@@ -193,8 +196,10 @@ The force from the thruster can contribute to both **linear acceleration** and *
 - The function should take the following arguments:
   - `F_magnitude`: the magnitude of force applied by the thruster in Newtons.
   - `F_angle`: the angle of the force applied by the thruster in radians.
-  - `inertia` (can be set to default value of $1 kg \cdot m^2$): the moment of inertia of the AUV in $kg \cdot m^2$.
-  - `thruster_distance` (can be set to default value of $0.5 m$): the distance from the center of mass of the AUV to the thruster in meters.
+  - `inertia` (optional): the moment of inertia of the AUV in $kg \cdot m^2$.
+  The default value is $1 kg \cdot m^2$.
+  - `thruster_distance` (optional): the distance from the center of mass of the AUV to the thruster in meters.
+  The default value is $0.5 m$.
 - The function should return the angular acceleration of the AUV in radians per second squared.
 
 ### Problem 9
@@ -213,7 +218,8 @@ The thrusters are offset from the center of mass of the AUV by a distance $L$ lo
   - `T`: an `np.ndarray` of the magnitudes of the forces applied by the thrusters in Newtons.
   - `alpha`: the angle of the thrusters in radians.
   - `theta`: the angle of the AUV in radians.
-  - `mass` (can be set to default value of $100 kg$): the mass of the AUV in kilograms.
+  - `mass` (optional): the mass of the AUV in kilograms.
+The default value is $100 kg$.
 
 2. Write a Python function, `calculate_auv2_angular_acceleration`,
    that calculates the angular acceleration of the AUV.
@@ -223,7 +229,8 @@ The thrusters are offset from the center of mass of the AUV by a distance $L$ lo
   - `alpha`: the angle of the thrusters in radians.
   - `L`: the distance from the center of mass of the AUV to the thrusters in meters.
   - `l`: the distance from the center of mass of the AUV to the thrusters in meters.
-  - `inertia` (can be set to default value of $100 kg \cdot m^2$): the moment of inertia of the AUV in $kg \cdot m^2$.
+  - `inertia` (optional): the moment of inertia of the AUV in $kg \cdot m^2$.
+  The default value is $100 kg \cdot m^2$.
 
 ### Problem 10
 
@@ -243,13 +250,20 @@ simulate the motion of the AUV in the 2D plane.
   - `alpha`: the angle of the thrusters in radians.
   - `L`: the distance from the center of mass of the AUV to the thrusters in meters.
   - `l`: the distance from the center of mass of the AUV to the thrusters in meters.
-  - `mass` (can be set to default value of $100 kg$): the mass of the AUV in kilograms.
-  - `inertia` (can be set to default value of $100 kg \cdot m^2$): the moment of inertia of the AUV in $kg \cdot m^2$.
-  - `dt` (can be set to default value of $0.1 s$): the time step of the simulation in seconds.
-  - `t_final` (can be set to default value of $10 s$): the final time of the simulation in seconds.
-  - `x0` (can be set to default value of $0 m$): the initial $x$-position of the AUV in meters.
-  - `y0` (can be set to default value of $0 m$): the initial $y$-position of the AUV in meters.
-  - `theta0` (can be set to default value of $0 rad$): the initial angle of the AUV in radians.
+  - `mass` (optional): the mass of the AUV in kilograms.
+  The default value is $100 kg$.
+  - `inertia` (optional): the moment of inertia of the AUV in $kg \cdot m^2$.
+  The default value is $100 kg \cdot m^2$.
+  - `dt` (optional): the time step of the simulation in seconds.
+  The default value is $0.1 s$.
+  - `t_final` (optional): the final time of the simulation in seconds.
+  The default value is $10 s$.
+  - `x0` (optional): the initial $x$-position of the AUV in meters.
+  The default value is $0 m$.
+  - `y0` (optional): the initial $y$-position of the AUV in meters.
+  The default value is $0 m$.
+  - `theta0` (optional): the initial angle of the AUV in radians.
+  The default value is $0 rad$.
 - The function should return the following:
   - `t`: an `np.ndarray` of the time steps of the simulation in seconds.
   - `x`: an `np.ndarray` of the $x$-positions of the AUV in meters.
