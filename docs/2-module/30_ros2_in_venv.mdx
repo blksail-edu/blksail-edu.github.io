@@ -112,9 +112,9 @@ entry_points={
 
 ```py
 import os
-
+virtualenv_name = "tutorials"
 home_path = os.path.expanduser("~")
-executable_path = os.path.join(home_path, '.virtualenvs', 'tutorials', 'bin', 'python')
+executable_path = os.path.join(home_path, '.virtualenvs', virtualenv_name, 'bin', 'python')
 ```
 
 The `executable_path` variable in this python code represents your system's path to the the virtual environment called `tutorials`.
