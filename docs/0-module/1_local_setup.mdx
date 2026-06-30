@@ -291,8 +291,31 @@ pip3 install --user virtualenv virtualenvwrapper --break-system-packages
 
 We will be adding some configuration to the `.zshrc` file.
 
-Open the `.zshrc` file with your favorite text editor and add the following
-lines:
+Open the `.zshrc` file using your preferred text editor.
+
+:::note 
+
+If this is your first time editing the file, you have a couple of options:
+
+* **Nano:** Nano is the default terminal-based text editor. Open the file by running:
+
+  ```bash
+  nano ~/.zshrc
+  ```
+
+  After making your changes, press **Ctrl + O** to save, **Enter** to confirm, and **Ctrl + X** to exit.
+
+* **Visual Studio Code:** If you have Visual Studio Code installed and the `code` command is available from your terminal, you can open the file with:
+
+  ```sh
+  code ~/.zshrc
+  ```
+
+  > **Note:** If the `code` command is not recognized, you may need to enable it by following the instructions for your operating system or installation method.
+
+:::
+
+Once the `.zshrc` file is open, add the following lines at the end:
 
 ```bash
 # Python

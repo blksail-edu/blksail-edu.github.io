@@ -103,6 +103,11 @@ We will be using a new user for you for this course.
 ```bash
 sudo adduser <username>
 ```
+:::warning
+
+Please choose a generic (non-personal) password, as you may need to share it with your TAs or other team members during the course of the project.
+
+:::
 
 2. Enter a password for the new user.
 3. Enter the password again to confirm.
@@ -205,50 +210,9 @@ You can edit the `.zshrc` file with your favorite text editor.
 
 We will be adding some configuration to the `.zshrc` file in the next sections.
 
-## Assigning the RPi a Static IP
-
-By default, the interface between your Raspberry Pi and local machine will have dynamic IP addresses.
-To simplify future sections of the course, you'll assign a static IP address to the Raspberry Pi.
-
-### Raspberry Pi
-
-Once connected to your Raspberry Pi, open the `/etc/netplan/50-cloud-init.yaml` file using the in-terminal text editor.
-This file is responsible for defining network connections like the `usb0` interface to your local machine and the `wlan0` wifi interface.
-
-```zsh
-sudo nano /etc/netplan/50-cloud-init.yaml
-```
-
-After the file is open, modify the `usb0` interface to look like this:
-
-```yaml
-        usb0:
-            dhcp4: false
-            dhcp6: false
-            addresses:
-            - 192.168.3.2/24
-            match:
-                name: usb0
-            set-name: usb0
-```
-
-:::info
-
-Once the `usb0` interface matches the above code, press **`CTRL + X`** to close the file.
-When you are prompted if you want to save the modified buffer, enter **`y`**.
-Then, press **`enter`** an additional time to save the file using its current path and name.
-
-:::
-
-Apply the changes to the netplan in the same terminal:
-
-```zsh
-sudo netplan apply
-```
+## Assigning the RPi a Static IP on your Local Machine
 
 ### Local Machine
-
-Now, you must also update the interface on your local machine.
 
 :::warning
 

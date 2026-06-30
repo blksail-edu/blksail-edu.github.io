@@ -6,7 +6,7 @@ sidebar_position: 1
 
 <!-- Insert slides and allow full screen -->
 
-<iframe src="https://blksail-edu.github.io/slides/2025_day0" width="100%" height={320} frameborder="0" allowfullscreen></iframe>
+<iframe src="https://blksail-edu.github.io/slides/2026_day0" width="100%" height={320} frameborder="0" allowfullscreen></iframe>
 
 Welcome to the Autonomous Underwater Vehicle Challenge (AUVC) 2025!
 This comprehensive and practical course is designed to introduce you to the fascinating world of underwater robotics, equipping you with the skills and knowledge to program and operate off-the-shelf underwater robotic vehicles.
@@ -48,15 +48,15 @@ This is a chance for you to put your newly acquired skills to test and gain real
   - Lunch & Seminar: **_🕛 12PM to 🕜 1:30PM_**
   - Classroom: **_🕜1:30PM - 🕔 5PM_**
 
-- Location: **_[24-115, MIT Building 24](https://whereis.mit.edu/?go=24), Cambridge, MA_**
+- Location: **_[36-112, MIT Building 36](https://whereis.mit.edu/?go=36), Cambridge, MA_**
 
-- Course Start Date: **_July 7th, 2025_**
+- Course Start Date: **_July 6th, 2026_**
 
-- Course End Date: **_August 1st, 2025_**
+- Course End Date: **_July 31st, 2026_**
 
-- Demo Day: **_August 2nd, 2025_**
+- Demo Day: **_August 1st, 2026_**
 
-- Awards Ceremony (Virtual): **_August 3nd, 2025_**
+- Awards Ceremony (Virtual): **_August 2nd, 2026_**
 
 ---
 
