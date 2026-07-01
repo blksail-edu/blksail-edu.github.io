@@ -101,14 +101,14 @@ if __name__ == '__main__':
     main()
 ```
 
-:::note 
+:::note
 This node does not detect AprilTags, it only saves raw images for calibration.
 :::
 
 
 ## Step 2: Calibrate the Camera
 
-Once you’ve saved about 15–20 images from different angles, run the following script to compute the camera matrix and distortion coefficients.
+Once you've saved about 15-20 images from different angles, run the following script to compute the camera matrix and distortion coefficients.
 
 ### `calibrate_camera.py`
 
@@ -165,7 +165,7 @@ Use the calibration results to undistort your images before detection:
 ```python
 import cv2
 
-# Load the image previously used 
+# Load the image previously used
 img = cv2.imread("test_image.png")
 
 # Get optimal new camera matrix
@@ -204,7 +204,7 @@ fy = K[1, 1]
 cx = K[0, 2]
 cy = K[1, 2]
 
-# Run detection 
+# Run detection
 tags = detector.detect(
    gray,
    estimate_tag_pose=True,
