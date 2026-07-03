@@ -5,7 +5,7 @@ sidebar_position: 2
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-# Raspberry Pi Setup
+# 🍓 Raspberry Pi Setup
 
 During this course, we will be using a Raspberry Pi 4B as our main computer.
 This section will walk you through the steps to get your Raspberry Pi up and running.
@@ -156,6 +156,15 @@ ssh <username>@backseat.local
 
 You are now connected to the RPi using the new user you just created.
 
+
+:::warning
+
+When you are done using your Raspberry Pi, run `sudo poweroff` and wait for it to complete before unplugging your RPi.
+If you skip this step, you may end up corrupting your RPi.
+
+:::
+
+
 ## Setting up the RPi for the course
 
 For this course, we will be using a few tools that are not installed by default on the RPi.
@@ -167,17 +176,11 @@ We will now install these tools.
 command interpreter for shell scripting. Zsh is an extended Bourne shell with a
 large number of improvements, including some features of Bash, ksh, and tcsh.
 
-We will be using `zsh` as our default shell in this course.
+We will use `zsh` as the default shell for this course. 
+Although it is already installed, we will configure it as the default shell so it is used automatically in all terminal sessions.
 
-#### Install
-
-```bash
-sudo apt install zsh
-```
 
 #### Set as default shell
-
-Set `zsh` as default shell:
 
 ```bash
 chsh -s $(which zsh)
@@ -190,6 +193,8 @@ Restart the shell:
 ```bash
 exec zsh
 ```
+
+When prompted with the Z Shell configuration function for new users, select option 0 to proceed using the default configuration without making changes.
 
 #### Oh-My-Zsh
 
@@ -213,9 +218,50 @@ You can edit the `.zshrc` file with your favorite text editor.
 We will be adding some configuration to the `.zshrc` file in the next sections.
 
 
+### VS Code Extensions (Install Inside Remote SSH Session)
+
+After connecting to the Raspberry Pi using **Remote SSH**, you must install the required VS Code extensions *on the remote machine* (not locally).
+
+
+
+#### Step 1: Open Extensions Panel
+
+- In VS Code, click the **Extensions** icon in the left sidebar or press: `Ctrl + Shift + X`
+
+
+#### Step 2: Confirm You Are Connected to the RPi
+
+- Look at the bottom-left corner of VS Code. You should see something like: `SSH: <username>@backseat.local`
+
+
 :::warning
-
-When you are done using your Raspberry Pi, run `sudo poweroff` and wait for it to complete before unplugging your RPi.
-If you skip this step, you may end up corrupting your RPi.
-
+If you do not see this, you are not installing extensions on the Raspberry Pi.
 :::
+
+
+#### Step 3: Install Required Extensions
+
+- Search for and install the following extensions:
+
+#### [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+
+
+#### [Jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+
+
+
+#### Step 4: Install on the Remote Host (Important)
+
+- For each extension, click **Install**. 
+- When prompted, select: `Install on SSH: <username>@backseat.local`
+
+
+:::warning
+Do NOT select “Install Locally”.
+:::
+
+
+#### Step 5: Reload VS Code
+
+- After installation, Press `F1` then run: `Developer: Reload Window`
+
