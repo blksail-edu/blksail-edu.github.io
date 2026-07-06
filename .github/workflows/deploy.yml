@@ -14,7 +14,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -22,6 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
       - name: Enable Corepack
         run: corepack enable
       - uses: actions/setup-node@v6
