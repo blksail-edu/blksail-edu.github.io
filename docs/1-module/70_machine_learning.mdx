@@ -45,7 +45,7 @@ AI is a broad term for computer systems that can perform tasks that normally req
 Before we dive into vocabulary, here's the full journey every machine learning (ML) project goes through, start to finish:
 
 <div align="center">
-![A flowchart showing the machine learning workflow: Data Gathering → Data Preprocessing → Model Training → Model Evaluation → Model Fine-Tuning → Model Deployment](https://github.com/AlchaarAiya/Customers-Service-Robot-UML-Diagrams/blob/a2b6b5e77ca06cec0906cfcd108531d61a3e62a4/ML_Workflow.png?raw=true) 
+![A flowchart showing the machine learning workflow: Data Gathering → Data Preprocessing → Model Training → Model Evaluation → Model Fine-Tuning → Model Deployment](/img/ML_Pipeline.png) 
 *Figure 1: Machine Learning Workflow Overview [^1]*
 </div>
 
@@ -72,7 +72,7 @@ Before we go further, there are two big "modes" of learning worth knowing:
 - **Unsupervised learning = finding patterns without an answer key.** For example: grouping a pile of photos into clusters of "similar" images, without ever being told what the categories are.
 
 <div align="center">
-![Supervised vs Unsupervised Example](https://github.com/AlchaarAiya/Customers-Service-Robot-UML-Diagrams/blob/main/supervised%20vs%20unsupervise.png?raw=true)
+![Supervised vs Unsupervised Example](/img/Supervised_vs_Unsupervised.png)
 *Figure 2: Comparison of Supervsied vs Unsupervised Learning [^2]*
 </div>
 
@@ -134,7 +134,7 @@ If you train and test on the **same data**, your accuracy will look unrealistica
 - **Detection**: *"Where is it?"* Draws a bounding box around each object it finds, plus a label for each box.
 
 <div align="center">
-![Classification vs Detection Example](https://github.com/AlchaarAiya/Customers-Service-Robot-UML-Diagrams/blob/main/class_detec_seg.png?raw=true)
+![Classification vs Detection Example](/img/detection_vs_classification.png)
 *Figure 3: Classification vs Detection vs Segmentation [^3] [^4] [^5]*
 </div>
 
@@ -166,7 +166,7 @@ Imagine we're trying to recognize a cat:
 - The final layers use all of those clues to decide, "This is a cat."
  
 <div align="center">
-![A layered neural network with an input layer, two hidden layers, and an output layer, shown as columns of colored circles connected by lines](https://upload.wikimedia.org/wikipedia/commons/d/d2/Neural_network_explain.png)
+![A layered neural network with an input layer, two hidden layers, and an output layer, shown as columns of colored circles connected by lines](/img/Neural_networks.png)
 *Figure 4: Artificial Neural Network Architecture [^6]*
 </div>
 
@@ -177,12 +177,12 @@ CNNs are neural networks built specifically for images. Two ideas carry almost t
 - **Filters** are like little stamps that slide across the image, each one searching for one specific pattern like an edge, a curve, a patch of texture. A single filter doesn't know what a "cat" is, it just lights up wherever it spots its one pattern.
 - **Pooling** "zooms out" it shrinks the image down while keeping the strongest signals, which speeds things up and helps the model focus on what matters instead of exact pixel positions.
 <div align="center">
-![A typical CNN architecture: an input image passed through alternating convolution and pooling layers, getting progressively smaller and deeper, ending in fully connected layers and an output](https://commons.wikimedia.org/wiki/Special:FilePath/Typical_cnn.png)
+![A typical CNN architecture: an input image passed through alternating convolution and pooling layers, getting progressively smaller and deeper, ending in fully connected layers and an output](/img/Typical_CNN.png)
 *Figure 5: Convolutional Neural Network Architecture [^7]*
 </div>
  
 <div align="center"> 
-![A diagram of max pooling: a larger grid of numbers is reduced to a smaller grid by keeping only the maximum value from each region](https://commons.wikimedia.org/wiki/Special:FilePath/Convolutional_neural_network,_maxpooling.png)
+![A diagram of max pooling: a larger grid of numbers is reduced to a smaller grid by keeping only the maximum value from each region](/img/CNN_Maxpooling.png)
 *Figure 6: Max Pooling in CNNs [^8]*
 </div>
 
@@ -211,7 +211,7 @@ A couple of terms you'll see pop up in the notebook:
 We'll be using the **MNIST dataset**[^9] which contains 70,000 small images of handwritten digits (0–9), each one labeled with the correct digit. This section is here to explain what each piece is doing and why.
  
 <div align="center"> 
-![A grid of sample handwritten digit images from the MNIST dataset, showing many different handwriting styles for the digits 0 through 9](https://commons.wikimedia.org/wiki/Special:FilePath/MnistExamples.png)\
+![A grid of sample handwritten digit images from the MNIST dataset, showing many different handwriting styles for the digits 0 through 9](/img/Mnist_Examples.png)\
 *Figure 7: Sample handwritten digit images from the MNIST dataset [^10]*
 </div>
 
@@ -467,6 +467,11 @@ plt.tight_layout()
 plt.show()
 ```
 
+:::tip
+
+The complete code used throughout this tutorial is available at the following link: 🔗 [Open the Google Colab Notebook](https://colab.research.google.com/drive/1XqCeOXyD04U27hDQoovdYy__zAux7jK-?usp=sharing)
+
+:::
 
 ## Problem Set
 
